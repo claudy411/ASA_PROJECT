@@ -1,0 +1,54 @@
+<div class="card border-primary mb-3 text-primary">
+    <div class="card-header">encargados</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de encargados</h5>
+
+        <div class=" my-2 text-left">
+            <button type="button" class="btn btn-primary btn-rounded" [routerLink]="['/encargados/form']">Crear
+                encargado</button>
+        </div>
+        <div class="alert alert-info" *ngIf="encargados?.length==0">
+            No hay registros en la base de datos!
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered  text-primary" *ngIf="encargados?.length>0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let encargado of encargados">
+                        <td> {{encargado.id}} </td>
+                        <td> {{encargado.nombre}} </td>
+                        <td> {{encargado.apellido}} </td>
+                        <td> {{encargado.email}} </td>
+                        <td> {{encargado.telefono}} </td>
+                        
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" name="editar"
+                                [routerLink]="['/encargados/form/',encargado.id]">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" name="eliminar"
+                                (click)='delete(encargado)'>Eliminar</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+    </div>
+</div>
+

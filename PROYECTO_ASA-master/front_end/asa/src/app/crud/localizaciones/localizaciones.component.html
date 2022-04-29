@@ -1,0 +1,57 @@
+<div class="card border-primary mb-3 text-primary">
+    <div class="card-header">Localizaciones</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de localizaciones</h5>
+
+        <div class=" my-2 text-left">
+            <button type="button" class="btn btn-primary btn-rounded" [routerLink]="['/localizaciones/form']">Crear
+                localizacion</button>
+        </div>
+        <div class="alert alert-info" *ngIf="localizaciones?.length==0">
+            No hay registros en la base de datos!
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered  text-primary" *ngIf="localizaciones?.length>0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Calle</th>
+                        <th>Numero</th>
+                        <th>CP</th>
+                        <th>Localidad</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let localizacion of localizaciones">
+                        <td> {{localizacion.id}} </td>
+                        <td> {{localizacion.nombre}} </td>
+                        <td> {{localizacion.calle}} </td>
+                        <td> {{localizacion.numero}} </td>
+                        <td> {{localizacion.cp}} </td>
+                        <td> {{localizacion.localidad}} </td>
+                      
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" name="editar"
+                                [routerLink]="['/localizaciones/form',localizacion.id]">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" name="eliminar"
+                                (click)='delete(localizacion)'>Eliminar</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+    </div>
+</div>
+
+

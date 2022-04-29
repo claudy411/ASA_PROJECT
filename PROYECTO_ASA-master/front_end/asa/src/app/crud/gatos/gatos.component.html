@@ -1,0 +1,63 @@
+<div class="card border-primary mb-3 text-primary">
+    <div class="card-header">Gatos</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de gatos</h5>
+
+        <div class=" my-2 text-left">
+            <button type="button" class="btn btn-primary btn-rounded" [routerLink]="['/gatos/form']">Crear
+                gato</button>
+        </div>
+        <div class="alert alert-info" *ngIf="gatos?.length==0">
+            No hay registros en la base de datos!
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered  text-primary" *ngIf="gatos?.length>0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Raza</th>
+                        <th>Tamaño</th>
+                        <th>Sexo</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Fecha Entrada</th>
+                        <th>Descripcion</th>
+                        <th>Situacion</th>
+                        <!-- <th>Residencia</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gato of gatos">
+                        <td> {{gato.id}} </td>
+                        <td> {{gato.nombre}} </td>
+                        <td> {{gato.raza}} </td>
+                        <td> {{gato.size}} </td>
+                        <td> {{gato.sexo}} </td>
+                        <td> {{gato.fNacimiento}} </td>
+                        <td> {{gato.fEntrada}} </td>
+                        <td> {{gato.descripcion}} </td>
+                        <td> {{gato.situacion}} </td>
+                        <!-- <td> {{gato.residencia}} </td> -->
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" name="editar"
+                                [routerLink]="['/gatos/form',gato.id]">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" name="eliminar"
+                                (click)='delete(gato)'>Eliminar</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+    </div>
+</div>
+
+

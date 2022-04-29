@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;WideBiddersBackend&apos;" deleteContents="true" description="Delete resource &apos;WideBiddersBackend&apos;" element1="/WideBiddersBackend" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1650275554109"/>&#x0A;<refactoring comment="Delete resource &apos;spring-petclinic-rest-master&apos;" deleteContents="false" description="Delete resource &apos;spring-petclinic-rest-master&apos;" element1="/spring-petclinic-rest-master" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1650279798547"/>
+</session>

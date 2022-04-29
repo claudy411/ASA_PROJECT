@@ -1,0 +1,5 @@
+package com.asa.model.dao;
+
+public interface IAcogidaDao {
+
+}

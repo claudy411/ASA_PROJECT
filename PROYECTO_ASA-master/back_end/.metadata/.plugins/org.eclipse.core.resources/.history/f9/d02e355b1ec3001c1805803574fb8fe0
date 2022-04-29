@@ -1,0 +1,7 @@
+package com.asa.model.entity;
+
+import java.io.Serializable;
+
+public class Acogida extends Usuarios implements Serializable {
+
+}

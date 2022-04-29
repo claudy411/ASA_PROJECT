@@ -1,0 +1,133 @@
+package com.asa.model.entity;
+
+import java.io.Serializable;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import enumerados.Situacion;
+
+
+
+@Entity
+@Table(name="perros")
+
+public class Perro extends Mascota implements Serializable{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_perro;
+	
+	@NotEmpty(message="no puede estar vacío!")
+	private String size;
+	
+	@ManyToOne(fetch=FetchType.LAZY)	
+	@JoinColumn(name = "residencia_id")
+	private Residencia residencia;
+	
+	@Override
+	public Long getId() {
+		
+		return super.getId();
+	}
+	@NotEmpty(message="no puede estar vacío!")
+	@Column(nullable = false)
+	@Override
+	public String getNombre() {
+		
+		return super.getNombre();
+	}
+	
+	
+	@NotNull(message="no puede estar vacío!")
+	@Column(name="f_nacimiento")
+	@Temporal(TemporalType.DATE)
+	@Override
+	public Date getfNacimiento() {
+		
+		return super.getfNacimiento();
+	}
+	
+	@Column(name="f_entrada")
+	@NotNull(message="no puede estar vacío!")
+	@Temporal(TemporalType.DATE)
+	@Override
+	public Date getfEntrada() {
+		
+		return super.getfEntrada();
+	}
+	
+	@NotEmpty(message="no puede estar vacío!")
+	@Override
+	public String getRaza() {
+		
+		return super.getRaza();
+	}
+	
+
+	
+	@NotEmpty(message="no puede estar vacío!")
+	@Override
+	public String getSexo() {
+		
+		return super.getSexo();
+	}
+	
+	
+	@NotEmpty(message="no puede estar vacío!")
+	@Override
+	public String getCaracter() {
+		
+		return super.getCaracter();
+	}
+	
+	@NotEmpty(message="no puede estar vacío!")
+	@Override
+	public Situacion getSituacion() {
+	
+		return super.getSituacion();
+	}
+	
+
+	public Residencia getResidencia() {
+		return residencia;
+	}
+
+	public Long getId_perro() {
+		return id_perro;
+	}
+	public void setId_perro(Long id_perro) {
+		this.id_perro = id_perro;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public void setResidencia(Residencia residencia) {
+		this.residencia = residencia;
+	}
+
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5725563815572145689L;
+}

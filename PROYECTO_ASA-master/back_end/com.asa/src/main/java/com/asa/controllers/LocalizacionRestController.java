@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -81,6 +82,7 @@ public class LocalizacionRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/localizaciones")
 
 	public ResponseEntity<?> create(@Valid @RequestBody Localizacion localizacion, BindingResult result) {
@@ -116,6 +118,7 @@ public class LocalizacionRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/localizaciones/{id}")
 
 	public ResponseEntity<?> update(@Valid @RequestBody Localizacion localizacion, BindingResult result, @PathVariable Long id) {
@@ -169,6 +172,7 @@ public class LocalizacionRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/localizaciones/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	

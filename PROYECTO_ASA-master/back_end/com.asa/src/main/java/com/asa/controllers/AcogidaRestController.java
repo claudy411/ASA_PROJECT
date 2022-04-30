@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -82,8 +83,8 @@ public class AcogidaRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/acogidas")
-
 	public ResponseEntity<?> insertar(@Valid @RequestBody Acogida acogida, BindingResult result) {
 
 		Acogida acogidaNew = null;
@@ -117,6 +118,7 @@ public class AcogidaRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/acogidas/{id}")
 
 	public ResponseEntity<?> actualizar(@Valid @RequestBody Acogida acogida, BindingResult result,
@@ -170,6 +172,7 @@ public class AcogidaRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/acogidas/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -75,6 +76,7 @@ public class ResidenciaRestController {
 		
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/residencias")
 	public ResponseEntity<?> insertarResidencia(@Valid @RequestBody Residencia residencia, BindingResult result) {
 
@@ -109,6 +111,7 @@ public class ResidenciaRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/residencias/{id}")
 
 	public ResponseEntity<?> actualizarResidencia(@Valid @RequestBody Residencia residencia, BindingResult result, @PathVariable Long id) {
@@ -164,6 +167,7 @@ public class ResidenciaRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/residencias/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	

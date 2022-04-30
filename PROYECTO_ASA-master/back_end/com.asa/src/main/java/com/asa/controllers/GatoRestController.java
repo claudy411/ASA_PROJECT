@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -104,6 +105,7 @@ public class GatoRestController {
 	 * @return en caso de exito, un mensaje de exito y los datos del gato añadido
 	 *         en caso de fallo, el mensaje correspondiente al error
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/gatos")
 	public ResponseEntity<?> crearRegistro(@Valid @RequestBody Gato nuevo, BindingResult result) {
 
@@ -199,7 +201,7 @@ public class GatoRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/gatos/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {

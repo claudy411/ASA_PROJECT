@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -81,6 +82,7 @@ public class AdoptanteRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/adoptantes")
 
 	public ResponseEntity<?> insertarAdoptante(@Valid @RequestBody Adoptante adoptante, BindingResult result) {
@@ -116,6 +118,7 @@ public class AdoptanteRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/adoptantes/{id}")
 
 	public ResponseEntity<?> actualizarAdoptante(@Valid @RequestBody Adoptante adoptante, BindingResult result, @PathVariable Long id) {
@@ -168,6 +171,7 @@ public class AdoptanteRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/adoptantes/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	

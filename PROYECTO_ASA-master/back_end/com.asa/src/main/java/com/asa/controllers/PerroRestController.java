@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -107,6 +108,7 @@ public class PerroRestController {
 	 * @return en caso de exito, un mensaje de exito y los datos del perro añadido
 	 *         en caso de fallo, el mensaje correspondiente al error
 	 */
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/perros")
 	public ResponseEntity<?> crearRegistro(@Valid @RequestBody Perro nuevo, BindingResult result) {
 
@@ -204,6 +206,7 @@ public class PerroRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/perros/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {

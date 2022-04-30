@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -81,6 +82,7 @@ public class EncargadoLocalizacionRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/encargados")
 
 	public ResponseEntity<?> insertarEncargado(@Valid @RequestBody EncargadoLocalizacion encargado, BindingResult result) {
@@ -116,6 +118,7 @@ public class EncargadoLocalizacionRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/encargados/{id}")
 
 	public ResponseEntity<?> actualizarEncargado(@Valid @RequestBody EncargadoLocalizacion encargado, BindingResult result, @PathVariable Long id) {
@@ -167,6 +170,7 @@ public class EncargadoLocalizacionRestController {
 
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/encargados/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	

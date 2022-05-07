@@ -11,10 +11,9 @@ import Swal from 'sweetalert2';
 export class VoluntariaService {
 
   private urlEndPoint: string = 'http://localhost:8080/asa/voluntarias';
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+ 
 
-
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
   getVoluntarias(page: number): Observable<any> {
 
@@ -33,59 +32,20 @@ export class VoluntariaService {
 
   create(voluntaria: Voluntaria): Observable<any> {
 
-      return this.http.post<Voluntaria>(this.urlEndPoint, voluntaria, { headers: this.httpHeaders }).pipe(
-          catchError(e => {
-
-              if (e.status == 400) {
-                  return throwError(e);
-              }
-
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-
-      );
+      return this.http.post<Voluntaria>(this.urlEndPoint, voluntaria);
   }
 
 
-  getVoluntaria(id): Observable<Voluntaria> {
+  getVoluntaria(id:any): Observable<Voluntaria> {
 
-      return this.http.get<Voluntaria>(`${this.urlEndPoint}/${id}`).pipe(
-          catchError(e => {
-              this.router.navigate(['/voluntarias'])
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-      )
+      return this.http.get<Voluntaria>(`${this.urlEndPoint}/${id}`);
   }
 
   update(voluntaria: Voluntaria): Observable<any> {
-      return this.http.put<any>(`${this.urlEndPoint}/${voluntaria.id}`, voluntaria, { headers: this.httpHeaders }).pipe(
-          catchError(e => {
-
-              if (e.status == 400) {
-                  return throwError(e);
-              }
-
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-      );
+      return this.http.put<any>(`${this.urlEndPoint}/${voluntaria.id}`, voluntaria);
   }
 
   delete(id: number): Observable<Voluntaria> {
-      return this.http.delete<Voluntaria>(`${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }).pipe(
-          catchError(e => {
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-      );
+      return this.http.delete<Voluntaria>(`${this.urlEndPoint}/${id}`);
   }
-
-  
 }
-

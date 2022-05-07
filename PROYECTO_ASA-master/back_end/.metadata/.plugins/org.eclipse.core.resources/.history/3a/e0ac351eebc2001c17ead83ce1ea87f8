@@ -1,7 +1,0 @@
-package com.asa.model.entity;
-
-import java.io.Serializable;
-
-public class Mascota implements Serializable{
-
-}

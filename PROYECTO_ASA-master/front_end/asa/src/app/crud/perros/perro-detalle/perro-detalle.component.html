@@ -1,0 +1,40 @@
+<!-- <app-menu></app-menu> -->
+
+
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+  <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ titulo }}</h5>
+        
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-sm">
+                <ul *ngIf="perro" class="list-group text-dark mb-3">
+                  <li class="list-group-item"><b>ID: </b>{{perro.id}}</li>
+                  <li class="list-group-item"><b>Nombre: </b>{{perro.nombre}}</li>
+                  <li class="list-group-item"><b>Fecha Nacimiento: </b>{{perro.fNacimiento}}</li>
+                  <li class="list-group-item"><b>Fecha Entrada: </b>{{perro.fEntrada}}</li>
+                  <li class="list-group-item"><b>Raza: </b>{{perro.raza}}</li>
+                  <li class="list-group-item"><b>Tamaño: </b>{{perro.size}}</li>
+                  <li class="list-group-item"><b>Sexo: </b>{{perro.sexo}}</li>
+                  <li class="list-group-item"><b>Descripcion: </b>{{perro.descripcion}}</li>
+                  <li class="list-group-item"><b>Situacion: </b>{{perro.situacion}}</li>
+                  <li class="list-group-item"><b>Residencia: </b>{{perro.residencia.nombre}}</li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

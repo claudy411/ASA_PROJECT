@@ -1,0 +1,32 @@
+<!-- <app-menu></app-menu> -->
+
+<div class="abrir-modal animacion fadeIn" *ngIf="modalService.modal">
+  <div class="modal" tabindex="-1" role="dialog" style="display:block;">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ titulo }}</h5>
+        
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-sm">
+                <ul *ngIf="evento" class="list-group text-dark mb-3">
+                  <li class="list-group-item"><b>ID: </b>{{evento.id}}</li>
+                <li class="list-group-item"><b>Nombre: </b>{{evento.nombre}}</li>
+                <li class="list-group-item"><b>Fecha: </b>{{evento.fecha}}</li>
+                <li class="list-group-item"><b>Descripcion: </b>{{evento.descripcion}}</li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -2,15 +2,21 @@ package com.asa.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="eventos")
@@ -25,7 +31,7 @@ public class Evento implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message="no puede estar vacío!")
+	@NotNull(message="no puede estar vacío!")
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 	
@@ -35,8 +41,12 @@ public class Evento implements Serializable{
 	@NotEmpty(message="no puede estar vacío!")
 	private String nombre;
 	
-//	@NotEmpty(message="no puede estar vacío!")
-//	private Localizacion localizacion;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_localizacion", referencedColumnName = "id")
+	private Localizacion localizacion;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="evento")
+	private List<Voluntaria> voluntarios;
 
 	public Long getId() {
 		return id;

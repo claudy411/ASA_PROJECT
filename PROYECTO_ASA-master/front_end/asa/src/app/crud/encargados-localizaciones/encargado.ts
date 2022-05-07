@@ -1,7 +1,9 @@
 export class Encargado {
+    
     id:number;
     nombre:string;
-    apellido:string;
+    apellido1:string;
+    apellido2:string;
     email:string;
-    telefono:string;
+    telefono:string; 
 }

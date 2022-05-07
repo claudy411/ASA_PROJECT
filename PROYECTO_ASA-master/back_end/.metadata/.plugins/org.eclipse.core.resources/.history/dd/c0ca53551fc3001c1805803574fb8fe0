@@ -1,5 +1,0 @@
-package com.asa.model.services;
-
-public class IServiceImpl implements IService<T> {
-
-}

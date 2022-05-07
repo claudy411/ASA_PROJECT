@@ -1,0 +1,60 @@
+<app-menu></app-menu>
+<app-evento-detalle *ngIf="eventoSeleccionado" [evento]="eventoSeleccionado"></app-evento-detalle>
+<div class="container-fluid">
+    <div class="row">
+        <app-dashboard class="col-md-2 bg-asa"></app-dashboard>
+        <div class="col-md-10 mt-5">
+            <div class="card border-primary mb-3 text-primary">
+                <div class="card-header text-uppercase">Eventos</div>
+                <div class="card-body text-primary">
+                    <h5 class="card-title">Listado de eventos</h5>
+
+                    <div class=" my-2 text-left">
+                        <button type="button" class="btn btn-primary btn-rounded" 
+                        *ngIf="isAdmin" (click)="rutaCrear()"> <i class="fas fa-plus-circle"></i> Crear
+                            evento</button>
+                    </div>
+                    <div class="alert alert-info" *ngIf="eventos?.length==0">
+                        No hay registros en la base de datos!
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered  text-primary" *ngIf="eventos?.length>0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha</th>
+                                    <th>Descripcion</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let evento of eventos">
+                                    <td> {{evento.id}} </td>
+                                    <td> {{evento.nombre}} </td>
+                                    <td> {{evento.fecha}} </td>
+                                    <td> {{evento.descripcion}} </td>
+
+                                    <td><button class="btn btn-outline-primary" (click)="abrirModal(evento)"><i
+                                                class="far fa-eye"></i> Ver</button></td>
+                                    <td><button class="btn btn-outline-warning" *ngIf="isAdmin" routerLink="/eventos/editar/{{evento.id}}"><i
+                                                class="far fa-edit"></i> Editar</button></td>
+                                    <td><button class="btn btn-outline-danger" *ngIf="isAdmin" (click)="borrar(evento)"><i
+                                                class="far fa-trash-alt"></i> Eliminar</button></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <app-pag-evento *ngIf="paginador" [paginador]="paginador"></app-pag-evento>
+                </div>
+
+                <!-- <div class="mt-3" *ngIf="isAdmin">
+        <button class="btn btn-outline-success btn-lg" routerLink="/nuevo">
+          <i class="fas fa-plus-circle"></i> Nuevo Producto</button>
+      </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,60 +1,54 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-asa">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-asa">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">{{title}}</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/home">Home</a>
+            <a class="nav-link" routerLink="/"><i class="fas fa-home"></i> Inicio</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/voluntarias">Voluntarias</a>
+          <li class="nav-item" *ngIf="isLogged">
+            <a class="nav-link" routerLink="/residencias"><i class="far fa-list-alt"></i> Lista</a>
           </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/residencias">Residencias</a>
-          </li>
-         <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/perros">Perros</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/gatos">Gatos</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/encargados">Encargados</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/localizaciones">Localizaciones</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/eventos">Eventos</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/adoptantes">Adoptantes</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link"  routerLink="/mascotas">Mascotas</a>
-          </li>
-         <!--   <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li> -->
+          <li class="nav-item" *ngIf="!isLogged">
+              <a class="nav-link"  routerLink="/login"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+            </li>
+            <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()">
+              <a class="nav-link" style="cursor: pointer;"><i class="fas fa-door-open" ></i> Cerrar Sesión</a>
+            </li>
+          
         </ul>
         
       </div>
     </div>
-  </nav>
+  </nav> -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+    <a  routerLink="/" class="navbar-brand d-flex align-items-lg-end border-end px-4 px-lg-5">
+       <img src="../../../assets/img/logo.jpg" class=" img-fluid" height="70" width="70" alt=""> <h4 class="m-0 border-bottom border-5 color-asa">{{title}}</h4>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a  routerLink="/" class="nav-item nav-link active ">Home</a>
+            <a routerLink="/pagina/nosotros" class="nav-item nav-link">Sobre Nosotros</a>
+        
+         
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Colabora</a>
+                <div class="dropdown-menu bg-light m-0">
+                    <a routerLink="/pagina/adopta" class="dropdown-item">Adopta</a>
+                    <a routerLink="/pagina/acoge" class="dropdown-item">Acoge</a>
+                    <a routerLink="/pagina/voluntariado" class="dropdown-item">Voluntariado</a>
+                    
+                </div>
+            </div>
+            <a routerLink="/pagina/eventos" class="nav-item nav-link">Eventos</a>
+            <a routerLink="/pagina/contacto" class="nav-item nav-link">Contacto</a>
+        </div>
+        <a  routerLink="/login" class="btn btn-asa rounded-0 py-4 px-lg-5 d-none d-lg-block"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+    </div>
+</nav>

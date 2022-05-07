@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -19,57 +21,99 @@ public class Voluntaria extends Usuarios implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -338973690140202790L;
-
-	@Override
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return super.getId();
-	}
+	private Long id;
 	
-	@Override
 	@NotEmpty(message="no puede estar vacío!")
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return super.getNombre();
-	}
+	private String nombre;
 	
-	@Override
 	@NotEmpty(message="no puede estar vacío!")
-	public String getApellido1() {
-		// TODO Auto-generated method stub
-		return super.getApellido1();
-	}
+	private String apellido1;
 	
-	@Override
-	public String getApellido2() {
-		// TODO Auto-generated method stub
-		return super.getApellido2();
-	}
+
+	private String apellido2;
 	
-	@Override
 	@NotEmpty(message="no puede estar vacío!")
 	@Email(message=" el formato no es válido!")
 	@Column(nullable = false, unique = true)
-	public String getEmail() {
-		// TODO Auto-generated method stub
-		return super.getEmail();
-	}
+	private String email;
 	
-	@Override
 	@NotEmpty(message="no puede estar vacío!")
-	public String getTelefono() {
-		// TODO Auto-generated method stub
-		return super.getTelefono();
-	}
+	private String telefono;
+
+	@NotEmpty(message="no puede estar vacío!")
+	private String ciudad;
 	
-	@Override
-	@NotEmpty(message="no puede estar vacío!")
-	public String getCiudad() {
-		// TODO Auto-generated method stub
-		return super.getCiudad();
+	@ManyToOne
+	@JoinColumn(name = "id_evento", nullable = false)
+	private Evento evento;
+
+	public Long getId() {
+		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido1() {
+		return apellido1;
+	}
+
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	
 
 }

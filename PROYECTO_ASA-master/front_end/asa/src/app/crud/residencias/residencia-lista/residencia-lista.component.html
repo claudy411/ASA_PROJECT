@@ -1,0 +1,76 @@
+<app-menu></app-menu>
+<app-residencia-detalle *ngIf="residenciaSeleccionada" [residencia]="residenciaSeleccionada"></app-residencia-detalle>
+<div class="container-fluid">
+    <div class="row">
+        <app-dashboard class="col-md-2 bg-asa"></app-dashboard>
+        <div class="col-md-10 mt-5">
+            <div class="card border-dark mb-3 text-daborder-dark">
+                <div class="card-header">Residencias</div>
+                <div class="card-body text-daborder-dark">
+                    <h5 class="card-title">Listado de residencias</h5>
+            
+                    <div class=" my-2 text-left">
+                        <button type="button" class="btn btn-outline-success btn-rounded"  *ngIf="isAdmin" [routerLink]="['/residencias/nuevo']">
+                            <i class="fas fa-plus-circle"></i> Crear residencia</button>
+                    </div>
+                    <div class="alert alert-info" *ngIf="residencias?.length==0">
+                        No hay registros en la base de datos!
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered  text-daborder-dark" *ngIf="residencias?.length>0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Propitario</th>
+                                    <th>Telefono</th>
+                                    <th>Calle</th>
+                                    <th>Numero</th>
+                                    <th>CP</th>
+                                    <th>Localidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let residencia of residencias">
+                                    <td> {{residencia.id}} </td>
+                                    <td> {{residencia.nombre}} </td>
+                                    <td> {{residencia.precio}} </td>
+                                    <td> {{residencia.propietario}} </td>
+                                    <td> {{residencia.telefono}} </td>
+                                    <td> {{residencia.calle}} </td>
+                                    <td> {{residencia.numero}} </td>
+                                    <td> {{residencia.cp}} </td>
+                                    <td> {{residencia.localidad}} </td>
+                                   
+                                    <td><button class="btn btn-outline-primary" (click)="abrirModal(residencia)"><i
+                                        class="far fa-eye"></i> Ver</button></td>
+                            <td><button class="btn btn-outline-warning" *ngIf="isAdmin" routerLink="/residencias/editar/{{residencia.id}}"><i
+                                        class="far fa-edit"></i> Editar</button></td>
+                            <td><button class="btn btn-outline-danger" *ngIf="isAdmin" (click)="borrar(residencia)"><i
+                                        class="far fa-trash-alt"></i> Eliminar</button></td>
+            
+                                </tr>
+                                <tr>
+                                    <td scope="row"></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <app-pag-residencia *ngIf="paginador" [paginador]="paginador"></app-pag-residencia>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+
+
+
+    </div>
+</div>
+
+
+       

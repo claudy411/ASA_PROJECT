@@ -1,0 +1,118 @@
+<!-- <app-menu></app-menu> -->
+
+
+<div *ngIf="isLogged; else loggedOut">
+  <app-menu></app-menu>
+    <h2>Bienvenido {{nombreUsuario}}</h2>
+    <p>aqui va lo de cada usuario</p>
+    <app-dashboard></app-dashboard>
+</div>
+<ng-template #loggedOut >
+  <app-header></app-header>
+<div class="container-fluid p-0 pb-5" >
+    <ngb-carousel >
+      <ng-template  ngbSlide>
+        <div class="picsum-img-wrapper ">
+          <img src="../../../assets/img/carousel-1.jpg" class="img-size" alt="Angular Carousel 1">
+        </div>
+        <div class="carousel-caption">
+          <h1 class="text-white mb-3 animate__animated animate__fadeInRight ">¡Adopta!</h1>
+          <h3 class="display-5 text-capitalize text-center text-white animate__animated animate__fadeInLeft">Salva una vida!</h3>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="../../../assets/img/carousel-2.jpg" class="img-size" alt="Angular Carousel 2">
+        </div>
+        <div class="carousel-caption">
+          <h1 class="text-white mb-3 animate__animated animate__fadeInRight">¡Acoge!</h1>
+          <h3 class="display-5 text-capitalize text-center text-white animate__animated animate__fadeInLeft">Todos merecemos tener una casa</h3>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="picsum-img-wrapper">
+          <img src="../../../assets/img/carousel-3.jpg" class="img-size" alt="Angular Carousel 2">
+        </div>
+        <div class="carousel-caption">
+          <h1 class="text-white mb-3 animate__animated animate__fadeInRight">¡No compres!</h1>
+          <h3 class="display-5 text-capitalize text-center text-white animate__animated animate__fadeInLeft">Mis hermanos y yo te esperamos</h3>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class=" color-asa text-capitalize ">Nuestros Asitos</h2>
+            </div>
+        </div>
+    </div>
+   
+    <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="container mb-5 pb-5">
+                    <div class="card-group">
+                        <div class="card me-3">
+                         <img src="../../assets/img/carousel-1.jpeg" class="card-img-top " alt="..." />
+                            <div class="card-body">
+                                <h4 class="card-title">Nuestros Perros</h4>
+                                <p class="card-text">Al adoptar un perro adulto o un cachorro en ASA, te lo llevarás a casa vacunado, desparasitado, con análisis de leishmaniosis, con chip y esterilizado.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-asa rounded-pill py-3 px-5 mt-3">Ver Perros</a>
+                            </div>
+                        </div>
+                        <div class="card ms-3">
+                         <img src="../../assets/img/carousel-2.jpeg" class="card-img-top " alt="..." />
+                            <div class="card-body">
+                                <h4 class="card-title">Nuestros Gatos</h4>
+                                <p class="card-text">Si te decides por adoptar un gato, ASA lo entrega vacunado, desparasitado, con chip, con análisis de Inmunodeficiencia y Leucemia, y esterilizado.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-asa rounded-pill py-3 px-5 mt-3">Ver Gatos</a>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+            </div>
+       
+        </div>
+    </div>
+
+   
+    <!-- About Start -->
+
+    <div class="container about px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute img-fluid w-100 h-100" src="../../assets/img/pata-mano.jpeg"
+                        style="object-fit: cover;" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-lg-5 pe-lg-0">
+                    <h4 class="color-asa">Sobre Nosotros</h4>
+                    <h1 class="mb-4">10+ años luchando por nuestros Asitos</h1>
+                    <p class=" fuente-asa"> ASA nace de la ilusión de un grupo de personas con ganas de trabajar para y por ellos. Empezamos
+                        poco a poco, pero trabajando duro con la esperanza de poder llegar a rescatar a un gran número
+                        de animales. Gracias al esfuerzo de los voluntarios y a los amigos que nos hemos ido encontrando
+                        en el camino cada día son muchos los animales que han encontrado familia.</p>
+                    <p><i class="fa fa-check-circle color-asa me-3"></i>Todos formamos un equipo</p>
+                    <p><i class="fa fa-check-circle color-asa me-3"></i>Nuestra familia son nuestros pequeños peludos
+                    </p>
+                    <p><i class="fa fa-check-circle color-asa me-3"></i>Aportamos nuestro granito de arena</p>
+                    <a routerLink="/pagina/nosotros"  class="btn btn-asa rounded-pill py-3 px-5 mt-3">Más informacion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+</ng-template>
+<app-footer></app-footer>

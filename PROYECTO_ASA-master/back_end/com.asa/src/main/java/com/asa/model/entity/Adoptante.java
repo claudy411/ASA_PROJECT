@@ -1,19 +1,24 @@
 package com.asa.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="adoptantes")
-public class Adoptante implements Serializable {
+public class Adoptante  {
 	
 	
 	@Id
@@ -40,7 +45,12 @@ public class Adoptante implements Serializable {
 	@NotEmpty(message="no puede estar vacío!")
 	private String ciudad;
 	
-	//falta mascota adoptada
+	@ManyToMany
+	@JoinTable(
+	  name = "adoptante_mascota", 
+	  joinColumns = @JoinColumn(name = "id_adoptante"), 
+	  inverseJoinColumns = @JoinColumn(name = "id_mascota"))
+	private List<Mascota>  mascotas;
 	
 	
 
@@ -106,4 +116,13 @@ public class Adoptante implements Serializable {
 		this.ciudad = ciudad;
 	}
 
+	public List<Mascota> getMascotas() {
+		return mascotas;
+	}
+
+	public void setMascotas(List<Mascota> mascotas) {
+		this.mascotas = mascotas;
+	}
+
+	
 }

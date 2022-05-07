@@ -1,0 +1,97 @@
+<!-- <app-menu></app-menu> -->
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+    <li *ngFor="let err of errores"> {{err}} </li>
+</ul>
+
+<div class="container">
+    <div class="card bg-dark text-white mt-5">
+        <div class="card-header"> {{titulo}} </div>
+        <div class="card-body">
+
+            <form #encargadoForm="ngForm">
+                <div class="form-group row mb-4">
+                    <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="encargado.nombre" name="nombre"
+                            #nombre="ngModel">
+                        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                            <div *ngIf="nombre.errors['required']">
+                                Nombre es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="apellido1" class="col-form-label col-sm-2">Primer Apellido</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="encargado.apellido1" name="apellido1"
+                            #apellido1="ngModel">
+                        <div class="alert alert-danger" *ngIf="apellido1.invalid && (apellido1.dirty || apellido1.touched)">
+                            <div *ngIf="apellido1.errors['required']">
+                                Primer Apellido es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="apellido2" class="col-form-label col-sm-2">Segundo Apellido</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="encargado.apellido2" name="apellido2"
+                            #apellido2="ngModel">
+                        <div class="alert alert-danger" *ngIf="apellido2.invalid && (apellido2.dirty || apellido2.touched)">
+                            <div *ngIf="apellido2.errors['required']">
+                                Segundo apellido es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="email" class="col-form-label col-sm-2">email</label>
+                    <div class="col-sm-6">
+                        <input type="email" class="form-control" [(ngModel)]="encargado.email" name="email"
+                            #email="ngModel">
+                        <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                            <div *ngIf="email.errors['required']">
+                                Email es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="telefono" class="col-form-label col-sm-2">telefono</label>
+                    <div class="col-sm-6">
+                        <input type="tel" class="form-control" [(ngModel)]="encargado.telefono" name="telefono"
+                            #telefono="ngModel">
+                        <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                            <div *ngIf="telefono.errors['required']">
+                                Telefono es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+  
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)="create()" [disabled]="!encargadoForm.form.valid">Crear</button>
+                        <button class="btn btn-outline-primary btn-block" routerLink="/encargados">
+                            <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+                        <!-- <button class="btn btn-primary" role="button" (click)="create()"
+                            *ngIf="!encargado.id else elseBlock" [disabled]="!encargadoForm.form.valid">Crear</button>
+                        <ng-template #elseBlock>
+                            <button class="btn btn-primary" role="button" (click)="update()"
+                                [disabled]="!encargadoForm.form.valid">Editar</button>
+                        </ng-template> -->
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+
 import { Observable, map, catchError, throwError } from 'rxjs';
 import { Encargado } from './encargado';
-import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class EncargadoService {
-
+  
   private urlEndPoint: string = 'http://localhost:8080/asa/encargados';
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+
+  constructor(private http: HttpClient) { }
 
   getEncargados(page: number): Observable<any> {
 
@@ -33,58 +33,99 @@ export class EncargadoService {
 
   create(encargado: Encargado): Observable<any> {
 
-      return this.http.post<Encargado>(this.urlEndPoint, encargado, { headers: this.httpHeaders }).pipe(
-          catchError(e => {
-
-              if (e.status == 400) {
-                  return throwError(e);
-              }
-
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-
-      );
+      return this.http.post<Encargado>(this.urlEndPoint, encargado);
   }
 
 
-  getEncargado(id): Observable<Encargado> {
+  getencargado(id:any): Observable<Encargado> {
 
-      return this.http.get<Encargado>(`${this.urlEndPoint}/${id}`).pipe(
-          catchError(e => {
-              this.router.navigate(['/encargados'])
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-      )
+      return this.http.get<Encargado>(`${this.urlEndPoint}/${id}`);
   }
 
   update(encargado: Encargado): Observable<any> {
-      return this.http.put<any>(`${this.urlEndPoint}/${encargado.id}`, encargado, { headers: this.httpHeaders }).pipe(
-          catchError(e => {
-
-              if (e.status == 400) {
-                  return throwError(e);
-              }
-
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-      );
+      return this.http.put<any>(`${this.urlEndPoint}/${encargado.id}`, encargado);
   }
 
   delete(id: number): Observable<Encargado> {
-      return this.http.delete<Encargado>(`${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }).pipe(
-          catchError(e => {
-              console.error(e.error.mensaje);
-              Swal.fire(e.error.mensaje, e.error.error, 'error');
-              return throwError(e);
-          })
-      );
+      return this.http.delete<Encargado>(`${this.urlEndPoint}/${id}`);
   }
+
+
+//   private urlEndPoint: string = 'http://localhost:8080/asa/encargados';
+//   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+
+//   constructor(private http: HttpClient, private router: Router) { }
+
+//   getEncargados(page: number): Observable<any> {
+
+//       return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+
+//           map((response: any) => {
+//               (response.content as Encargado[]).map(encargado => {
+//                   encargado.nombre = encargado.nombre.toUpperCase();
+//                   return encargado;
+//               });
+//               return response;
+//           })
+
+//       );
+//   }
+
+//   create(encargado: Encargado): Observable<any> {
+
+//       return this.http.post<Encargado>(this.urlEndPoint, encargado, { headers: this.httpHeaders }).pipe(
+//           catchError(e => {
+
+//               if (e.status == 400) {
+//                   return throwError(e);
+//               }
+
+//               console.error(e.error.mensaje);
+//               Swal.fire(e.error.mensaje, e.error.error, 'error');
+//               return throwError(e);
+//           })
+
+//       );
+//   }
+
+
+//   getEncargado(id): Observable<Encargado> {
+
+//       return this.http.get<Encargado>(`${this.urlEndPoint}/${id}`).pipe(
+//           catchError(e => {
+//               this.router.navigate(['/encargados'])
+//               console.error(e.error.mensaje);
+//               Swal.fire(e.error.mensaje, e.error.error, 'error');
+//               return throwError(e);
+//           })
+//       )
+//   }
+
+//   update(encargado: Encargado): Observable<any> {
+//       return this.http.put<any>(`${this.urlEndPoint}/${encargado.id}`, encargado, { headers: this.httpHeaders }).pipe(
+//           catchError(e => {
+
+//               if (e.status == 400) {
+//                   return throwError(e);
+//               }
+
+//               console.error(e.error.mensaje);
+//               Swal.fire(e.error.mensaje, e.error.error, 'error');
+//               return throwError(e);
+//           })
+//       );
+//   }
+
+//   delete(id: number): Observable<Encargado> {
+//       return this.http.delete<Encargado>(`${this.urlEndPoint}/${id}`, { headers: this.httpHeaders }).pipe(
+//           catchError(e => {
+//               console.error(e.error.mensaje);
+//               Swal.fire(e.error.mensaje, e.error.error, 'error');
+//               return throwError(e);
+//           })
+//       );
+//   }
 
   
 }

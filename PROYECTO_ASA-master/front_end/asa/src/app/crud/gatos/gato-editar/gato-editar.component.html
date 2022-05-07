@@ -1,0 +1,131 @@
+
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+    <li *ngFor="let err of errores"> {{err}} </li>
+</ul>
+
+<div class="container">
+    <div class="card bg-dark text-white mt-5">
+        <div class="card-header"> {{titulo}} </div>
+        <div class="card-body">
+
+            <form #gatoForm="ngForm"> 
+                <div class="form-group row mb-4">
+                    <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="gato.nombre" name="nombre"
+                            #nombre="ngModel">
+                        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                            <div *ngIf="nombre.errors['required']">
+                                Nombre es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="fecha" class="col-form-label col-sm-2">Fecha nacimiento</label>
+                    <div class="col-sm-6">
+                        <input type="date" class="form-control" [(ngModel)]="gato.fNacimiento" name="fecha"
+                            #fecha="ngModel">
+                        <div class="alert alert-danger" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+                            <div *ngIf="fecha.errors['required']">
+                                Fecha requerida!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="fecha_entrada" class="col-form-label col-sm-2">Fecha entrada</label>
+                    <div class="col-sm-6">
+                        <input type="date" class="form-control" [(ngModel)]="gato.fEntrada" name="fecha_entrada"
+                            #fecha_entrada="ngModel">
+                        <div class="alert alert-danger" *ngIf="fecha_entrada.invalid && (fecha_entrada.dirty || fecha_entrada.touched)">
+                            <div *ngIf="fecha_entrada.errors['required']">
+                                Fecha entrada requerida!
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="raza" class="col-form-label col-sm-2">Raza</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="gato.raza" name="raza"
+                            #raza="ngModel">
+                        <div class="alert alert-danger" *ngIf="raza.invalid && (raza.dirty || raza.touched)">
+                            <div *ngIf="raza.errors['required']">
+                                raza es requerida!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="tamanio" class="col-form-label col-sm-2">Tamaño</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="gato.size" name="tamanio"
+                            #tamanio="ngModel">
+                        <div class="alert alert-danger" *ngIf="tamanio.invalid && (tamanio.dirty || tamanio.touched)">
+                            <div *ngIf="tamanio.errors['required']">
+                                Tamaño es requerida!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="sexo" class="col-form-label col-sm-2">Sexo</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="gato.sexo" name="sexo"
+                            #sexo="ngModel">
+                        <div class="alert alert-danger" *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)">
+                            <div *ngIf="sexo.errors['required']">
+                                sexo es requerida!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="descripcion" class="col-form-label col-sm-2">Descripcion</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="gato.descripcion" name="descripcion"
+                            #descripcion="ngModel">
+                        <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                            <div *ngIf="descripcion.errors['required']">
+                                Descripcion es requerida!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="situacion" class="col-form-label col-sm-2">situacion</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="gato.situacion" name="situacion"
+                            #situacion="ngModel">
+                        <div class="alert alert-danger" *ngIf="situacion.invalid && (situacion.dirty || situacion.touched)">
+                            <div *ngIf="situacion.errors['required']">
+                                situacion es requerida!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)="update()"
+                                [disabled]="!gatoForm.form.valid">Editar</button>
+                        <button class="btn btn-outline-primary btn-block" routerLink="/gatos">
+                            <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+                        
+                    </div>
+                </div>
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+

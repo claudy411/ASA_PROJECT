@@ -1,0 +1,122 @@
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+    <li *ngFor="let err of errores"> {{err}} </li>
+</ul>
+
+<div class="container">
+    <div class="card bg-dark text-white mt-5">
+        <div class="card-header"> {{titulo}} </div>
+        <div class="card-body">
+
+            <form #residenciaForm="ngForm">
+                <div class="form-group row mb-4">
+                    <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="residencia.nombre" name="nombre"
+                            #nombre="ngModel">
+                        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                            <div *ngIf="nombre.errors['required']">
+                                Nombre es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="precio" class="col-form-label col-sm-2">Precio</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="residencia.precio" name="precio"
+                            #precio="ngModel">
+                        <div class="alert alert-danger"
+                            *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+                            <div *ngIf="precio.errors['required']">
+                                Precio es requerido!
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="telefono" class="col-form-label col-sm-2">Telefono</label>
+                    <div class="col-sm-6">
+                        <input type="telefono" class="form-control" [(ngModel)]="residencia.telefono" name="telefono"
+                            #telefono="ngModel">
+                        <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                            <div *ngIf="telefono.errors['required']">
+                                Telefono es requerido!
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="propietario" class="col-form-label col-sm-2">Propietario</label>
+                    <div class="col-sm-6">
+                        <input type="propietario" class="form-control" [(ngModel)]="residencia.propietario" name="propietario"
+                            #propietario="ngModel">
+                        <div class="alert alert-danger" *ngIf="propietario.invalid && (propietario.dirty || propietario.touched)">
+                            <div *ngIf="propietario.errors['required']">
+                                Propietario es requerido!
+                            </div>        
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="calle" class="col-form-label col-sm-2">Calle</label>
+                    <div class="col-sm-6">
+                        <input type="calle" class="form-control" [(ngModel)]="residencia.calle" name="calle"
+                            #calle="ngModel">
+                        <div class="alert alert-danger" *ngIf="calle.invalid && (calle.dirty || calle.touched)">
+                            <div *ngIf="calle.errors['required']">
+                                Calle es requerido!
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="numero" class="col-form-label col-sm-2">Numero</label>
+                    <div class="col-sm-6">
+                        <input type="numero" class="form-control" [(ngModel)]="residencia.numero" name="numero"
+                            #numero="ngModel">
+                        <div class="alert alert-danger" *ngIf="numero.invalid && (numero.dirty || numero.touched)">
+                            <div *ngIf="numero.errors['required']">
+                                Numero es requerido!
+                            </div>                         
+                        </div>
+                    </div>
+                </div>  
+                <div class="form-group row mb-4">
+                    <label for="cp" class="col-form-label col-sm-2">CP</label>
+                    <div class="col-sm-6">
+                        <input type="cp" class="form-control" [(ngModel)]="residencia.cp" name="cp"
+                            #cp="ngModel">
+                        <div class="alert alert-danger" *ngIf="cp.invalid && (cp.dirty || cp.touched)">
+                            <div *ngIf="cp.errors['required']">
+                                CP es requerido!
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <label for="localidad" class="col-form-label col-sm-2">Localidad</label>
+                    <div class="col-sm-6">
+                        <input type="localidad" class="form-control" [(ngModel)]="residencia.localidad" name="localidad"
+                            #localidad="ngModel">
+                        <div class="alert alert-danger" *ngIf="localidad.invalid && (localidad.dirty || localidad.touched)">
+                            <div *ngIf="localidad.errors['required']">
+                                Localidad es requerido!
+                            </div>                         
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary" role="button" (click)="create()"
+                          [disabled]="!residenciaForm.form.valid">Crear</button>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

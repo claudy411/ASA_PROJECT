@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import com.asa.security.enumerados.RolNombre;
 
 @Entity
+@Table (name="roles")
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

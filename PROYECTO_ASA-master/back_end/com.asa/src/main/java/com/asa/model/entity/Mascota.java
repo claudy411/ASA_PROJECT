@@ -2,7 +2,9 @@ package com.asa.model.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,11 +22,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import enumerados.Situacion;
+import enumerados.Size;
 import enumerados.Tipo;
 
 @Entity
 @Table(name="mascotas")
-public class Mascota implements Serializable{
+public class Mascota {
 
 	
 	@Id
@@ -56,10 +61,24 @@ public class Mascota implements Serializable{
 	@NotEmpty(message="no puede estar vacío!")
 	private String caracter;//caracter
 	
+	private Size size;
+	
 	@NotNull(message="no puede estar vacío!")
 	private Situacion situacion;//en residencia, en acogida o adoptado
-		
+	
+	@ManyToMany(mappedBy = "mascotas")
+	private List<Adoptante> adoptantes;
 
+	@ManyToMany(mappedBy = "mascotass")
+	private List<Acogida> acogidas;
+	
+	@ManyToOne(fetch=FetchType.EAGER)	
+	@JoinColumn(name = "residencia_id")
+	private Residencia residencia;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="mascota")
+	private List<ImagenMascota> fotos;
+	
 	public Long getId() {
 		return id;
 	}
@@ -133,10 +152,14 @@ public class Mascota implements Serializable{
 		this.situacion = situacion;
 	}
 
+	public Size getSize() {
+		return size;
+	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4262524226841447261L;
+	public void setSize(Size size) {
+		this.size = size;
+	}
+
+	
 
 }

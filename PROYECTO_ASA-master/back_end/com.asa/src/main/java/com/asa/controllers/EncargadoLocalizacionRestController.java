@@ -148,7 +148,8 @@ public class EncargadoLocalizacionRestController {
 
 		try {
 			
-			encargadoActual.setApellido(encargado.getApellido());
+			encargadoActual.setApellido1(encargado.getApellido1());
+			encargadoActual.setApellido2(encargado.getApellido2());
 			encargadoActual.setNombre(encargado.getNombre());
 			encargadoActual.setEmail(encargado.getEmail());
 			encargadoActual.setTelefono(encargado.getTelefono());

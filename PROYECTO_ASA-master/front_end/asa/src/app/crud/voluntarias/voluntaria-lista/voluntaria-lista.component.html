@@ -1,0 +1,58 @@
+<app-menu></app-menu>
+<div class="card border-primary mb-3 text-primary">
+    <div class="card-header">Voluntarias</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de voluntarias</h5>
+
+        <div class=" my-2 text-left">
+            <button type="button" class="btn btn-primary btn-rounded" [routerLink]="['/voluntarias/form']">Crear
+                voluntaria</button>
+        </div>
+        <div class="alert alert-info" *ngIf="voluntarias?.length==0">
+            No hay registros en la base de datos!
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered  text-primary" *ngIf="voluntarias?.length>0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Primer Apellido</th>
+                        <th>Segudno Apellido</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Ciudad Residencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let voluntaria of voluntarias">
+                        <td> {{voluntaria.id}} </td>
+                        <td> {{voluntaria.nombre}} </td>
+                        <td> {{voluntaria.apellido1}} </td>
+                        <td> {{voluntaria.apellido2}} </td>
+                        <td> {{voluntaria.email}} </td>
+                        <td> {{voluntaria.telefono}} </td>
+                        <td> {{voluntaria.ciudad}} </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm" name="editar"
+                                [routerLink]="['/voluntarias/form/',voluntaria.id]">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" name="eliminar"
+                                (click)='borrar(voluntaria)'>Eliminar</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <app-pag-voluntaria *ngIf="paginador" [paginador]="paginador"></app-pag-voluntaria>
+    </div>
+</div>
+
+

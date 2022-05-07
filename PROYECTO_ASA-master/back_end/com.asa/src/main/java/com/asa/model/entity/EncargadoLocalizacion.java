@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -24,8 +26,10 @@ public class EncargadoLocalizacion implements Serializable {
 	private String nombre;
 	
 	@NotEmpty(message="no puede estar vacío!")
-	private String apellido;
+	private String apellido1;
 	
+	
+	private String apellido2;
 	
 	@NotEmpty(message="no puede estar vacío!")
 	@Email(message=" el formato no es válido!")
@@ -35,7 +39,9 @@ public class EncargadoLocalizacion implements Serializable {
 	@NotEmpty(message="no puede estar vacío!")
 	private String telefono;
 
-	
+	@ManyToOne
+	@JoinColumn(name = "id_localizacion", nullable = false)
+	private Localizacion localizacion;
 	
 	public Long getId() {
 		return id;
@@ -61,14 +67,26 @@ public class EncargadoLocalizacion implements Serializable {
 
 
 
-	public String getApellido() {
-		return apellido;
+	public String getApellido1() {
+		return apellido1;
 	}
 
 
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setApellido1(String apellido) {
+		this.apellido1 = apellido;
+	}
+
+
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
 	}
 
 

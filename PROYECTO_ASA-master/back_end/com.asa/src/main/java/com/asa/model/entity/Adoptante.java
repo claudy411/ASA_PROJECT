@@ -1,9 +1,7 @@
 package com.asa.model.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,53 +9,33 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="adoptantes")
-public class Adoptante  {
-	
-	
+@Table(name = "adoptantes")
+public class Adoptante {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String nombre;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String apellido1;
-	
 
 	private String apellido2;
-	
-	@NotEmpty(message="no puede estar vacío!")
-	@Email(message=" el formato no es válido!")
-	@Column(nullable = false, unique = true)
+
 	private String email;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String telefono;
 
-	@NotEmpty(message="no puede estar vacío!")
-	private String ciudad;
-	
-	@ManyToMany
-	@JoinTable(
-	  name = "adoptante_mascota", 
-	  joinColumns = @JoinColumn(name = "id_adoptante"), 
-	  inverseJoinColumns = @JoinColumn(name = "id_mascota"))
-	private List<Mascota>  mascotas;
-	
-	
+	private String direccion;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4666462430976088184L;
+	private String ciudad;
+
+	@ManyToMany
+	@JoinTable(name = "adoptante_mascota", joinColumns = @JoinColumn(name = "id_adoptante"), inverseJoinColumns = @JoinColumn(name = "id_mascota"))
+	private List<Mascota> mascotas;
 
 	public Long getId() {
 		return id;
@@ -83,7 +61,6 @@ public class Adoptante  {
 		this.apellido1 = apellido;
 	}
 
-	
 	public String getApellido2() {
 		return apellido2;
 	}
@@ -124,5 +101,12 @@ public class Adoptante  {
 		this.mascotas = mascotas;
 	}
 
-	
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
 }

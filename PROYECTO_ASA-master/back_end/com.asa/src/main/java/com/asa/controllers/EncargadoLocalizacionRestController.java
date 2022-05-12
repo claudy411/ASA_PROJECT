@@ -1,20 +1,17 @@
 package com.asa.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,182 +20,110 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.dto.EncargadoDto;
+import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.EncargadoLocalizacion;
-import com.asa.model.services.IService;
+import com.asa.model.services.IEncargadoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/asa")
+@RequestMapping("/asa/encargados")
 public class EncargadoLocalizacionRestController {
-	
+
 	@Autowired
-	private IService<EncargadoLocalizacion> encargadoService;
-	
-	@GetMapping("/encargados")
-	public List<EncargadoLocalizacion> verEncargados() {
+	private IEncargadoService service;
 
-		return encargadoService.findAll();
+	@Autowired
+	private ModelMapper mapper;
 
-	}
+	@GetMapping
+	public ResponseEntity<List<EncargadoDto>> ver() throws Exception {
 
-	@GetMapping("/encargados/page/{page}")
-
-	public Page<EncargadoLocalizacion> verEncargadosPorPAg(@PathVariable Integer page) {
-
-		return encargadoService.findAll(PageRequest.of(page, 4));
+		List<EncargadoDto> lista = service.findAll().stream()
+				.map(datosBBDD -> mapper.map(datosBBDD, EncargadoDto.class)).collect(Collectors.toList());
+		return new ResponseEntity<List<EncargadoDto>>(lista, HttpStatus.OK);
 
 	}
 
-	@GetMapping("/encargados/{id}")
+	@GetMapping("/page/{page}") // ojo aqui no va el dto
+	public Page<EncargadoLocalizacion> verPorPag(@PathVariable Integer page) {
 
-	public ResponseEntity<?> verEncargadoPorId(@PathVariable Long id) {
+		return service.findAll(PageRequest.of(page, 4));
 
-		EncargadoLocalizacion encargado = null;
-		Map<String, Object> response = new HashMap<>();
+	}
 
-		try {
+	@GetMapping("/{id}")
+	public ResponseEntity<EncargadoDto> verPorId(@PathVariable Long id) throws Exception {
 
-			encargado = encargadoService.findById(id);
+		EncargadoLocalizacion tabla = service.findById(id);
 
-		} catch (DataAccessException e) {
+		if (tabla == null)
+			throw new ModelNotFoundException("ID NO ENCONTRADO: " + id);
 
-			response.put("mensaje", "Error al realizar la consulta a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		EncargadoDto dtoResponse = mapper.map(tabla, EncargadoDto.class);
 
-		}
-
-		if (encargado == null) {
-
-			response.put("mensaje", "El encargado ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-
-		}
-
-		return new ResponseEntity<EncargadoLocalizacion>(encargado, HttpStatus.OK);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/encargados")
+	@PostMapping
+	public ResponseEntity<EncargadoDto> insertar(@Valid @RequestBody EncargadoDto datosDelFront) throws Exception {
 
-	public ResponseEntity<?> insertarEncargado(@Valid @RequestBody EncargadoLocalizacion encargado, BindingResult result) {
+		EncargadoLocalizacion delFront = mapper.map(datosDelFront, EncargadoLocalizacion.class);
+		EncargadoLocalizacion objetoTabla = service.save(delFront);
+		EncargadoDto dtoResponse = mapper.map(objetoTabla, EncargadoDto.class);
 
-		EncargadoLocalizacion encargadoNew = null;
-		Map<String, Object> response = new HashMap<>();
+		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
 
-		if (result.hasErrors()) {
+	}
 
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
+	// la madurez del señor Richardson
 
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+//	@PostMapping
+//	public ResponseEntity<Void> insertar(@Valid @RequestBody AcogidaDto datosDelFront) throws Exception {
+//		
+//		Acogida objeto = mapper.map(datosDelFront, Acogida.class);
+//		Acogida objetoTabla= acogidaService.save(objeto);
+//		AcogidaDto dtoResponse= mapper.map(objetoTabla, AcogidaDto.class);
+//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dtoResponse.getId()).toUri();
+//		return ResponseEntity.created(location).build();
+//		
+//	}
 
-		try {
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	public ResponseEntity<EncargadoDto> actualizar(@Valid @RequestBody EncargadoLocalizacion datosDelFront)
+			throws Exception {
 
-			encargadoNew = encargadoService.save(encargado);
+		EncargadoLocalizacion delFront = mapper.map(datosDelFront, EncargadoLocalizacion.class);
+		EncargadoLocalizacion consultado = service.findById(delFront.getId());
 
-		} catch (DataAccessException e) {
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + delFront.getId());
 
-			response.put("mensaje", "Error al insertar el encargado en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		EncargadoLocalizacion tabla = service.modificar(delFront);
+		EncargadoDto dtoResponse = mapper.map(tabla, EncargadoDto.class);
 
-		}
-
-		response.put("mensaje", "El encargado se ha creado con exito!");
-		response.put("encargado", encargadoNew);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/encargados/{id}")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
 
-	public ResponseEntity<?> actualizarEncargado(@Valid @RequestBody EncargadoLocalizacion encargado, BindingResult result, @PathVariable Long id) {
+		EncargadoLocalizacion consultado = service.findById(id);
 
-		EncargadoLocalizacion encargadoActual = encargadoService.findById(id);
-		EncargadoLocalizacion encargadoUpdated = null;
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 
-		Map<String, Object> response = new HashMap<>();
+		service.delete(id);
 
-		if (result.hasErrors()) {
-
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			
-		}
-
-		if (encargadoActual == null) {
-			
-			response.put("mensaje", "Error: no se pudo editar, el encargado ID: "
-					.concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			
-		}
-
-		try {
-			
-			encargadoActual.setApellido1(encargado.getApellido1());
-			encargadoActual.setApellido2(encargado.getApellido2());
-			encargadoActual.setNombre(encargado.getNombre());
-			encargadoActual.setEmail(encargado.getEmail());
-			encargadoActual.setTelefono(encargado.getTelefono());
-			
-			encargadoUpdated = encargadoService.save(encargadoActual);		
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al actualizar el encargado en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-
-		response.put("mensaje", "El encargado se ha actualizado con exito!");
-		response.put("encargado", encargadoUpdated);
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/encargados/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			
-			EncargadoLocalizacion cliente = encargadoService.findById(id);
-			
-
-			encargadoService.delete(id);
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al eliminar el encargado en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-		
-		response.put("mensaje", "El encargado se ha eliminado con exito!");
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		
-	}
-
 
 }

@@ -1,59 +1,37 @@
 package com.asa.model.entity;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="residencias")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "residencias")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Residencia {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1186744940275100820L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotEmpty(message="no puede estar vacío!")
-	@Column(nullable = false)
+
 	private String nombre;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String precio;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String telefono;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String propietario;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String calle;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String numero;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String cp;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String localidad;
-	
 
 	public Long getId() {
 		return id;
@@ -126,7 +104,5 @@ public class Residencia {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-	
-	
 
 }

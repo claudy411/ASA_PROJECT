@@ -1,6 +1,5 @@
 package com.asa.model.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -158,6 +157,38 @@ public class Mascota {
 
 	public void setSize(Size size) {
 		this.size = size;
+	}
+
+	public List<Adoptante> getAdoptantes() {
+		return adoptantes;
+	}
+
+	public void setAdoptantes(List<Adoptante> adoptantes) {
+		this.adoptantes = adoptantes;
+	}
+
+	public List<Acogida> getAcogidas() {
+		return acogidas;
+	}
+
+	public void setAcogidas(List<Acogida> acogidas) {
+		this.acogidas = acogidas;
+	}
+
+	public Residencia getResidencia() {
+		return residencia;
+	}
+
+	public void setResidencia(Residencia residencia) {
+		this.residencia = residencia;
+	}
+
+	public List<ImagenMascota> getFotos() {
+		return fotos;
+	}
+
+	public void setFotos(List<ImagenMascota> fotos) {
+		this.fotos = fotos;
 	}
 
 	

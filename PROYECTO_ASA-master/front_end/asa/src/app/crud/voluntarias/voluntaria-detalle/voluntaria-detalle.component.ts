@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { VoluntariaService } from '../voluntaria.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Voluntaria } from '../voluntaria';
+import { ModalService } from '../../../services/modal.service';
 
 @Component({
   selector: 'app-voluntaria-detalle',
@@ -12,31 +13,38 @@ import { Voluntaria } from '../voluntaria';
 export class VoluntariaDetalleComponent implements OnInit {
 
   
-  voluntaria:Voluntaria=null;
+  @Input() voluntaria:Voluntaria;
+  titulo:string=""; 
 
   constructor(
-    private voluntariaService: VoluntariaService,
-    private activatedRoute: ActivatedRoute,
-    private toastr: ToastrService,
-    private router: Router
+ 
+     private activatedRoute: ActivatedRoute,
+     private router: Router,
+    public modalService:ModalService,
+    private voluntariaService:VoluntariaService
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.voluntariaService.getVoluntaria(id).subscribe(
-      data => {
-        this.voluntaria=data;
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.volver();
-      }
-    );
+    
+    this.titulo="Detalle voluntaria: " +this.voluntaria.nombre;
+   this.activatedRoute.paramMap.subscribe(params=>{
+     let id:number=+params.get('id');
+     if(id){
+       this.voluntariaService.getVoluntaria(id).subscribe(voluntaria=>{
+         this.voluntaria=voluntaria;
+       })
+     }
+   })
   }
 
   volver(){
     this.router.navigate(['/voluntarias']);
   }
+  cerrarModal() {
+    this.modalService.cerrarModal();
+    
+  }
 }
+
+
+ 

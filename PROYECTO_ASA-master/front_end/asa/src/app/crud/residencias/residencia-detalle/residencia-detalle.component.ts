@@ -25,15 +25,15 @@ export class ResidenciaDetalleComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.titulo="Detalle residencia: " +this.residencia.nombre;
-   this.activatedRoute.paramMap.subscribe(params=>{
-     let id:number=+params.get('id');
-     if(id){
-       this.residenciaService.getResidencia(id).subscribe(residencia=>{
-         this.residencia=residencia;
-       })
-     }
-   })
+  //   this.titulo="Detalle residencia: " +this.residencia.nombre;
+  //  this.activatedRoute.paramMap.subscribe(params=>{
+  //    let id:number=+params.get('id');
+  //    if(id){
+  //      this.residenciaService.getResidencia(id).subscribe(residencia=>{
+  //        this.residencia=residencia;
+  //      })
+  //    }
+  //  })
   }
 
   volver(){

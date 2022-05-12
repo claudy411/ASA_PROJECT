@@ -1,50 +1,33 @@
 package com.asa.model.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name="localizaciones")
-public class Localizacion implements Serializable {
-	
+@Table(name = "localizaciones")
+public class Localizacion {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String nombre;
-	
-	@NotEmpty(message="no puede estar vacío!")
-	private String calle;
-	
-	@NotEmpty(message="no puede estar vacío!")
-	private String numero;
-	
-	@NotEmpty(message="no puede estar vacío!")
-	private String cp;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
+	private String direccion;
+
 	private String localidad;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="localizacion")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "localizacion")
 	private List<EncargadoLocalizacion> encargados;
-	
+
 	@OneToOne(mappedBy = "localizacion")
 	private Evento evento;
 
@@ -52,89 +35,48 @@ public class Localizacion implements Serializable {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
-	public String getCalle() {
-		return calle;
+	public String getDireccion() {
+		return direccion;
 	}
 
-
-
-	public void setCalle(String calle) {
-		this.calle = calle;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
-
-
-
-	public String getNumero() {
-		return numero;
-	}
-
-
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-
-
-	public String getCp() {
-		return cp;
-	}
-
-
-
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
-
-
 
 	public String getLocalidad() {
 		return localidad;
 	}
 
-
-
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
 
+	public List<EncargadoLocalizacion> getEncargados() {
+		return encargados;
+	}
 
+	public void setEncargados(List<EncargadoLocalizacion> encargados) {
+		this.encargados = encargados;
+	}
 
-//	public EncargadoLocalizacion getEncargado() {
-//		return encargado;
-//	}
-//
-//
-//
-//	public void setEncargado(EncargadoLocalizacion encargado) {
-//		this.encargado = encargado;
-//	}
+	public Evento getEvento() {
+		return evento;
+	}
 
-
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2331125274599473619L;
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
 
 }

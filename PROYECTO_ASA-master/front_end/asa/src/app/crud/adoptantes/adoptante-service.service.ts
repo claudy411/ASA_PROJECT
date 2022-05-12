@@ -4,43 +4,44 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Adoptante } from './adoptante';
 import Swal from 'sweetalert2';
+import { Mascota } from '../mascotas/mascota';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdoptanteServiceService {
 
+  //version mejicana
 
-    /*
-    
-  productoURL = 'http://localhost:8080/producto/';
+  // private url:string =`${environment.HOST}/adoptantes`;
 
-  constructor(private httpClient: HttpClient) { }
+  // constructor(private http: HttpClient) { }
 
-  public lista(): Observable<Producto[]> {
-    return this.httpClient.get<Producto[]>(this.productoURL + 'lista');
-  }
+  // listar(page:number):Observable<any> {
 
-  public detail(id: number): Observable<Producto> {
-    return this.httpClient.get<Producto>(this.productoURL + `detail/${id}`);
-  }
+  //   return this.http.get<Adoptante[]>(this.url+ '/page/' + page);
+  // }
+  // listarPorId(id:number):Observable<any>{
+  //     return this.http.get<Adoptante>(`${this.url}/${id}`);
+  // }
 
-  public detailName(nombre: string): Observable<Producto> {
-    return this.httpClient.get<Producto>(this.productoURL + `detailname/${nombre}`);
-  }
+  // registrar(adoptante:Adoptante){
+  //     return this.http.post(this.url,adoptante);
+  // }
 
-  public save(producto: Producto): Observable<any> {
-    return this.httpClient.post<any>(this.productoURL + 'create', producto);
-  }
+  // modificar(adoptante:Adoptante){
+  //     return this.http.put(this.url,adoptante);
+  // }
 
-  public update(id: number, producto: Producto): Observable<any> {
-    return this.httpClient.put<any>(this.productoURL + `update/${id}`, producto);
-  }
+  // eliminar(id:number){
+  //     return this.http.delete(`${this.url}/${id}`);
+  // }
 
-  public delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.productoURL + `delete/${id}`);
-  }
-    */
+  // listarMascotas():Observable<Mascota[]>{
+  //   return this.http.get<Mascota[]>(`${environment.HOST}/mascotas`);
+  // }
+
 
   private urlEndPoint: string = 'http://localhost:8080/asa/adoptantes';
 

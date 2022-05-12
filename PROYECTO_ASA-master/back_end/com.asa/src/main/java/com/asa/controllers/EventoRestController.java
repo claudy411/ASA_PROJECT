@@ -1,20 +1,17 @@
 package com.asa.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,177 +20,109 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.dto.EventoDto;
+import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.Evento;
-import com.asa.model.services.IService;
+import com.asa.model.services.IEventoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/asa")
+@RequestMapping("/asa/eventos")
 public class EventoRestController {
 
 	@Autowired
-	private IService<Evento> eventoService;
-	
-	@GetMapping("/eventos")
-	public List<Evento> verEventos() {
+	private IEventoService service;
 
-		return eventoService.findAll();
+	@Autowired
+	private ModelMapper mapper;
 
-	}
+	@GetMapping
+	public ResponseEntity<List<EventoDto>> ver() throws Exception {
 
-	@GetMapping("/eventos/page/{page}")
-
-	public Page<Evento> verEventosPag(@PathVariable Integer page) {
-
-		return eventoService.findAll(PageRequest.of(page, 4));
+		List<EventoDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, EventoDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<EventoDto>>(lista, HttpStatus.OK);
 
 	}
 
-	@GetMapping("/eventos/{id}")
+	@GetMapping("/page/{page}") // ojo aqui no va el dto
+	public Page<Evento> verPorPag(@PathVariable Integer page) {
 
-	public ResponseEntity<?> verEventoPorId(@PathVariable Long id) {
+		return service.findAll(PageRequest.of(page, 4));
 
-		Evento evento = null;
-		Map<String, Object> response = new HashMap<>();
+	}
 
-		try {
+	@GetMapping("/{id}")
+	public ResponseEntity<EventoDto> verPorId(@PathVariable Long id) throws Exception {
 
-			evento = eventoService.findById(id);
+		Evento tabla = service.findById(id);
 
-		} catch (DataAccessException e) {
+		if (tabla == null)
+			throw new ModelNotFoundException("ID NO ENCONTRADO: " + id);
 
-			response.put("mensaje", "Error al realizar la consulta a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		EventoDto dtoResponse = mapper.map(tabla, EventoDto.class);
 
-		}
-
-		if (evento == null) {
-
-			response.put("mensaje", "El evento ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-
-		}
-
-		return new ResponseEntity<Evento>(evento, HttpStatus.OK);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/eventos")
+	@PostMapping
+	public ResponseEntity<EventoDto> insertar(@Valid @RequestBody EventoDto datosDelFront) throws Exception {
 
-	public ResponseEntity<?> insertarEvento(@Valid @RequestBody Evento evento, BindingResult result) {
+		Evento delFront = mapper.map(datosDelFront, Evento.class);
+		Evento objetoTabla = service.save(delFront);
+		EventoDto dtoResponse = mapper.map(objetoTabla, EventoDto.class);
 
-		Evento eventoNuevo = null;
-		Map<String, Object> response = new HashMap<>();
+		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
 
-		if (result.hasErrors()) {
+	}
 
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
+	// la madurez del señor Richardson
 
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+//	@PostMapping
+//	public ResponseEntity<Void> insertar(@Valid @RequestBody AcogidaDto datosDelFront) throws Exception {
+//		
+//		Acogida objeto = mapper.map(datosDelFront, Acogida.class);
+//		Acogida objetoTabla= acogidaService.save(objeto);
+//		AcogidaDto dtoResponse= mapper.map(objetoTabla, AcogidaDto.class);
+//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dtoResponse.getId()).toUri();
+//		return ResponseEntity.created(location).build();
+//		
+//	}
 
-		try {
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	public ResponseEntity<EventoDto> actualizar(@Valid @RequestBody Evento datosDelFront) throws Exception {
 
-			eventoNuevo = eventoService.save(evento);
+		Evento delFront = mapper.map(datosDelFront, Evento.class);
+		Evento consultado = service.findById(delFront.getId());
 
-		} catch (DataAccessException e) {
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + delFront.getId());
 
-			response.put("mensaje", "Error al insertar el evento en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		Evento tabla = service.modificar(delFront);
+		EventoDto dtoResponse = mapper.map(tabla, EventoDto.class);
 
-		}
-
-		response.put("mensaje", "El evento se ha creado con exito!");
-		response.put("evento", eventoNuevo);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/eventos/{id}")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
 
-	public ResponseEntity<?> actualizarEvento(@Valid @RequestBody Evento evento, BindingResult result, @PathVariable Long id) {
+		Evento consultado = service.findById(id);
 
-		Evento eventoActual = eventoService.findById(id);
-		Evento eventoUpdated = null;
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 
-		Map<String, Object> response = new HashMap<>();
+		service.delete(id);
 
-		if (result.hasErrors()) {
-
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			
-		}
-
-		if (eventoActual == null) {
-			
-			response.put("mensaje", "Error: no se pudo editar, el evento ID: "
-					.concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			
-		}
-
-		try {
-			
-			eventoActual.setDescripcion(evento.getDescripcion());
-			eventoActual.setFecha(evento.getFecha());
-//			eventoActual.setLocalizacion(evento.getLocalizacion());
-			eventoActual.setNombre(evento.getNombre());
-			eventoUpdated = eventoService.save(eventoActual);			
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al actualizar el evento en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-
-		response.put("mensaje", "El evento se ha actualizado con exito!");
-		response.put("evento", eventoUpdated);
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/eventos/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	
-	public ResponseEntity<?> eliminarEvento(@PathVariable Long id) {
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			
-			Evento evento = eventoService.findById(id);
-
-			eventoService.delete(id);
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al eliminar el evento en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-		
-		response.put("mensaje", "El evento se ha eliminado con exito!");
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		
-	}
 }

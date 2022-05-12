@@ -1,0 +1,14 @@
+.page-voluntarios {
+    height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)), url(../../../assets/img/voluntario_portadad.jpg) center center no-repeat;
+    background-size: cover;
+  }
+
+  .fuente-asa{
+    font-family: Lato;
+    font-size: 24px;
+  }
+  .fuente-asa2{
+    font-family: Lato;
+    font-size: 16px;
+  }

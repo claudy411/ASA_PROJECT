@@ -10,6 +10,36 @@ import { Encargado } from './encargado';
 })
 export class EncargadoService {
   
+      //version mejicana
+
+  // private url:string =`${environment.HOST}/encargados`;
+
+  // constructor(private http: HttpClient) { }
+
+  // listar(page:number):Observable<any> {
+
+  //   return this.http.get<Encargado[]>(this.url+ '/page/' + page);
+  // }
+  // listarPorId(id:number):Observable<any>{
+  //     return this.http.get<Encargado>(`${this.url}/${id}`);
+  // }
+
+  // registrar(encargado:Encargado){
+  //     return this.http.post(this.url,encargado);
+  // }
+
+  // modificar(encargado:Encargado){
+  //     return this.http.put(this.url,encargado);
+  // }
+
+  // eliminar(id:number){
+  //     return this.http.delete(`${this.url}/${id}`);
+  // }
+
+  // localizaciones():Observable<Localizacion[]>{
+  //   return this.http.get<Localizacion[]>(`${environment.HOST}/localizaciones`);
+  // }
+  
   private urlEndPoint: string = 'http://localhost:8080/asa/encargados';
 
 

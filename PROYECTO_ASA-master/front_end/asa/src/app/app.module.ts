@@ -9,8 +9,6 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header_footer/header/header.component';
 import { FooterComponent } from './header_footer/footer/footer.component';
-import { ImgPerrosComponent } from './crud/img-perros/img-perros.component';
-import { ImgGatosComponent } from './crud/img-gatos/img-gatos.component';
 import { PaginadorAdoptanteComponent } from './crud/adoptantes/paginador-adoptante/paginador-adoptante.component';
 import { FormsModule } from '@angular/forms';
 import { AdoptanteServiceService } from './crud/adoptantes/adoptante-service.service';
@@ -76,7 +74,22 @@ import { AcogeComponent } from './_paginas/acoge/acoge.component';
 import { VoluntariadoComponent } from './_paginas/voluntariado/voluntariado.component';
 import { EventosComponent } from './_paginas/eventos/eventos.component';
 import { ContactoComponent } from './_paginas/contacto/contacto.component';
-import { FormularioComponent } from './_paginas/formulario/formulario.component';
+import { FormVoluntariosComponent } from './_paginas/formularios/form-voluntarios/form-voluntarios.component';
+import { FormAdopcionComponent } from './_paginas/formularios/form-adopcion/form-adopcion.component';
+import { MascotasComponent } from './crud/mascotas/mascotas.component';
+import { ImagenesMascotasComponent } from './crud/imagenes-mascotas/imagenes-mascotas.component';
+import { MascotaNuevaComponent } from './crud/mascotas/mascota-nueva/mascota-nueva.component';
+import { MascotaListaComponent } from './crud/mascotas/mascota-lista/mascota-lista.component';
+import { MascotaEditarComponent } from './crud/mascotas/mascota-editar/mascota-editar.component';
+import { MascotaDetalleComponent } from './crud/mascotas/mascota-detalle/mascota-detalle.component';
+import { PagMascotaComponent } from './crud/mascotas/pag-mascota/pag-mascota.component';
+import { AcogidasComponent } from './crud/acogidas/acogidas.component';
+import { AcogidaListaComponent } from './crud/acogidas/acogida-lista/acogida-lista.component';
+import { AcogidaNuevoComponent } from './crud/acogidas/acogida-nuevo/acogida-nuevo.component';
+import { AcogidaEditarComponent } from './crud/acogidas/acogida-editar/acogida-editar.component';
+import { AcogidaDetalleComponent } from './crud/acogidas/acogida-detalle/acogida-detalle.component';
+import { HorarioComponent } from './crud/horario/horario.component';
+
 
 
 @NgModule({
@@ -84,8 +97,6 @@ import { FormularioComponent } from './_paginas/formulario/formulario.component'
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ImgPerrosComponent,
-    ImgGatosComponent,
     PaginadorAdoptanteComponent,
     PagEncargadoComponent,
     PagEventoComponent,
@@ -138,7 +149,22 @@ import { FormularioComponent } from './_paginas/formulario/formulario.component'
     VoluntariadoComponent,
     EventosComponent,
     ContactoComponent,
-    FormularioComponent
+    FormVoluntariosComponent,
+    FormAdopcionComponent,
+    MascotasComponent,
+    ImagenesMascotasComponent,
+    MascotaNuevaComponent,
+    MascotaListaComponent,
+    MascotaEditarComponent,
+    MascotaDetalleComponent,
+    PagMascotaComponent,
+    AcogidasComponent,
+    AcogidaListaComponent,
+    AcogidaNuevoComponent,
+    AcogidaEditarComponent,
+    AcogidaDetalleComponent,
+    HorarioComponent
+   
 
   
   ],

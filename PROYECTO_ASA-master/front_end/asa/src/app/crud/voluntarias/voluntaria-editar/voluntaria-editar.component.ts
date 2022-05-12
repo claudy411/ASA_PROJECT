@@ -42,7 +42,7 @@ export class VoluntariaEditarComponent implements OnInit {
     this.voluntariaService.update(this.voluntaria)
       .subscribe(json => {
         this.router.navigate(['/voluntarias'])
-        Swal.fire('Voluntaria Actualizada', `${json.mensaje}:  ${json.voluntaria.nombre}`, 'success')
+        Swal.fire('voluntaria Actualizado', `${json.mensaje}:  ${json.voluntaria.nombre}`, 'success')
       },
       err => {
         this.errores= err.error.errors as string[];

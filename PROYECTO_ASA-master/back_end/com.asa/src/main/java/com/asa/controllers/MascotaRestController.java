@@ -1,19 +1,17 @@
 package com.asa.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,179 +20,109 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.dto.MascotaDto;
+import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.Mascota;
-import com.asa.model.services.IService;
+import com.asa.model.services.IMascotaService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/asa")
+@RequestMapping("/asa/mascotas")
 public class MascotaRestController {
-	
+
 	@Autowired
-	private IService<Mascota> mascotaService;
-	
-	@GetMapping("/mascotas")
-	public List<Mascota> verMascotas() {
+	private IMascotaService service;
 
-		return mascotaService.findAll();
+	@Autowired
+	private ModelMapper mapper;
 
-	}
+	@GetMapping
+	public ResponseEntity<List<MascotaDto>> ver() throws Exception {
 
-	@GetMapping("/mascotas/page/{page}")
-
-	public Page<Mascota> verMascotasPag(@PathVariable Integer page) {
-
-		return mascotaService.findAll(PageRequest.of(page, 4));
+		List<MascotaDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<MascotaDto>>(lista, HttpStatus.OK);
 
 	}
 
-	@GetMapping("/mascotas/{id}")
+	@GetMapping("/page/{page}") // ojo aqui no va el dto
+	public Page<Mascota> verPorPag(@PathVariable Integer page) {
 
-	public ResponseEntity<?> verMascotaPorId(@PathVariable Long id) {
-
-		Mascota mascota = null;
-		Map<String, Object> response = new HashMap<>();
-
-		try {
-
-			mascota = mascotaService.findById(id);
-
-		} catch (DataAccessException e) {
-
-			response.put("mensaje", "Error al realizar la consulta a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-
-		}
-
-		if (mascota == null) {
-
-			response.put("mensaje", "La mascota ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-
-		}
-
-		return new ResponseEntity<Mascota>(mascota, HttpStatus.OK);
+		return service.findAll(PageRequest.of(page, 4));
 
 	}
 
-	@PostMapping("/mascotas")
+	@GetMapping("/{id}")
+	public ResponseEntity<MascotaDto> verPorId(@PathVariable Long id) throws Exception {
 
-	public ResponseEntity<?> insertarMascota(@Valid @RequestBody Mascota mascota, BindingResult result) {
+		Mascota tabla = service.findById(id);
 
-		Mascota mascotaNew = null;
-		Map<String, Object> response = new HashMap<>();
+		if (tabla == null)
+			throw new ModelNotFoundException("ID NO ENCONTRADO: " + id);
 
-		if (result.hasErrors()) {
+		MascotaDto dtoResponse = mapper.map(tabla, MascotaDto.class);
 
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
-
-		try {
-
-			mascotaNew = mascotaService.save(mascota);
-
-		} catch (DataAccessException e) {
-
-			response.put("mensaje", "Error al insertar la mascota en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-
-		}
-
-		response.put("mensaje", "La mascota se ha creado con exito!");
-		response.put("mascota", mascotaNew);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
-	@PutMapping("/mascotas/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping
+	public ResponseEntity<MascotaDto> insertar(@Valid @RequestBody MascotaDto datosDelFront) throws Exception {
 
-	public ResponseEntity<?> actualizarMascota(@Valid @RequestBody Mascota mascota, BindingResult result, @PathVariable Long id) {
+		Mascota delFront = mapper.map(datosDelFront, Mascota.class);
+		Mascota objetoTabla = service.save(delFront);
+		MascotaDto dtoResponse = mapper.map(objetoTabla, MascotaDto.class);
 
-		Mascota mascotaActual = mascotaService.findById(id);
-		Mascota mascotaUpdated = null;
-
-		Map<String, Object> response = new HashMap<>();
-
-		if (result.hasErrors()) {
-
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			
-		}
-
-		if (mascotaActual == null) {
-			
-			response.put("mensaje", "Error: no se pudo editar, la mascota ID: "
-					.concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			
-		}
-
-		try {
-			
-			mascotaActual.setNombre(mascota.getNombre());
-			mascotaActual.setfNacimiento(mascota.getfEntrada());
-			mascotaActual.setfEntrada(mascota.getfEntrada());
-			mascotaActual.setRaza(mascota.getRaza());
-			mascotaActual.setSexo(mascota.getSexo());
-			mascotaActual.setCaracter(mascota.getCaracter());
-			mascotaActual.setSituacion(mascota.getSituacion());
-			mascotaActual.setTipo(mascota.getTipo());
-			mascotaUpdated = mascotaService.save(mascotaActual);			
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al actualizar la mascota en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-
-		response.put("mensaje", "La mascota se ha actualizado con exito!");
-		response.put("mascota", mascotaUpdated);
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
 
 	}
 
-	@DeleteMapping("/mascotas/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	
-	public ResponseEntity<?> eliminarMascota(@PathVariable Long id) {
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			
-			Mascota evento = mascotaService.findById(id);
+	// la madurez del señor Richardson
 
-			mascotaService.delete(id);
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al eliminar la mascota en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-		
-		response.put("mensaje", "El evento se ha eliminado con exito!");
+//	@PostMapping
+//	public ResponseEntity<Void> insertar(@Valid @RequestBody AcogidaDto datosDelFront) throws Exception {
+//		
+//		Acogida objeto = mapper.map(datosDelFront, Acogida.class);
+//		Acogida objetoTabla= acogidaService.save(objeto);
+//		AcogidaDto dtoResponse= mapper.map(objetoTabla, AcogidaDto.class);
+//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dtoResponse.getId()).toUri();
+//		return ResponseEntity.created(location).build();
+//		
+//	}
 
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	public ResponseEntity<MascotaDto> actualizar(@Valid @RequestBody Mascota datosDelFront) throws Exception {
+
+		Mascota delFront = mapper.map(datosDelFront, Mascota.class);
+		Mascota consultado = service.findById(delFront.getId());
+
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + delFront.getId());
+
+		Mascota tabla = service.modificar(delFront);
+		MascotaDto dtoResponse = mapper.map(tabla, MascotaDto.class);
+
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
+
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
+
+		Mascota consultado = service.findById(id);
+
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
+
+		service.delete(id);
+
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
 	}
 
 }

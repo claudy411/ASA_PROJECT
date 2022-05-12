@@ -43,6 +43,8 @@ import { AdoptaComponent } from './_paginas/adopta/adopta.component';
 import { AcogeComponent } from './_paginas/acoge/acoge.component';
 import { ContactoComponent } from './_paginas/contacto/contacto.component';
 import { VoluntariadoComponent } from './_paginas/voluntariado/voluntariado.component';
+import { FormVoluntariosComponent } from './_paginas/formularios/form-voluntarios/form-voluntarios.component';
+import { FormAdopcionComponent } from './_paginas/formularios/form-adopcion/form-adopcion.component';
 
 const routes: Routes = [
 
@@ -57,6 +59,8 @@ const routes: Routes = [
   { path: 'pagina/acoge', component: AcogeComponent },
   { path: 'pagina/contacto', component: ContactoComponent },
   { path: 'pagina/voluntariado', component: VoluntariadoComponent },
+  { path: 'pagina/formulario/voluntarias', component: FormVoluntariosComponent },
+  { path: 'pagina/formulario/adopciones', component: FormAdopcionComponent },
 
   { path: "adoptantes", component: ListaComponent, canActivate:  [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: "adoptantes/page/:page", component: ListaComponent, canActivate: [guard], data: { expectedRol: ['admin', 'user'] } },
@@ -100,11 +104,11 @@ const routes: Routes = [
   { path: "residencias/detalle/:id", component: ResidenciaDetalleComponent, canActivate:  [guard], data: { expectedRol: ['admin', 'user'] } },
   { path: "residencias/editar/:id", component: ResidenciaEditarComponent, canActivate:  [guard], data: { expectedRol: ['admin'] } },
   
-  { path: "voluntarias", component: VoluntariaListaComponent, canActivate:  [guard], data: { expectedRol: ['admin'] } },
-  { path: "voluntarias/page/:page", component: VoluntariaListaComponent, canActivate:  [guard], data: { expectedRol: ['admin'] } },
-  { path: "voluntarias/nuevo", component: VoluntariaNuevoComponent, canActivate:  [guard], data: { expectedRol: ['admin', 'user'] } },
-  { path: "voluntarias/detalle/:id", component: VoluntariaDetalleComponent, canActivate:  [guard], data: { expectedRol: ['admin'] } },
-  { path: "voluntarias/editar/:id", component: VoluntariaEditarComponent, canActivate:  [guard], data: { expectedRol: ['admin'] } },
+  { path: "voluntarias", component: VoluntariaListaComponent },
+  { path: "voluntarias/page/:page", component: VoluntariaListaComponent},
+  { path: "voluntarias/nuevo", component: VoluntariaNuevoComponent },
+  { path: "voluntarias/detalle/:id", component: VoluntariaDetalleComponent},
+  { path: "voluntarias/editar/:id", component: VoluntariaEditarComponent },
 
 
 

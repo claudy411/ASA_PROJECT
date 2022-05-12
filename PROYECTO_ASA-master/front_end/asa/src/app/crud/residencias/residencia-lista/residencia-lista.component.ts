@@ -33,7 +33,7 @@ export class ResidenciaListaComponent implements OnInit {
       if (!page) {
         page = 0;
       }
-      this.residenciaService.getResidencias(page).subscribe(response => {
+      this.residenciaService.listar(page).subscribe(response => {
         this.residencias = response.content as Residencia[];
         this.paginador = response;
       });
@@ -68,9 +68,9 @@ export class ResidenciaListaComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        this.residenciaService.delete(residencia.id).subscribe(
+        this.residenciaService.eliminar(residencia.id).subscribe(
           response => {
-            this.residencias = this.residencias.filter(encarg => encarg !== residencia)
+            this.residencias = this.residencias.filter(resi => resi !== residencia)
             swal.fire(
               'Eliminada!',
               `residencia ${residencia.nombre} eliminada con exito`,

@@ -1,20 +1,17 @@
 package com.asa.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,181 +20,110 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.dto.LocalizacionDto;
+import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.Localizacion;
-import com.asa.model.services.IService;
+import com.asa.model.services.ILocalizacionService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/asa")
+@RequestMapping("/asa/localizaciones")
 public class LocalizacionRestController {
-	
+
 	@Autowired
-	private IService<Localizacion> locService;
-	
-	@GetMapping("/localizaciones")
-	public List<Localizacion> verLocalizaciones() {
+	private ILocalizacionService service;
 
-		return locService.findAll();
+	@Autowired
+	private ModelMapper mapper;
 
-	}
+	@GetMapping
+	public ResponseEntity<List<LocalizacionDto>> ver() throws Exception {
 
-	@GetMapping("/localizaciones/page/{page}")
-
-	public Page<Localizacion> verLocalizacionesPag(@PathVariable Integer page) {
-
-		return locService.findAll(PageRequest.of(page, 4));
+		List<LocalizacionDto> lista = service.findAll().stream()
+				.map(datosBBDD -> mapper.map(datosBBDD, LocalizacionDto.class)).collect(Collectors.toList());
+		return new ResponseEntity<List<LocalizacionDto>>(lista, HttpStatus.OK);
 
 	}
 
-	@GetMapping("/localizaciones/{id}")
+	@GetMapping("/page/{page}") // ojo aqui no va el dto
+	public Page<Localizacion> verPorPag(@PathVariable Integer page) {
 
-	public ResponseEntity<?> localizacionPorId(@PathVariable Long id) {
+		return service.findAll(PageRequest.of(page, 4));
 
-		Localizacion loc = null;
-		Map<String, Object> response = new HashMap<>();
+	}
 
-		try {
+	@GetMapping("/{id}")
+	public ResponseEntity<LocalizacionDto> verPorId(@PathVariable Long id) throws Exception {
 
-			loc = locService.findById(id);
+		Localizacion tabla = service.findById(id);
 
-		} catch (DataAccessException e) {
+		if (tabla == null)
+			throw new ModelNotFoundException("ID NO ENCONTRADO: " + id);
 
-			response.put("mensaje", "Error al realizar la consulta a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		LocalizacionDto dtoResponse = mapper.map(tabla, LocalizacionDto.class);
 
-		}
-
-		if (loc == null) {
-
-			response.put("mensaje", "La localizacion ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-
-		}
-
-		return new ResponseEntity<Localizacion>(loc, HttpStatus.OK);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/localizaciones")
+	@PostMapping
+	public ResponseEntity<LocalizacionDto> insertar(@Valid @RequestBody LocalizacionDto datosDelFront)
+			throws Exception {
 
-	public ResponseEntity<?> create(@Valid @RequestBody Localizacion localizacion, BindingResult result) {
+		Localizacion delFront = mapper.map(datosDelFront, Localizacion.class);
+		Localizacion objetoTabla = service.save(delFront);
+		LocalizacionDto dtoResponse = mapper.map(objetoTabla, LocalizacionDto.class);
 
-		Localizacion locNew = null;
-		Map<String, Object> response = new HashMap<>();
+		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
 
-		if (result.hasErrors()) {
+	}
 
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
+	// la madurez del señor Richardson
 
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+//	@PostMapping
+//	public ResponseEntity<Void> insertar(@Valid @RequestBody AcogidaDto datosDelFront) throws Exception {
+//		
+//		Acogida objeto = mapper.map(datosDelFront, Acogida.class);
+//		Acogida objetoTabla= acogidaService.save(objeto);
+//		AcogidaDto dtoResponse= mapper.map(objetoTabla, AcogidaDto.class);
+//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dtoResponse.getId()).toUri();
+//		return ResponseEntity.created(location).build();
+//		
+//	}
 
-		try {
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	public ResponseEntity<LocalizacionDto> actualizar(@Valid @RequestBody Localizacion datosDelFront) throws Exception {
 
-			locNew = locService.save(localizacion);
+		Localizacion delFront = mapper.map(datosDelFront, Localizacion.class);
+		Localizacion consultado = service.findById(delFront.getId());
 
-		} catch (DataAccessException e) {
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + delFront.getId());
 
-			response.put("mensaje", "Error al insertar la localizacion en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		Localizacion tabla = service.modificar(delFront);
+		LocalizacionDto dtoResponse = mapper.map(tabla, LocalizacionDto.class);
 
-		}
-
-		response.put("mensaje", "La localizacion se ha creado con exito!");
-		response.put("localizacion", locNew);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/localizaciones/{id}")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
 
-	public ResponseEntity<?> update(@Valid @RequestBody Localizacion localizacion, BindingResult result, @PathVariable Long id) {
+		Localizacion consultado = service.findById(id);
 
-		Localizacion locActual = locService.findById(id);
-		Localizacion locUpdated = null;
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 
-		Map<String, Object> response = new HashMap<>();
+		service.delete(id);
 
-		if (result.hasErrors()) {
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			
-		}
-
-		if (locActual == null) {
-			
-			response.put("mensaje", "Error: no se pudo editar, la localizacion ID: "
-					.concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			
-		}
-
-		try {
-			
-			locActual.setNombre(localizacion.getNombre());
-			locActual.setCalle(localizacion.getCalle());
-			locActual.setNumero(localizacion.getNumero());
-			locActual.setCp(localizacion.getCp());
-			locActual.setLocalidad(localizacion.getLocalidad());
-//			locActual.setEncargado(localizacion.getEncargado());
-			
-			locUpdated = locService.save(locActual);			
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al actualizar la localizacion en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-
-		response.put("mensaje", "La localizacion se ha actualizado con exito!");
-		response.put("localizacion", locUpdated);
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-
-	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/localizaciones/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			
-			Localizacion loc = locService.findById(id);
-			
-			locService.delete(id);
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al eliminar la localizacion en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-		
-		response.put("mensaje", "La localizacion se ha eliminado con exito!");
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		
 	}
 
 }

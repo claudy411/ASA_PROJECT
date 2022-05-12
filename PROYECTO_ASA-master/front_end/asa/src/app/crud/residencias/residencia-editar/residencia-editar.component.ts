@@ -25,31 +25,31 @@ export class ResidenciaEditarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.residenciaService.getResidencia(id).subscribe(
-      data => {
-        this.residencia=data;
-      },
-      err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-        this.router.navigate(['/residencias']);
-      }
-    );
+    // const id = this.activatedRoute.snapshot.params['id'];
+    // this.residenciaService.getResidencia(id).subscribe(
+    //   data => {
+    //     this.residencia=data;
+    //   },
+    //   err => {
+    //     this.toastr.error(err.error.mensaje, 'Fail', {
+    //       timeOut: 3000,  positionClass: 'toast-top-center',
+    //     });
+    //     this.router.navigate(['/residencias']);
+    //   }
+    // );
   }
-  update(): void {
-    this.residenciaService.update(this.residencia)
-      .subscribe(json => {
-        this.router.navigate(['/residencias'])
-        Swal.fire('residencia Actualizado', `${json.mensaje}:  ${json.residencia.nombre}`, 'success')
-      },
-      err => {
-        this.errores= err.error.errors as string[];
-        console.error('Codigo del error desde el backend'+ err.status);
-        console.error(err.error.errors);
-      }
-      )
-  }
+  // update(): void {
+  //   this.residenciaService.update(this.residencia)
+  //     .subscribe(json => {
+  //       this.router.navigate(['/residencias'])
+  //       Swal.fire('residencia Actualizado', `${json.mensaje}:  ${json.residencia.nombre}`, 'success')
+  //     },
+  //     err => {
+  //       this.errores= err.error.errors as string[];
+  //       console.error('Codigo del error desde el backend'+ err.status);
+  //       console.error(err.error.errors);
+  //     }
+  //     )
+  // }
 
 }

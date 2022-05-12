@@ -1,3 +1,4 @@
+import { Mascota } from '../mascotas/mascota';
 
 
 export class Adoptante {
@@ -8,7 +9,9 @@ export class Adoptante {
     apellido2:string="";
     email:string="";
     telefono:string="";
+    direccion:string;
     ciudad:string="";
+    mascotas:Mascota[];
 
     // constructor(nombre:string,apellido1:string,apellido2:string,email:string,telefono:string,ciudad:string){
     //     this.nombre=nombre;

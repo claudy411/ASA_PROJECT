@@ -1,20 +1,17 @@
 package com.asa.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,183 +20,110 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.dto.AdoptanteDto;
+import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.Adoptante;
-import com.asa.model.services.IService;
+import com.asa.model.services.IAdoptanteService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/asa")
+@RequestMapping("/asa/adoptantes")
 public class AdoptanteRestController {
 
 	@Autowired
-	private IService<Adoptante> adoptanteService;
+	private IAdoptanteService service;
 
-	@GetMapping("/adoptantes")
-	public List<Adoptante> verAdoptantes() {
+	@Autowired
+	private ModelMapper mapper;
 
-		return adoptanteService.findAll();
+	@GetMapping
+	public ResponseEntity<List<AdoptanteDto>> ver() throws Exception {
 
-	}
-
-	@GetMapping("/adoptantes/page/{page}")
-
-	public Page<Adoptante> verAdoptantesPorPag(@PathVariable Integer page) {
-
-		return adoptanteService.findAll(PageRequest.of(page, 4));
+		List<AdoptanteDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, AdoptanteDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<AdoptanteDto>>(lista, HttpStatus.OK);
 
 	}
 
-	@GetMapping("/adoptantes/{id}")
+	@GetMapping("/page/{page}") // ojo aqui no va el dto
+	public Page<Adoptante> verPorPag(@PathVariable Integer page) {
 
-	public ResponseEntity<?> verAdoptantePorId(@PathVariable Long id) {
+		return service.findAll(PageRequest.of(page, 4));
 
-		Adoptante adoptante = null;
-		Map<String, Object> response = new HashMap<>();
+	}
 
-		try {
+	@GetMapping("/{id}")
+	public ResponseEntity<AdoptanteDto> verPorId(@PathVariable Long id) throws Exception {
 
-			adoptante = adoptanteService.findById(id);
+		Adoptante tabla = service.findById(id);
 
-		} catch (DataAccessException e) {
+		if (tabla == null)
+			throw new ModelNotFoundException("ID NO ENCONTRADO: " + id);
 
-			response.put("mensaje", "Error al realizar la consulta a la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		AdoptanteDto dtoResponse = mapper.map(tabla, AdoptanteDto.class);
 
-		}
-
-		if (adoptante == null) {
-
-			response.put("mensaje", "El adoptante ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-
-		}
-
-		return new ResponseEntity<Adoptante>(adoptante, HttpStatus.OK);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/adoptantes")
+	@PostMapping
+	public ResponseEntity<AdoptanteDto> insertar(@Valid @RequestBody AdoptanteDto datosDelFront) throws Exception {
 
-	public ResponseEntity<?> insertarAdoptante(@Valid @RequestBody Adoptante adoptante, BindingResult result) {
+		Adoptante delFront = mapper.map(datosDelFront, Adoptante.class);
+		Adoptante objetoTabla = service.save(delFront);
+		AdoptanteDto dtoResponse = mapper.map(objetoTabla, AdoptanteDto.class);
 
-		Adoptante adoptanteNew = null;
-		Map<String, Object> response = new HashMap<>();
+		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
 
-		if (result.hasErrors()) {
+	}
 
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
+	// la madurez del señor Richardson
 
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+//	@PostMapping
+//	public ResponseEntity<Void> insertar(@Valid @RequestBody AcogidaDto datosDelFront) throws Exception {
+//		
+//		Acogida objeto = mapper.map(datosDelFront, Acogida.class);
+//		Acogida objetoTabla= acogidaService.save(objeto);
+//		AcogidaDto dtoResponse= mapper.map(objetoTabla, AcogidaDto.class);
+//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dtoResponse.getId()).toUri();
+//		return ResponseEntity.created(location).build();
+//		
+//	}
 
-		try {
+	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	public ResponseEntity<AdoptanteDto> actualizar(@Valid @RequestBody Adoptante datosDelFront) throws Exception {
 
-			adoptanteNew = adoptanteService.save(adoptante);
+		Adoptante delFront = mapper.map(datosDelFront, Adoptante.class);
+		Adoptante consultado = service.findById(delFront.getId());
 
-		} catch (DataAccessException e) {
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + delFront.getId());
 
-			response.put("mensaje", "Error al insertar el adoptante en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		Adoptante tabla = service.modificar(delFront);
+		AdoptanteDto dtoResponse = mapper.map(tabla, AdoptanteDto.class);
 
-		}
-
-		response.put("mensaje", "El adoptante se ha creado con exito!");
-		response.put("adoptante", adoptanteNew);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
 
 	@PreAuthorize("hasRole('ADMIN')")
-	@PutMapping("/adoptantes/{id}")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
 
-	public ResponseEntity<?> actualizarAdoptante(@Valid @RequestBody Adoptante adoptante, BindingResult result, @PathVariable Long id) {
+		Adoptante consultado = service.findById(id);
 
-		Adoptante adoptanteActual = adoptanteService.findById(id);
-		Adoptante adoptanteUpdated = null;
+		if (consultado == null)
+			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 
-		Map<String, Object> response = new HashMap<>();
+		service.delete(id);
 
-		if (result.hasErrors()) {
-
-			List<String> errors = result.getFieldErrors().stream()
-					.map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
-					.collect(Collectors.toList());
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-			
-		}
-
-		if (adoptanteActual == null) {
-			
-			response.put("mensaje", "Error: no se pudo editar, el adoptante ID: "
-					.concat(id.toString().concat(" no existe en la base de datos!")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			
-		}
-
-		try {
-			
-			adoptanteActual.setApellido1(adoptante.getApellido1());
-			adoptanteActual.setApellido2(adoptante.getApellido2());
-			adoptanteActual.setNombre(adoptante.getNombre());
-			adoptanteActual.setEmail(adoptante.getEmail());
-			adoptanteActual.setTelefono(adoptante.getTelefono());
-			adoptanteActual.setCiudad(adoptante.getCiudad());
-			adoptanteUpdated = adoptanteService.save(adoptanteActual);		
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al actualizar el adoptante en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-
-		response.put("mensaje", "El adoptante se ha actualizado con exito!");
-		response.put("adoptante", adoptanteUpdated);
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
-
-	@PreAuthorize("hasRole('ADMIN')")
-	@DeleteMapping("/adoptantes/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			
-			Adoptante adoptante = adoptanteService.findById(id);
-			
-
-			adoptanteService.delete(id);
-			
-		} catch (DataAccessException e) {
-			
-			response.put("mensaje", "Error al eliminar el adoptante en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
-		}
-		
-		response.put("mensaje", "El adoptante se ha eliminado con exito!");
-
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		
-	}
-
 
 }
 

@@ -3,6 +3,7 @@ import { Voluntaria } from '../voluntaria';
 import { VoluntariaService } from '../voluntaria.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-voluntaria-nuevo',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class VoluntariaNuevoComponent implements OnInit {
 
   public voluntaria: Voluntaria = new Voluntaria();
-  public titulo: string = 'Crear voluntaria'; 
+  public titulo: string = 'Crear voluntari@'; 
   public errores: string[];
 
 
@@ -27,22 +28,17 @@ export class VoluntariaNuevoComponent implements OnInit {
 
   create() {
 
-
     this.voluntariaService.create(this.voluntaria).subscribe(
-      data => {
-        this.toastr.success('Voluntaria Creada', 'OK', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
-        this.router.navigate(['/voluntarias']);
+      json => {
+        this.router.navigate(['/residencias'])
+        Swal.fire('Nuev@ voluntari@', `${json.mensaje}:  ${json.voluntaria.nombre}`, 'success')
       },
       err => {
         this.errores = err.error.errors as string[];
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000, positionClass: 'toast-top-center',
-        });
+        console.error('Codigo del error desde el backend' + err.status);
+        console.error(err.error.errors);
+      })
 
-      }
-    );
 
   }
 

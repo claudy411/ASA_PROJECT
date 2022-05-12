@@ -1,7 +1,6 @@
 package com.asa.model.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,43 +9,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="eventos")
-public class Evento implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4201748380504716352L;
+@Table(name = "eventos")
+public class Evento {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotNull(message="no puede estar vacío!")
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
+	private LocalDateTime fecha;
+
 	private String descripcion;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String nombre;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_localizacion", referencedColumnName = "id")
+	@JoinColumn(name = "id_localizacion", referencedColumnName = "id")
 	private Localizacion localizacion;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="evento")
+
+	@ManyToMany
+	@JoinTable(name = "eventos_voluntarias", joinColumns = @JoinColumn(name = "id_evento"), inverseJoinColumns = @JoinColumn(name = "id_voluntaria"))
 	private List<Voluntaria> voluntarios;
+
+	@OneToOne(mappedBy = "evento")
+	private Horario horario;
 
 	public Long getId() {
 		return id;
@@ -56,11 +47,11 @@ public class Evento implements Serializable{
 		this.id = id;
 	}
 
-	public Date getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 
@@ -80,15 +71,20 @@ public class Evento implements Serializable{
 		this.nombre = nombre;
 	}
 
-//	public Localizacion getLocalizacion() {
-//		return localizacion;
-//	}
-//
-//	public void setLocalizacion(Localizacion localizacion) {
-//		this.localizacion = localizacion;
-//	}
+	public Localizacion getLocalizacion() {
+		return localizacion;
+	}
 
+	public void setLocalizacion(Localizacion localizacion) {
+		this.localizacion = localizacion;
+	}
 
-	
-	
+	public List<Voluntaria> getVoluntarios() {
+		return voluntarios;
+	}
+
+	public void setVoluntarios(List<Voluntaria> voluntarios) {
+		this.voluntarios = voluntarios;
+	}
+
 }

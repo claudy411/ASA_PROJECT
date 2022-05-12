@@ -1,8 +1,10 @@
+import { Encargado } from '../encargados-localizaciones/encargado';
+import { Evento } from '../eventos/evento';
 export class Localizacion {
     id:number;
     nombre:string;
-    calle:string;
-    numero:string;
-    cp:string;
+direccion:string;
     localidad:string;
+    encargados:Encargado[];
+    evento:Evento;
 }

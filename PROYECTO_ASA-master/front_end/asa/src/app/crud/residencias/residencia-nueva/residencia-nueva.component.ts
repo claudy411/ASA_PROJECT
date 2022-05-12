@@ -26,21 +26,23 @@ export class ResidenciaNuevaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  create() {
+  // create() {
 
-    this.residenciaService.create(this.residencia).subscribe(
-      json => {
-        this.router.navigate(['/residencias'])
-        Swal.fire('Nuevo residencia', `${json.mensaje}:  ${json.residencia.nombre}`, 'success')
-      },
-      err => {
-        this.errores = err.error.errors as string[];
-        console.error('Codigo del error desde el backend' + err.status);
-        console.error(err.error.errors);
-      })
+  //   this.residenciaService.create(this.residencia).subscribe(
+  //     json => {
+  //       this.router.navigate(['/residencias'])
+  //       Swal.fire('Nuevo residencia', `${json.mensaje}:  ${json.residencia.nombre}`, 'success')
+  //     },
+  //     err => {
+  //       this.errores = err.error.errors as string[];
+  //       console.error('Codigo del error desde el backend' + err.status);
+  //       console.error(err.error.errors);
+  //     })
+
+    
 
   }
 
 
 
-}
+

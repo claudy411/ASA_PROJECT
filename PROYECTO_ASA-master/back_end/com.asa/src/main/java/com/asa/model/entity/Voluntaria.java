@@ -1,54 +1,38 @@
 package com.asa.model.entity;
 
-import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="voluntarias")
-public class Voluntaria extends Usuarios implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -338973690140202790L;
-	
+@Table(name = "voluntarias")
+public class Voluntaria {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String nombre;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String apellido1;
-	
 
 	private String apellido2;
-	
-	@NotEmpty(message="no puede estar vacío!")
-	@Email(message=" el formato no es válido!")
-	@Column(nullable = false, unique = true)
+
 	private String email;
-	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String telefono;
 
-	@NotEmpty(message="no puede estar vacío!")
+	private String direccion;
+
 	private String ciudad;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_evento", nullable = false)
-	private Evento evento;
+
+	@ManyToMany(mappedBy = "voluntarios")
+	private List<Evento> eventos;
 
 	public Long getId() {
 		return id;
@@ -106,14 +90,20 @@ public class Voluntaria extends Usuarios implements Serializable {
 		this.ciudad = ciudad;
 	}
 
-	public Evento getEvento() {
-		return evento;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setEvento(Evento evento) {
-		this.evento = evento;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
-	
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
 
 }

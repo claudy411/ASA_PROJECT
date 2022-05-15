@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import enumerados.Situacion;
-import enumerados.Size;
-import enumerados.Tipo;
+import com.asa.enumerados.Situacion;
+import com.asa.enumerados.Size;
+import com.asa.enumerados.Tipo;
 
 public class MascotaDto {
 	

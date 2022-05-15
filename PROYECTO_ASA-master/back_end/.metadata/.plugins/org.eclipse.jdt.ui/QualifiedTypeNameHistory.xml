@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.asa.model.services.ICRUD"/>
-    <fullyQualifiedTypeName name="com.asa.model.entity.Adoptante"/>
-    <fullyQualifiedTypeName name="com.asa.model.services.impl.CRUDImpl"/>
-    <fullyQualifiedTypeName name="com.asa.model.entity.EncargadoLocalizacion"/>
-    <fullyQualifiedTypeName name="com.asa.model.entity.Localizacion"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.Mascota"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.Residencia"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.Voluntaria"/>
@@ -31,7 +26,6 @@
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ControllerAdvice"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="com.asa.exceptions.ExceptionResponse"/>
@@ -51,7 +45,6 @@
     <fullyQualifiedTypeName name="com.asa.model.services.IEventoService"/>
     <fullyQualifiedTypeName name="com.asa.model.services.IHorarioService"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.HorarioPK"/>
-    <fullyQualifiedTypeName name="com.asa.model.entity.Evento"/>
     <fullyQualifiedTypeName name="com.asa.model.services.IImagenMascotaService"/>
     <fullyQualifiedTypeName name="com.asa.model.services.ILocalizacionService"/>
     <fullyQualifiedTypeName name="com.asa.model.services.IMascotaService"/>
@@ -60,4 +53,11 @@
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
     <fullyQualifiedTypeName name="com.example.demo.dao.IGenericDao"/>
+    <fullyQualifiedTypeName name="com.asa.security.response.JwtDto"/>
+    <fullyQualifiedTypeName name="com.asa.enumerados.Sexo"/>
+    <fullyQualifiedTypeName name="com.asa.model.ILocalizacionDao"/>
+    <fullyQualifiedTypeName name="com.asa.model.entity.Evento"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.asa.model.IEventoDao"/>
+    <fullyQualifiedTypeName name="com.asa.model.entity.Localizacion"/>
 </qualifiedTypeNameHistroy>

@@ -47,12 +47,12 @@ public class MascotaRestController {
 
 	}
 
-	@GetMapping("/page/{page}") // ojo aqui no va el dto
-	public Page<Mascota> verPorPag(@PathVariable Integer page) {
-
-		return service.findAll(PageRequest.of(page, 4));
-
-	}
+//	@GetMapping("/page/{page}") // ojo aqui no va el dto
+//	public Page<Mascota> verPorPag(@PathVariable Integer page) {
+//
+//		return service.findAll(PageRequest.of(page, 4));
+//
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<MascotaDto> verPorId(@PathVariable Long id) throws Exception {

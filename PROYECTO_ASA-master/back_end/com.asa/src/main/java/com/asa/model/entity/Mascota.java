@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,12 +19,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-import enumerados.Situacion;
-import enumerados.Size;
-import enumerados.Tipo;
+import com.asa.enumerados.Sexo;
+import com.asa.enumerados.Situacion;
+import com.asa.enumerados.Size;
+import com.asa.enumerados.Tipo;
 
 @Entity
 @Table(name="mascotas")
@@ -33,36 +34,39 @@ public class Mascota {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message="no puede estar vacío!")
+
+	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
 	
-	@NotEmpty(message="no puede estar vacío!")
+
 	@Column(nullable = false)
 	private String nombre;
 	
 	
-	@NotNull(message="no puede estar vacío!")
+
 	@Column(name="f_nacimiento")
 	@Temporal(TemporalType.DATE)
 	private Date fNacimiento;
 	
 	@Column(name="f_entrada")
-	@NotNull(message="no puede estar vacío!")
 	@Temporal(TemporalType.DATE)
 	private Date fEntrada;
 	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String raza;
 	
-	@NotEmpty(message="no puede estar vacío!")
-	private String sexo;
+
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
 	
-	@NotEmpty(message="no puede estar vacío!")
+
 	private String caracter;//caracter
 	
+	@Enumerated(EnumType.STRING)
 	private Size size;
 	
-	@NotNull(message="no puede estar vacío!")
+
+	@Enumerated(EnumType.STRING)
 	private Situacion situacion;//en residencia, en acogida o adoptado
 	
 	@ManyToMany(mappedBy = "mascotas")
@@ -107,11 +111,11 @@ public class Mascota {
 	}
 
 	
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 

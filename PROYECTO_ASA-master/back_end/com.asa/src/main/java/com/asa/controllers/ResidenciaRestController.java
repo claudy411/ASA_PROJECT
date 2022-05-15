@@ -46,12 +46,12 @@ public class ResidenciaRestController {
 
 	}
 
-	@GetMapping("/page/{page}") // ojo aqui no va el dto
-	public Page<Residencia> verPorPag(@PathVariable Integer page) {
-
-		return service.findAll(PageRequest.of(page, 4));
-
-	}
+//	@GetMapping("/page/{page}") // ojo aqui no va el dto
+//	public Page<Residencia> verPorPag(@PathVariable Integer page) {
+//
+//		return service.findAll(PageRequest.of(page, 4));
+//
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ResidenciaDto> verPorId(@PathVariable Long id) throws Exception {

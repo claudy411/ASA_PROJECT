@@ -47,12 +47,12 @@ public class EventoRestController {
 
 	}
 
-	@GetMapping("/page/{page}") // ojo aqui no va el dto
-	public Page<Evento> verPorPag(@PathVariable Integer page) {
-
-		return service.findAll(PageRequest.of(page, 4));
-
-	}
+//	@GetMapping("/page/{page}") // ojo aqui no va el dto
+//	public Page<Evento> verPorPag(@PathVariable Integer page) {
+//
+//		return service.findAll(PageRequest.of(page, 4));
+//
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<EventoDto> verPorId(@PathVariable Long id) throws Exception {

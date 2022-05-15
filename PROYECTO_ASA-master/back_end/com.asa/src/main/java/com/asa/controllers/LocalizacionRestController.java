@@ -47,12 +47,12 @@ public class LocalizacionRestController {
 
 	}
 
-	@GetMapping("/page/{page}") // ojo aqui no va el dto
-	public Page<Localizacion> verPorPag(@PathVariable Integer page) {
-
-		return service.findAll(PageRequest.of(page, 4));
-
-	}
+//	@GetMapping("/page/{page}") // ojo aqui no va el dto
+//	public Page<Localizacion> verPorPag(@PathVariable Integer page) {
+//
+//		return service.findAll(PageRequest.of(page, 4));
+//
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<LocalizacionDto> verPorId(@PathVariable Long id) throws Exception {

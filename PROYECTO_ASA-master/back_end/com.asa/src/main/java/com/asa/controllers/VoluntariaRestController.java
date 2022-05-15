@@ -47,12 +47,12 @@ public class VoluntariaRestController {
 
 	}
 
-	@GetMapping("/page/{page}") // ojo aqui no va el dto
-	public Page<Voluntaria> verPorPag(@PathVariable Integer page) {
-
-		return service.findAll(PageRequest.of(page, 4));
-
-	}
+//	@GetMapping("/page/{page}") // ojo aqui no va el dto
+//	public Page<Voluntaria> verPorPag(@PathVariable Integer page) {
+//
+//		return service.findAll(PageRequest.of(page, 4));
+//
+//	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<VoluntariaDto> verPorId(@PathVariable Long id) throws Exception {

@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\badil\Desktop\PROYECTO_ASA-master\PROYECTO_ASA-master\back_end"/>
 			<item value="C:\Users\badil\Desktop\proyecto_asa\pruebas\pruebas"/>
 			<item value="C:\Users\badil\Desktop\codigos_ejemplo\auth\tutorial_jwt_BACK-master"/>
 			<item value="C:\Users\badil\Desktop\petclinic\spring-petclinic-rest-master"/>

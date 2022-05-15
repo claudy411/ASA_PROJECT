@@ -60,17 +60,17 @@ public class AuthController {
     	
         if(bindingResult.hasErrors()) {
         	response.put("mensaje", "campos mal puestos o email inválido");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         	
         if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())) {
         	response.put("mensaje","ese nombre ya existe");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
            
         if(usuarioService.existsByEmail(nuevoUsuario.getEmail())) {
         	response.put("mensaje","ese email ya existe");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
            
         Usuario usuario =
@@ -86,7 +86,7 @@ public class AuthController {
         usuario.setRoles(roles);
         usuarioService.save(usuario);
         response.put("mensaje","usuario guardado");
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
@@ -105,6 +105,6 @@ public class AuthController {
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
-        return new ResponseEntity(jwtDto, HttpStatus.OK);
+        return new ResponseEntity<>(jwtDto, HttpStatus.OK);
     }
 }

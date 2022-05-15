@@ -15,9 +15,9 @@ public abstract class CRUDImpl<T,ID> {
 		return getRepo().findAll(); 
 	}
 	
-	public Page<T> findAll(Pageable pageable){
-		return getRepo().findAll(pageable);
-	}
+//	public Page<T> findAll(Pageable pageable){
+//		return getRepo().findAll(pageable);
+//	}
 	
 	public T findById(ID id) throws Exception{
 		return getRepo().findById(id).orElse(null);

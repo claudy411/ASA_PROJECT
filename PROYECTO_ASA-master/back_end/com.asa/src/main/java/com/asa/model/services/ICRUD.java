@@ -11,7 +11,7 @@ public interface ICRUD<T,ID> {
 
 	public List<T> findAll() throws Exception;
 
-	public Page<T> findAll(Pageable pageable);
+//	public Page<T> findAll(Pageable pageable);
 
 	public T findById(ID id) throws Exception;
 

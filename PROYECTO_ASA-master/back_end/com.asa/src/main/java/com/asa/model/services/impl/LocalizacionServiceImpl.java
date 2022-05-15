@@ -3,6 +3,7 @@ package com.asa.model.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.asa.model.IEventoDao;
 import com.asa.model.IGenericDao;
 import com.asa.model.ILocalizacionDao;
 import com.asa.model.entity.Localizacion;
@@ -13,6 +14,8 @@ public class LocalizacionServiceImpl  extends CRUDImpl<Localizacion, Long> imple
 	
 	@Autowired
 	private ILocalizacionDao locDao;
+	
+	
 
 	@Override
 	protected IGenericDao<Localizacion, Long> getRepo() {

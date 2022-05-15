@@ -32,6 +32,8 @@ public class Residencia {
 	private String cp;
 
 	private String localidad;
+	
+	private String email;
 
 	public Long getId() {
 		return id;
@@ -104,5 +106,14 @@ public class Residencia {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 
 }

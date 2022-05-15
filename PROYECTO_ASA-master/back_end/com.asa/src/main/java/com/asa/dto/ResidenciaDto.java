@@ -1,5 +1,6 @@
 package com.asa.dto;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 public class ResidenciaDto {
@@ -29,6 +30,10 @@ public class ResidenciaDto {
 
 	@NotEmpty(message = "no puede estar vacío!")
 	private String localidad;
+	
+	@NotEmpty(message = "no puede estar vacío!")
+	@Email(message = " el formato no es válido!")
+	private String email;
 
 	public Long getId() {
 		return id;
@@ -102,4 +107,13 @@ public class ResidenciaDto {
 		this.localidad = localidad;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 }

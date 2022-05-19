@@ -1,14 +1,12 @@
 package com.asa.model.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,9 +31,9 @@ public class Adoptante {
 
 	private String ciudad;
 
-	@ManyToMany
-	@JoinTable(name = "adoptante_mascota", joinColumns = @JoinColumn(name = "id_adoptante"), inverseJoinColumns = @JoinColumn(name = "id_mascota"))
-	private List<Mascota> mascotas;
+	@ManyToOne
+	@JoinColumn(name="id_mascota",nullable = false,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
+	private Mascota mascota;
 
 	public Long getId() {
 		return id;
@@ -89,16 +87,16 @@ public class Adoptante {
 		return ciudad;
 	}
 
+	public Mascota getMascota() {
+		return mascota;
+	}
+
+	public void setMascota(Mascota mascota) {
+		this.mascota = mascota;
+	}
+
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
-	}
-
-	public List<Mascota> getMascotas() {
-		return mascotas;
-	}
-
-	public void setMascotas(List<Mascota> mascotas) {
-		this.mascotas = mascotas;
 	}
 
 	public String getDireccion() {

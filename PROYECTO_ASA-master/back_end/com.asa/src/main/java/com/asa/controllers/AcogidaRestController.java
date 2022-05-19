@@ -1,5 +1,6 @@
 package com.asa.controllers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.asa.dto.AcogidaDto;
 import com.asa.exceptions.ModelNotFoundException;
@@ -55,7 +57,7 @@ public class AcogidaRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AcogidaDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<AcogidaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Acogida tabla = service.findById(id);
 
@@ -86,7 +88,7 @@ public class AcogidaRestController {
 //	public ResponseEntity<Void> insertar(@Valid @RequestBody AcogidaDto datosDelFront) throws Exception {
 //		
 //		Acogida objeto = mapper.map(datosDelFront, Acogida.class);
-//		Acogida objetoTabla= acogidaService.save(objeto);
+//		Acogida objetoTabla= service.save(objeto);
 //		AcogidaDto dtoResponse= mapper.map(objetoTabla, AcogidaDto.class);
 //		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dtoResponse.getId()).toUri();
 //		return ResponseEntity.created(location).build();

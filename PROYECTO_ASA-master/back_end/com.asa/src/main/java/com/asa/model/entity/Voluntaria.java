@@ -2,11 +2,16 @@ package com.asa.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,8 +36,9 @@ public class Voluntaria {
 
 	private String ciudad;
 
-	@ManyToMany(mappedBy = "voluntarios")
-	private List<Evento> eventos;
+	@ManyToOne
+	@JoinColumn(name="id_evento",nullable = false)
+	private Evento evento;
 
 	public Long getId() {
 		return id;
@@ -98,12 +104,14 @@ public class Voluntaria {
 		this.direccion = direccion;
 	}
 
-	public List<Evento> getEventos() {
-		return eventos;
+	public Evento getEvento() {
+		return evento;
 	}
 
-	public void setEventos(List<Evento> eventos) {
-		this.eventos = eventos;
+	public void setEvento(Evento evento) {
+		this.evento = evento;
 	}
+
+
 
 }

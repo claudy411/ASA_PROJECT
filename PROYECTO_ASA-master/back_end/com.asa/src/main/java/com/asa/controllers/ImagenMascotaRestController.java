@@ -1,8 +1,14 @@
 package com.asa.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -20,12 +26,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.asa.dto.ImgMascotaDto;
 import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.ImagenMascota;
+import com.asa.model.entity.Mascota;
 import com.asa.model.services.IImagenMascotaService;
+import com.asa.model.services.IMascotaService;
+import com.asa.model.services.IUploadFileService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -38,6 +49,12 @@ public class ImagenMascotaRestController {
 	@Autowired
 	private ModelMapper mapper;
 
+	@Autowired
+	private IUploadFileService uploadService;
+	
+	@Autowired
+	private IMascotaService mascotaService;
+	
 	@GetMapping
 	public ResponseEntity<List<ImgMascotaDto>> ver() throws Exception {
 
@@ -55,7 +72,7 @@ public class ImagenMascotaRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ImgMascotaDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<ImgMascotaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		ImagenMascota tabla = service.findById(id);
 
@@ -70,13 +87,40 @@ public class ImagenMascotaRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
-	public ResponseEntity<ImgMascotaDto> insertar(@Valid @RequestBody ImgMascotaDto datosDelFront) throws Exception {
+	public ResponseEntity<?> insertar(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) throws Exception {
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		Mascota mascota = mascotaService.findById(id);
+		
+		if(!archivo.isEmpty()) {
 
-		ImagenMascota delFront = mapper.map(datosDelFront, ImagenMascota.class);
-		ImagenMascota objetoTabla = service.save(delFront);
-		ImgMascotaDto dtoResponse = mapper.map(objetoTabla, ImgMascotaDto.class);
-
-		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
+			String nombreArchivo = null;
+			try {
+				nombreArchivo = uploadService.copiar(archivo);
+			} catch (IOException e) {
+				response.put("mensaje", "Error al subir la imagen ");
+				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			
+			Path ruta=uploadService.getPath(nombreArchivo);
+			ImagenMascota img= new ImagenMascota();
+			
+			img.setUrl(ruta.toString());
+			img.setMascota(mascota);
+			
+			
+			service.save(img);
+			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
+		}
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+//		ImagenMascota delFront = mapper.map(datosDelFront, ImagenMascota.class);
+//		ImagenMascota objetoTabla = service.save(delFront);
+//		ImgMascotaDto dtoResponse = mapper.map(objetoTabla, ImgMascotaDto.class);
+//
+//		return new ResponseEntity<>(dtoResponse, HttpStatus.CREATED);
 
 	}
 
@@ -124,5 +168,6 @@ public class ImagenMascotaRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
+	
 
 }

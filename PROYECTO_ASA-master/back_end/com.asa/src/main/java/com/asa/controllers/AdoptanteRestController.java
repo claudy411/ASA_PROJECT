@@ -55,7 +55,7 @@ public class AdoptanteRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<AdoptanteDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<AdoptanteDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Adoptante tabla = service.findById(id);
 

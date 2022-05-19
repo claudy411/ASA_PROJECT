@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,10 +26,10 @@ public class Localizacion {
 
 	private String localidad;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "localizacion")
+	@OneToMany( mappedBy = "localizacion",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<EncargadoLocalizacion> encargados;
 
-	@OneToOne(mappedBy = "localizacion")
+	@OneToOne(mappedBy = "localizacion",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Evento evento;
 
 	public Long getId() {

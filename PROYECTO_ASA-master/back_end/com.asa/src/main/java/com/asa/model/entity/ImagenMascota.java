@@ -16,9 +16,11 @@ public class ImagenMascota {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	private String url;
+	 
 	@ManyToOne
 	@JoinColumn(name = "id_mascota", nullable = false)
-	private Mascota mascota;
+	private Mascota fmascota;
 
 	public Long getId() {
 		return id;
@@ -29,11 +31,20 @@ public class ImagenMascota {
 	}
 
 	public Mascota getMascota() {
-		return mascota;
+		return fmascota;
 	}
 
 	public void setMascota(Mascota mascota) {
-		this.mascota = mascota;
+		this.fmascota = mascota;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	
 }

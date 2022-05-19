@@ -55,7 +55,7 @@ public class LocalizacionRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<LocalizacionDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<LocalizacionDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Localizacion tabla = service.findById(id);
 

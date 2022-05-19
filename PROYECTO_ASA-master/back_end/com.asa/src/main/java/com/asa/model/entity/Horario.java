@@ -7,11 +7,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "horarios")
-@IdClass(HorarioPK.class)
+//@IdClass(HorarioPK.class)
 public class Horario {
 
 	@Id
-	private Evento evento;
+	private Long evento;
 
 	private String _10a11;
 	private String _11a12;
@@ -25,11 +25,11 @@ public class Horario {
 	private String _19a20;
 	private String _20a21;
 
-	public Evento getEvento() {
+	public Long getEvento() {
 		return evento;
 	}
 
-	public void setEvento(Evento evento) {
+	public void setEvento(Long evento) {
 		this.evento = evento;
 	}
 

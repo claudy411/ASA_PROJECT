@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.asa.model.IEventoDao;
 import com.asa.model.IGenericDao;
 import com.asa.model.ILocalizacionDao;
+import com.asa.model.entity.Evento;
 import com.asa.model.entity.Localizacion;
 import com.asa.model.services.ILocalizacionService;
 
@@ -22,6 +23,8 @@ public class LocalizacionServiceImpl  extends CRUDImpl<Localizacion, Long> imple
 		// TODO Auto-generated method stub
 		return locDao;
 	}
+
+
 
 	
 }

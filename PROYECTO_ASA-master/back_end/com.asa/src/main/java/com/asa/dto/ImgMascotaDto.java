@@ -6,6 +6,8 @@ public class ImgMascotaDto {
 
 	private Long id;
 
+	private String url;
+	
 	private Mascota mascota;
 
 	public Long getId() {
@@ -24,4 +26,13 @@ public class ImgMascotaDto {
 		this.mascota = mascota;
 	}
 
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	
 }

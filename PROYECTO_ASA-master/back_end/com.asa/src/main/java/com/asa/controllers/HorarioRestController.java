@@ -7,8 +7,6 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asa.dto.HorarioDto;
 import com.asa.exceptions.ModelNotFoundException;
-import com.asa.model.entity.Evento;
 import com.asa.model.entity.Horario;
 import com.asa.model.services.IHorarioService;
 
@@ -56,7 +53,7 @@ public class HorarioRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<HorarioDto> verPorId(@PathVariable Evento id) throws Exception {
+	public ResponseEntity<HorarioDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Horario tabla = service.findById(id);
 
@@ -113,7 +110,7 @@ public class HorarioRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") Evento id) throws Exception {
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
 
 		Horario consultado = service.findById(id);
 

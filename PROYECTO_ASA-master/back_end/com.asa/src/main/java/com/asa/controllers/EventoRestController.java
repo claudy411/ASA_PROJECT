@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.dto.EventoDto;
 import com.asa.exceptions.ModelNotFoundException;
 import com.asa.model.entity.Evento;
+import com.asa.model.entity.Localizacion;
 import com.asa.model.services.IEventoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -55,7 +56,7 @@ public class EventoRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EventoDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<EventoDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Evento tabla = service.findById(id);
 
@@ -70,7 +71,7 @@ public class EventoRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
-	public ResponseEntity<EventoDto> insertar(@Valid @RequestBody EventoDto datosDelFront) throws Exception {
+	public ResponseEntity<EventoDto> insertar(@RequestBody EventoDto datosDelFront) throws Exception {
 
 		Evento delFront = mapper.map(datosDelFront, Evento.class);
 		Evento objetoTabla = service.save(delFront);
@@ -124,5 +125,6 @@ public class EventoRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
-
+	
+	
 }

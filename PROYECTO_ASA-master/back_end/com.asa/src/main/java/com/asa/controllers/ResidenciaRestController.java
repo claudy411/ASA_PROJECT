@@ -54,7 +54,7 @@ public class ResidenciaRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ResidenciaDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<ResidenciaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Residencia tabla = service.findById(id);
 

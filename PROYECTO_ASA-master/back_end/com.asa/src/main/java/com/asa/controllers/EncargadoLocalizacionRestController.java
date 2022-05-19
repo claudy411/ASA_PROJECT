@@ -55,7 +55,7 @@ public class EncargadoLocalizacionRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<EncargadoDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<EncargadoDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		EncargadoLocalizacion tabla = service.findById(id);
 

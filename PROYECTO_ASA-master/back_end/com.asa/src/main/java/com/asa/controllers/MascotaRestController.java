@@ -55,7 +55,7 @@ public class MascotaRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MascotaDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<MascotaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Mascota tabla = service.findById(id);
 

@@ -29,7 +29,7 @@ import com.asa.model.services.IVoluntariaService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
-@RequestMapping("/asa/voluntarias")
+@RequestMapping("/asa/voluntarios")
 public class VoluntariaRestController {
 
 	@Autowired
@@ -55,7 +55,7 @@ public class VoluntariaRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<VoluntariaDto> verPorId(@PathVariable Long id) throws Exception {
+	public ResponseEntity<VoluntariaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Voluntaria tabla = service.findById(id);
 

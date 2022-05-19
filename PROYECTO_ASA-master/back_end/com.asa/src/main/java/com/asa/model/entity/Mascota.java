@@ -69,18 +69,21 @@ public class Mascota {
 	@Enumerated(EnumType.STRING)
 	private Situacion situacion;//en residencia, en acogida o adoptado
 	
-	@ManyToMany(mappedBy = "mascotas")
+	@OneToMany(mappedBy = "mascota",cascade = CascadeType.ALL)
 	private List<Adoptante> adoptantes;
 
-	@ManyToMany(mappedBy = "mascotass")
+	@OneToMany(mappedBy = "mascotass",cascade = CascadeType.ALL)
 	private List<Acogida> acogidas;
 	
-	@ManyToOne(fetch=FetchType.EAGER)	
-	@JoinColumn(name = "residencia_id")
+	@ManyToOne	
+	@JoinColumn(name = "residencia_id",nullable = false)
 	private Residencia residencia;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="mascota")
+	@OneToMany( mappedBy="fmascota",cascade=CascadeType.ALL)
 	private List<ImagenMascota> fotos;
+	
+	@ManyToMany(mappedBy = "pMascotas",cascade = CascadeType.PERSIST)
+	private List<Padrino> padrinos;
 	
 	public Long getId() {
 		return id;

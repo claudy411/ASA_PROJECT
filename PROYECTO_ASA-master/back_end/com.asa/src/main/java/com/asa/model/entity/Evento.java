@@ -5,13 +5,10 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,8 +27,9 @@ public class Evento {
 
 	private String nombre;
 
-	@OneToOne
-	@JoinColumn(name = "id_evento", referencedColumnName = "id")
+	@OneToOne(mappedBy = "evento")
+//	@JoinColumn(name = "id", nullable = false, unique = true)
+	
 	private Localizacion localizacion;
 
 	@OneToMany(mappedBy = "evento",cascade = CascadeType.ALL)

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,12 +69,14 @@ public class Mascota {
 
 	@Enumerated(EnumType.STRING)
 	private Situacion situacion;//en residencia, en acogida o adoptado
-	
-	@OneToMany(mappedBy = "mascota",cascade = CascadeType.ALL)
-	private List<Adoptante> adoptantes;
 
-	@OneToMany(mappedBy = "mascotass",cascade = CascadeType.ALL)
-	private List<Acogida> acogidas;
+	@ManyToOne
+	@JoinColumn(name="id_adoptante",nullable = false,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
+	private Adoptante adoptante;
+
+	@ManyToOne
+	@JoinColumn(name="id_acogida",nullable = false,foreignKey = @ForeignKey(name="FK_acogidas_mascotas"))
+	private Acogida acogida;
 	
 	@ManyToOne	
 	@JoinColumn(name = "residencia_id",nullable = false)
@@ -89,114 +92,112 @@ public class Mascota {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public Date getfNacimiento() {
-		return fNacimiento;
-	}
-
-	public void setfNacimiento(Date fNacimiento) {
-		this.fNacimiento = fNacimiento;
-	}
-
-	public Date getfEntrada() {
-		return fEntrada;
-	}
-
-	
-	public Sexo getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(Sexo sexo) {
-		this.sexo = sexo;
-	}
-
-	public void setfEntrada(Date fEntrada) {
-		this.fEntrada = fEntrada;
-	}
-
-	public String getRaza() {
-		return raza;
-	}
-
-	public void setRaza(String raza) {
-		this.raza = raza;
-	}
 
 	public Tipo getTipo() {
 		return tipo;
 	}
 
+
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public Date getfNacimiento() {
+		return fNacimiento;
+	}
+
+
+	public void setfNacimiento(Date fNacimiento) {
+		this.fNacimiento = fNacimiento;
+	}
+
+
+	public Date getfEntrada() {
+		return fEntrada;
+	}
+
+
+	public void setfEntrada(Date fEntrada) {
+		this.fEntrada = fEntrada;
+	}
+
+
+	public String getRaza() {
+		return raza;
+	}
+
+
+	public void setRaza(String raza) {
+		this.raza = raza;
+	}
+
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
 
 	public String getCaracter() {
 		return caracter;
 	}
 
+
 	public void setCaracter(String caracter) {
 		this.caracter = caracter;
 	}
 
-	public Situacion getSituacion() {
-		return situacion;
-	}
-
-	public void setSituacion(Situacion situacion) {
-		this.situacion = situacion;
-	}
 
 	public Size getSize() {
 		return size;
 	}
 
+
 	public void setSize(Size size) {
 		this.size = size;
 	}
 
-	public List<Adoptante> getAdoptantes() {
-		return adoptantes;
+
+	public Situacion getSituacion() {
+		return situacion;
 	}
 
-	public void setAdoptantes(List<Adoptante> adoptantes) {
-		this.adoptantes = adoptantes;
+
+	public void setSituacion(Situacion situacion) {
+		this.situacion = situacion;
 	}
 
-	public List<Acogida> getAcogidas() {
-		return acogidas;
-	}
-
-	public void setAcogidas(List<Acogida> acogidas) {
-		this.acogidas = acogidas;
-	}
 
 	public Residencia getResidencia() {
 		return residencia;
 	}
 
+
 	public void setResidencia(Residencia residencia) {
 		this.residencia = residencia;
 	}
+	
 
-	public List<ImagenMascota> getFotos() {
-		return fotos;
-	}
-
-	public void setFotos(List<ImagenMascota> fotos) {
-		this.fotos = fotos;
-	}
 
 	
 

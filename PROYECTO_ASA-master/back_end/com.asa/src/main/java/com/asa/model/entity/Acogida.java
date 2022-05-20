@@ -2,15 +2,15 @@ package com.asa.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,9 +35,8 @@ public class Acogida {
 
 	private String ciudad;
 
-	@ManyToOne
-	@JoinColumn(name="id_mascota",nullable = false,foreignKey = @ForeignKey(name="FK_acogidas_mascotas"))
-	private Mascota mascotass;
+	@OneToMany(mappedBy = "acogida",cascade = CascadeType.ALL)
+	private List<Mascota>  mascotass;
 
 	public Long getId() {
 		return id;
@@ -94,14 +93,13 @@ public class Acogida {
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	
 
-	public Mascota getMascota() {
+	public List<Mascota> getMascotass() {
 		return mascotass;
 	}
 
-	public void setMascota(Mascota mascota) {
-		this.mascotass = mascota;
+	public void setMascotass(List<Mascota> mascotass) {
+		this.mascotass = mascotass;
 	}
 
 	public String getDireccion() {

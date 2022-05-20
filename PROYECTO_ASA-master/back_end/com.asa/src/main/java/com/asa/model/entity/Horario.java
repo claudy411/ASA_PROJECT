@@ -2,12 +2,11 @@ package com.asa.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "horarios")
-//@IdClass(HorarioPK.class)
+
 public class Horario {
 
 	@Id

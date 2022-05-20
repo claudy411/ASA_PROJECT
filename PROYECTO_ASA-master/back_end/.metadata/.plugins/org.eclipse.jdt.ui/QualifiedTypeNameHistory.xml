@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.asa.model.dao.IHorarioDao"/>
     <fullyQualifiedTypeName name="com.asa.controllers.HorarioRestController"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.Horario"/>
     <fullyQualifiedTypeName name="javax.persistence.IdClass"/>
@@ -55,9 +54,10 @@
     <fullyQualifiedTypeName name="com.asa.model.entity.ImagenMascota"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.asa.model.ILocalizacionDao"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.Localizacion"/>
     <fullyQualifiedTypeName name="com.asa.model.entity.HorarioPK"/>
     <fullyQualifiedTypeName name="java.net.URI"/>
     <fullyQualifiedTypeName name="org.springframework.web.servlet.support.ServletUriComponentsBuilder"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
 </qualifiedTypeNameHistroy>

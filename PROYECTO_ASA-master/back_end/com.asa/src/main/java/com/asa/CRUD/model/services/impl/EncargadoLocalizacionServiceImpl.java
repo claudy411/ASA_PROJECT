@@ -3,10 +3,10 @@ package com.asa.CRUD.model.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.asa.CRUD.model.IEncargadoLocalizacionDao;
-import com.asa.CRUD.model.IGenericDao;
+import com.asa.CRUD.model.dao.IEncargadoLocalizacionDao;
+import com.asa.CRUD.model.dao.IGenericDao;
 import com.asa.CRUD.model.entity.EncargadoLocalizacion;
-import com.asa.CRUD.model.services.IEncargadoService;
+import com.asa.CRUD.model.services.interfaces.IEncargadoService;
 
 @Service
 public class EncargadoLocalizacionServiceImpl extends CRUDImpl<EncargadoLocalizacion, Long> implements IEncargadoService {

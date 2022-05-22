@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.CRUD.dto.ResidenciaDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Residencia;
-import com.asa.CRUD.model.services.IResidenciaService;
+import com.asa.CRUD.model.services.interfaces.IResidenciaService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

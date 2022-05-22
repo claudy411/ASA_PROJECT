@@ -12,7 +12,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.asa.CRUD.model.services.IUploadFileService;
+import com.asa.CRUD.model.services.interfaces.IUploadFileService;
 
 @Service
 

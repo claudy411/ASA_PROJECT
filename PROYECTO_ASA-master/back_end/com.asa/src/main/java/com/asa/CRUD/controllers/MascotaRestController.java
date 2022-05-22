@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.CRUD.dto.MascotaDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Mascota;
-import com.asa.CRUD.model.services.IMascotaService;
+import com.asa.CRUD.model.services.interfaces.IMascotaService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

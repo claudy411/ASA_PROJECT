@@ -3,10 +3,10 @@ package com.asa.CRUD.model.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.asa.CRUD.model.IGenericDao;
-import com.asa.CRUD.model.IVolutariaDao;
+import com.asa.CRUD.model.dao.IGenericDao;
+import com.asa.CRUD.model.dao.IVolutariaDao;
 import com.asa.CRUD.model.entity.Voluntaria;
-import com.asa.CRUD.model.services.IVoluntariaService;
+import com.asa.CRUD.model.services.interfaces.IVoluntariaService;
 
 
 @Service

@@ -1,6 +1,5 @@
 package com.asa.CRUD.controllers;
 
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,8 +7,6 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,12 +19,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.asa.CRUD.dto.AcogidaDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Acogida;
-import com.asa.CRUD.model.services.IAcogidaService;
+import com.asa.CRUD.model.services.interfaces.IAcogidaService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

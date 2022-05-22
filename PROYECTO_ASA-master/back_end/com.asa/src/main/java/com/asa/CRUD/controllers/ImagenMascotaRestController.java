@@ -34,9 +34,9 @@ import com.asa.CRUD.dto.ImgMascotaDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.ImagenMascota;
 import com.asa.CRUD.model.entity.Mascota;
-import com.asa.CRUD.model.services.IImagenMascotaService;
-import com.asa.CRUD.model.services.IMascotaService;
-import com.asa.CRUD.model.services.IUploadFileService;
+import com.asa.CRUD.model.services.interfaces.IImagenMascotaService;
+import com.asa.CRUD.model.services.interfaces.IMascotaService;
+import com.asa.CRUD.model.services.interfaces.IUploadFileService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

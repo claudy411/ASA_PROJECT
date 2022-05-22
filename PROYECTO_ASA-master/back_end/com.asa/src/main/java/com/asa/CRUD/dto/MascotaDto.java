@@ -40,6 +40,8 @@ public class MascotaDto {
 	
 	@NotNull(message="no puede estar vacío!")
 	private Situacion situacion;//en residencia, en acogida o adoptado
+	
+	private String fotoPerfil;
 
 	public Long getId() {
 		return id;

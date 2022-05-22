@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.CRUD.dto.HorarioDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Horario;
-import com.asa.CRUD.model.services.IHorarioService;
+import com.asa.CRUD.model.services.interfaces.IHorarioService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

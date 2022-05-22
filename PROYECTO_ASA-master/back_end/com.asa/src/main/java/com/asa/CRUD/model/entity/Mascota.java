@@ -68,6 +68,8 @@ public class Mascota {
 
 	@Enumerated(EnumType.STRING)
 	private Situacion situacion;//en residencia, en acogida o adoptado
+	
+	private String fotoPerfil;
 
 	@ManyToOne
 	@JoinColumn(name="id_adoptante",nullable = false,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
@@ -194,6 +196,56 @@ public class Mascota {
 
 	public void setResidencia(Residencia residencia) {
 		this.residencia = residencia;
+	}
+
+
+	public String getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+
+	public void setFotoPerfil(String fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
+	}
+
+
+	public Adoptante getAdoptante() {
+		return adoptante;
+	}
+
+
+	public void setAdoptante(Adoptante adoptante) {
+		this.adoptante = adoptante;
+	}
+
+
+	public Acogida getAcogida() {
+		return acogida;
+	}
+
+
+	public void setAcogida(Acogida acogida) {
+		this.acogida = acogida;
+	}
+
+
+	public List<ImagenMascota> getFotos() {
+		return fotos;
+	}
+
+
+	public void setFotos(List<ImagenMascota> fotos) {
+		this.fotos = fotos;
+	}
+
+
+	public List<Padrino> getPadrinos() {
+		return padrinos;
+	}
+
+
+	public void setPadrinos(List<Padrino> padrinos) {
+		this.padrinos = padrinos;
 	}
 	
 

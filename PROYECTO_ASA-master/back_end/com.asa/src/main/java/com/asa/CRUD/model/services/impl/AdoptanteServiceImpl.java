@@ -3,10 +3,10 @@ package com.asa.CRUD.model.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.asa.CRUD.model.IAdoptanteDao;
-import com.asa.CRUD.model.IGenericDao;
+import com.asa.CRUD.model.dao.IAdoptanteDao;
+import com.asa.CRUD.model.dao.IGenericDao;
 import com.asa.CRUD.model.entity.Adoptante;
-import com.asa.CRUD.model.services.IAdoptanteService;
+import com.asa.CRUD.model.services.interfaces.IAdoptanteService;
 
 @Service
 public class AdoptanteServiceImpl extends CRUDImpl<Adoptante, Long> implements IAdoptanteService {

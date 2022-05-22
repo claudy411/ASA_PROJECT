@@ -3,10 +3,10 @@ package com.asa.CRUD.model.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.asa.CRUD.model.IGenericDao;
-import com.asa.CRUD.model.IPadrinoDao;
+import com.asa.CRUD.model.dao.IGenericDao;
+import com.asa.CRUD.model.dao.IPadrinoDao;
 import com.asa.CRUD.model.entity.Padrino;
-import com.asa.CRUD.model.services.IPadrinoService;
+import com.asa.CRUD.model.services.interfaces.IPadrinoService;
 
 @Service
 public class PadrinoServiceImplements extends CRUDImpl<Padrino, Long> implements IPadrinoService {

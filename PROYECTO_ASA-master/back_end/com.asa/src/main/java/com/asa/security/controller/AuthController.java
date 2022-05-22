@@ -23,15 +23,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.security.dto.JwtDto;
+import com.asa.security.dto.LoginUsuario;
+import com.asa.security.dto.NuevoUsuario;
 import com.asa.security.enumerados.RolNombre;
 import com.asa.security.jwt.JwtProvider;
 import com.asa.security.model.entity.Rol;
 import com.asa.security.model.entity.Usuario;
 import com.asa.security.model.service.RolService;
 import com.asa.security.model.service.UsuarioService;
-import com.asa.security.response.JwtDto;
-import com.asa.security.response.LoginUsuario;
-import com.asa.security.response.NuevoUsuario;
 
 @RestController
 @RequestMapping("/auth")
@@ -77,7 +77,7 @@ public class AuthController {
                 new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getEmail(),
                         passwordEncoder.encode(nuevoUsuario.getPassword()));
         Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
+        roles.add(rolService.getByRolNombre(RolNombre.ROLE_VOLUNTARIO).get());
         
         if(nuevoUsuario.getRoles().contains("admin")) {
         	roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());

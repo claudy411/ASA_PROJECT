@@ -1,6 +1,7 @@
 package com.asa.CRUD.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "eventos")
@@ -21,15 +24,16 @@ public class Evento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private LocalDateTime fecha;
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
 
 	private String descripcion;
 
 	private String nombre;
 
-	@OneToOne(mappedBy = "evento")
-//	@JoinColumn(name = "id", nullable = false, unique = true)
 	
+//	@JoinColumn(name = "id", nullable = false, unique = true)
+	@OneToOne(mappedBy = "evento")
 	private Localizacion localizacion;
 
 	@OneToMany(mappedBy = "evento",cascade = CascadeType.ALL)
@@ -44,11 +48,11 @@ public class Evento {
 		this.id = id;
 	}
 
-	public LocalDateTime getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDateTime fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.CRUD.dto.VoluntariaDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Voluntaria;
-import com.asa.CRUD.model.services.IVoluntariaService;
+import com.asa.CRUD.model.services.interfaces.IVoluntariaService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

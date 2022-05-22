@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.CRUD.dto.PadrinoDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Padrino;
-import com.asa.CRUD.model.services.IAcogidaService;
-import com.asa.CRUD.model.services.IPadrinoService;
+import com.asa.CRUD.model.services.interfaces.IAcogidaService;
+import com.asa.CRUD.model.services.interfaces.IPadrinoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController

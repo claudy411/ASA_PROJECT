@@ -1,6 +1,7 @@
 package com.asa.CRUD.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -10,27 +11,15 @@ public class EventoDto {
 	private Long id;
 
 	@NotNull(message = "no puede estar vacío!")
-	private LocalDateTime fecha;
+	private Date fecha;
 
 	@NotEmpty(message = "no puede estar vacío!")
 	private String descripcion;
 
 	@NotEmpty(message = "no puede estar vacío!")
 	private String nombre;
-//	
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id_localizacion", referencedColumnName = "id")
-//	private Localizacion localizacion;
-//	
-//	@ManyToMany
-//	@JoinTable(
-//	  name = "eventos_voluntarias", 
-//	  joinColumns = @JoinColumn(name = "id_evento"), 
-//	  inverseJoinColumns = @JoinColumn(name = "id_voluntaria"))
-//	private List<Voluntaria> voluntarios;
-//	
-//	@OneToOne(mappedBy = "evento")
-//	private Horario horario;
+
+
 
 	public Long getId() {
 		return id;
@@ -40,11 +29,11 @@ public class EventoDto {
 		this.id = id;
 	}
 
-	public LocalDateTime getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDateTime fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

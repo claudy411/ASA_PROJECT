@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.asa.CRUD.model.IGenericDao;
+import com.asa.CRUD.model.dao.IGenericDao;
 
 public abstract class CRUDImpl<T,ID> {
 

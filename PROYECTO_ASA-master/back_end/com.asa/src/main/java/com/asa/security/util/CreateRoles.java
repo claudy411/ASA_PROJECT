@@ -24,8 +24,10 @@ public class CreateRoles implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 //		Rol rolAdmin = new Rol(RolNombre.ROLE_ADMIN);
 //		Rol rolVoluntario = new Rol(RolNombre.ROLE_VOLUNTARIO);
+//		Rol rolPublic= new Rol(RolNombre.ROLE_PUBLIC);
 //		rolService.save(rolAdmin);
 //		rolService.save(rolVoluntario);
+//		rolService.save(rolPublic);
 
 	}
 }

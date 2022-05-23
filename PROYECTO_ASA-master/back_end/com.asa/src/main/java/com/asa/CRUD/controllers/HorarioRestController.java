@@ -91,7 +91,7 @@ public class HorarioRestController {
 //		
 //	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+
 	@PutMapping
 	public ResponseEntity<HorarioDto> actualizar(@Valid @RequestBody Horario datosDelFront) throws Exception {
 

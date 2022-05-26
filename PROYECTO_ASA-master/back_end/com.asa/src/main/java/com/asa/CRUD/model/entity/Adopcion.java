@@ -1,5 +1,7 @@
 package com.asa.CRUD.model.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,8 @@ public class Adopcion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private Date fecha;
 	
 	private String mascotaNombre;
 	
@@ -34,15 +38,15 @@ public class Adopcion {
 	
 	private Integer tamaniofamilia;
 	
-	private Boolean nenes;
+	private String nenes;
 	
-	private Boolean acuerdo;
+	private String acuerdo;
 	
 	private String cuidar;
 	
-	private Boolean alergia;
+	private String alergia;
 	
-	private Boolean animalEnCasa;
+	private String animalEnCasa;
 	
 	private String infoMascotaEnCasa;
 	
@@ -50,7 +54,7 @@ public class Adopcion {
 	
 	private String gastos;
 	
-	private Boolean permisoAlquiler;
+	private String permisoAlquiler;
 	
 	private String rinconMascota;
 	
@@ -68,7 +72,7 @@ public class Adopcion {
 	
 	private String importante;
 	
-	private Boolean asesoramiento;
+	private String asesoramiento;
 	
 	private String recoger;
 	
@@ -88,9 +92,18 @@ public class Adopcion {
 	
 	private String tiempo;
 	
-	private Boolean visita;
+	private String visita;
 	
-	private Boolean pagar;
+	private String pagar;
+	
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
 	public Long getId() {
 		return id;
@@ -114,6 +127,14 @@ public class Adopcion {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getMascotaNombre() {
+		return mascotaNombre;
+	}
+
+	public void setMascotaNombre(String mascotaNombre) {
+		this.mascotaNombre = mascotaNombre;
 	}
 
 	public String getApellidos() {
@@ -180,19 +201,19 @@ public class Adopcion {
 		this.tamaniofamilia = tamaniofamilia;
 	}
 
-	public Boolean getNenes() {
+	public String getNenes() {
 		return nenes;
 	}
 
-	public void setNenes(Boolean nenes) {
+	public void setNenes(String nenes) {
 		this.nenes = nenes;
 	}
 
-	public Boolean getAcuerdo() {
+	public String getAcuerdo() {
 		return acuerdo;
 	}
 
-	public void setAcuerdo(Boolean acuerdo) {
+	public void setAcuerdo(String acuerdo) {
 		this.acuerdo = acuerdo;
 	}
 
@@ -204,19 +225,19 @@ public class Adopcion {
 		this.cuidar = cuidar;
 	}
 
-	public Boolean getAlergia() {
+	public String getAlergia() {
 		return alergia;
 	}
 
-	public void setAlergia(Boolean alergia) {
+	public void setAlergia(String alergia) {
 		this.alergia = alergia;
 	}
 
-	public Boolean getAnimalEnCasa() {
+	public String getAnimalEnCasa() {
 		return animalEnCasa;
 	}
 
-	public void setAnimalEnCasa(Boolean animalEnCasa) {
+	public void setAnimalEnCasa(String animalEnCasa) {
 		this.animalEnCasa = animalEnCasa;
 	}
 
@@ -244,11 +265,11 @@ public class Adopcion {
 		this.gastos = gastos;
 	}
 
-	public Boolean getPermisoAlquiler() {
+	public String getPermisoAlquiler() {
 		return permisoAlquiler;
 	}
 
-	public void setPermisoAlquiler(Boolean permisoAlquiler) {
+	public void setPermisoAlquiler(String permisoAlquiler) {
 		this.permisoAlquiler = permisoAlquiler;
 	}
 
@@ -316,11 +337,11 @@ public class Adopcion {
 		this.importante = importante;
 	}
 
-	public Boolean getAsesoramiento() {
+	public String getAsesoramiento() {
 		return asesoramiento;
 	}
 
-	public void setAsesoramiento(Boolean asesoramiento) {
+	public void setAsesoramiento(String asesoramiento) {
 		this.asesoramiento = asesoramiento;
 	}
 
@@ -396,19 +417,19 @@ public class Adopcion {
 		this.tiempo = tiempo;
 	}
 
-	public Boolean getVisita() {
+	public String getVisita() {
 		return visita;
 	}
 
-	public void setVisita(Boolean visita) {
+	public void setVisita(String visita) {
 		this.visita = visita;
 	}
 
-	public Boolean getPagar() {
+	public String getPagar() {
 		return pagar;
 	}
 
-	public void setPagar(Boolean pagar) {
+	public void setPagar(String pagar) {
 		this.pagar = pagar;
 	}
 

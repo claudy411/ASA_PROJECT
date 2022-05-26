@@ -1,0 +1,12 @@
+pendiente:
+
+	terminar formulario adopciones
+	//mostrar eventos en web publica
+	insertar y actualizar en toda las tablas
+	buscar por tipo en mascota y mostrarlo en el front
+	foto de mascotas
+	arreglar el colabora en modo movil
+	ver perros y gatos en el inicio web
+
+
+AuthToken:"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGluYSIsImlhdCI6MTY1MzMwOTczNywiZXhwIjoxNjUzMzQ1NzM3fQ.5LnVVc99nmZ_lpV1jCo9Lbsww-py0WwP-xzQox2pzHVfXt8rCjuZN3JwubWxVtpXxGpHJeXmp6QLgw_MpHv4tw"

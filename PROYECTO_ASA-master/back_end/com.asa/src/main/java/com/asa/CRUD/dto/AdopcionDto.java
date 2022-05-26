@@ -1,6 +1,12 @@
 package com.asa.CRUD.dto;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.NumberFormat;
 
 import com.asa.CRUD.model.entity.Mascota;
 
@@ -9,7 +15,8 @@ public class AdopcionDto {
 	private Long id;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Mascota mascota;
+//	@Value("Klaus")//OJO QUITAR!!!!!!!!!!!                          MIRA BIEN AQUI!!!!!!!!!
+	private String mascota;
 	
 	@NotNull(message="no puede estar vacío!")
 	private String nombre;
@@ -21,6 +28,7 @@ public class AdopcionDto {
 	private String email;
 
 	@NotNull(message="no puede estar vacío!")
+	@Size(min=9, max=9)
 	private String telefono;
 	
 	@NotNull(message="no puede estar vacío!")
@@ -39,19 +47,19 @@ public class AdopcionDto {
 	private Integer tamaniofamilia;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean nenes;
+	private String nenes;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean acuerdo;
+	private String acuerdo;
 	
 	@NotNull(message="no puede estar vacío!")
 	private String cuidar;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean alergia;
+	private String alergia;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean animalEnCasa;
+	private String animalEnCasa;
 	
 
 	private String infoMascotaEnCasa;
@@ -63,7 +71,7 @@ public class AdopcionDto {
 	private String gastos;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean permisoAlquiler;
+	private String permisoAlquiler;
 	
 	@NotNull(message="no puede estar vacío!")
 	private String rinconMascota;
@@ -90,7 +98,7 @@ public class AdopcionDto {
 	private String importante;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean asesoramiento;
+	private String asesoramiento;
 	
 	@NotNull(message="no puede estar vacío!")
 	private String recoger;
@@ -120,10 +128,20 @@ public class AdopcionDto {
 	private String tiempo;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean visita;
+	private String visita;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Boolean pagar;
+	private String pagar;
+	
+	private Date fecha;
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
 
 	public Long getId() {
 		return id;
@@ -133,11 +151,12 @@ public class AdopcionDto {
 		this.id = id;
 	}
 
-	public Mascota getMascota() {
+
+	public String getMascota() {
 		return mascota;
 	}
 
-	public void setMascota(Mascota mascota) {
+	public void setMascota(String mascota) {
 		this.mascota = mascota;
 	}
 
@@ -213,19 +232,19 @@ public class AdopcionDto {
 		this.tamaniofamilia = tamaniofamilia;
 	}
 
-	public Boolean getNenes() {
+	public String getNenes() {
 		return nenes;
 	}
 
-	public void setNenes(Boolean nenes) {
+	public void setNenes(String nenes) {
 		this.nenes = nenes;
 	}
 
-	public Boolean getAcuerdo() {
+	public String getAcuerdo() {
 		return acuerdo;
 	}
 
-	public void setAcuerdo(Boolean acuerdo) {
+	public void setAcuerdo(String acuerdo) {
 		this.acuerdo = acuerdo;
 	}
 
@@ -237,19 +256,19 @@ public class AdopcionDto {
 		this.cuidar = cuidar;
 	}
 
-	public Boolean getAlergia() {
+	public String getAlergia() {
 		return alergia;
 	}
 
-	public void setAlergia(Boolean alergia) {
+	public void setAlergia(String alergia) {
 		this.alergia = alergia;
 	}
 
-	public Boolean getAnimalEnCasa() {
+	public String getAnimalEnCasa() {
 		return animalEnCasa;
 	}
 
-	public void setAnimalEnCasa(Boolean animalEnCasa) {
+	public void setAnimalEnCasa(String animalEnCasa) {
 		this.animalEnCasa = animalEnCasa;
 	}
 
@@ -277,11 +296,11 @@ public class AdopcionDto {
 		this.gastos = gastos;
 	}
 
-	public Boolean getPermisoAlquiler() {
+	public String getPermisoAlquiler() {
 		return permisoAlquiler;
 	}
 
-	public void setPermisoAlquiler(Boolean permisoAlquiler) {
+	public void setPermisoAlquiler(String permisoAlquiler) {
 		this.permisoAlquiler = permisoAlquiler;
 	}
 
@@ -349,11 +368,11 @@ public class AdopcionDto {
 		this.importante = importante;
 	}
 
-	public Boolean getAsesoramiento() {
+	public String getAsesoramiento() {
 		return asesoramiento;
 	}
 
-	public void setAsesoramiento(Boolean asesoramiento) {
+	public void setAsesoramiento(String asesoramiento) {
 		this.asesoramiento = asesoramiento;
 	}
 
@@ -429,21 +448,22 @@ public class AdopcionDto {
 		this.tiempo = tiempo;
 	}
 
-	public Boolean getVisita() {
+	public String getVisita() {
 		return visita;
 	}
 
-	public void setVisita(Boolean visita) {
+	public void setVisita(String visita) {
 		this.visita = visita;
 	}
 
-	public Boolean getPagar() {
+	public String getPagar() {
 		return pagar;
 	}
 
-	public void setPagar(Boolean pagar) {
+	public void setPagar(String pagar) {
 		this.pagar = pagar;
 	}
+
 	
 	
 

@@ -1,5 +1,7 @@
 package com.asa.CRUD.model.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,24 @@ public class MascotaServiceImpl extends CRUDImpl<Mascota, Long> implements IMasc
 	protected IGenericDao<Mascota, Long> getRepo() {
 		// TODO Auto-generated method stub
 		return mascotaDao;
+	}
+
+	@Override
+	public List<Mascota> buscarPorTipo(String tipo) {
+		// TODO Auto-generated method stub
+		return mascotaDao.findByTipo(tipo);
+	}
+
+	@Override
+	public List<Mascota> buscarPorSituacion(String situacion) {
+		// TODO Auto-generated method stub
+		return mascotaDao.findBySituacion(situacion);
+	}
+
+	@Override
+	public String verFoto(Long id) {
+		// TODO Auto-generated method stub
+		return mascotaDao.getFoto(id);
 	}
 	
 	

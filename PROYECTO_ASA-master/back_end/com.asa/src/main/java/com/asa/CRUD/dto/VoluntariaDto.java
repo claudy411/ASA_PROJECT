@@ -3,6 +3,8 @@ package com.asa.CRUD.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.asa.CRUD.model.entity.Evento;
+
 public class VoluntariaDto {
 
 	private Long id;
@@ -27,6 +29,7 @@ public class VoluntariaDto {
 
 	@NotEmpty(message = "no puede estar vacío!")
 	private String ciudad;
+
 
 	public Long getId() {
 		return id;

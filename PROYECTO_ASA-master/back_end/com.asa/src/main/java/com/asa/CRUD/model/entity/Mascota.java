@@ -35,8 +35,8 @@ public class Mascota {
 	private Long id;
 	
 
-	@Enumerated(EnumType.STRING)
-	private Tipo tipo;
+//	@Enumerated(EnumType.STRING)
+	private String tipo;
 	
 
 	@Column(nullable = false)
@@ -56,199 +56,167 @@ public class Mascota {
 	private String raza;
 	
 
-	@Enumerated(EnumType.STRING)
-	private Sexo sexo;
+//	@Enumerated(EnumType.STRING)
+	private String sexo;
 	
 
 	private String caracter;//caracter
 	
-	@Enumerated(EnumType.STRING)
-	private Size size;
+//	@Enumerated(EnumType.STRING)
+	private String size;
 	
 
-	@Enumerated(EnumType.STRING)
-	private Situacion situacion;//en residencia, en acogida o adoptado
+//	@Enumerated(EnumType.STRING)
+	private String situacion;//en residencia, en acogida o adoptado
 	
 	private String fotoPerfil;
 
-	@ManyToOne
-	@JoinColumn(name="id_adoptante",nullable = false,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
-	private Adoptante adoptante;
+//	@ManyToOne
+//	@JoinColumn(name="id_adoptante",nullable = true,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
+//	private Adoptante adoptante;
+//
+//	@ManyToOne
+//	@JoinColumn(name="id_acogida",nullable = true,foreignKey = @ForeignKey(name="FK_acogidas_mascotas"))
+//	private Acogida acogida;
+//	
+//	@ManyToOne	
+//	@JoinColumn(name = "residencia_id",nullable = false)
+//	private Residencia residencia;
+//	
+//	@OneToMany( mappedBy="fmascota",cascade=CascadeType.ALL)
+//	private List<ImagenMascota> fotos;
+//	
+//	@ManyToMany(mappedBy = "pMascotas",cascade = CascadeType.PERSIST)
+//	private List<Padrino> padrinos;
+//	
+//	public Adoptante getAdoptante() {
+//		return adoptante;
+//	}
+//
+//	public void setAdoptante(Adoptante adoptante) {
+//		this.adoptante = adoptante;
+//	}
+//
+//	public Acogida getAcogida() {
+//		return acogida;
+//	}
+//
+//	public void setAcogida(Acogida acogida) {
+//		this.acogida = acogida;
+//	}
+//
+//	public Residencia getResidencia() {
+//		return residencia;
+//	}
+//
+//	public void setResidencia(Residencia residencia) {
+//		this.residencia = residencia;
+//	}
+//
+//	public List<ImagenMascota> getFotos() {
+//		return fotos;
+//	}
+//
+//	public void setFotos(List<ImagenMascota> fotos) {
+//		this.fotos = fotos;
+//	}
+//
+//	public List<Padrino> getPadrinos() {
+//		return padrinos;
+//	}
+//
+//	public void setPadrinos(List<Padrino> padrinos) {
+//		this.padrinos = padrinos;
+//	}
+	
 
-	@ManyToOne
-	@JoinColumn(name="id_acogida",nullable = false,foreignKey = @ForeignKey(name="FK_acogidas_mascotas"))
-	private Acogida acogida;
-	
-	@ManyToOne	
-	@JoinColumn(name = "residencia_id",nullable = false)
-	private Residencia residencia;
-	
-	@OneToMany( mappedBy="fmascota",cascade=CascadeType.ALL)
-	private List<ImagenMascota> fotos;
-	
-	@ManyToMany(mappedBy = "pMascotas",cascade = CascadeType.PERSIST)
-	private List<Padrino> padrinos;
-	
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public Tipo getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-
-	public void setTipo(Tipo tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public Date getfNacimiento() {
 		return fNacimiento;
 	}
 
-
 	public void setfNacimiento(Date fNacimiento) {
 		this.fNacimiento = fNacimiento;
 	}
-
 
 	public Date getfEntrada() {
 		return fEntrada;
 	}
 
-
 	public void setfEntrada(Date fEntrada) {
 		this.fEntrada = fEntrada;
 	}
-
 
 	public String getRaza() {
 		return raza;
 	}
 
-
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
 
-
-	public Sexo getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 
-
-	public void setSexo(Sexo sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
 
 	public String getCaracter() {
 		return caracter;
 	}
 
-
 	public void setCaracter(String caracter) {
 		this.caracter = caracter;
 	}
 
-
-	public Size getSize() {
+	public String getSize() {
 		return size;
 	}
 
-
-	public void setSize(Size size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
-
-	public Situacion getSituacion() {
+	public String getSituacion() {
 		return situacion;
 	}
 
-
-	public void setSituacion(Situacion situacion) {
+	public void setSituacion(String situacion) {
 		this.situacion = situacion;
 	}
-
-
-	public Residencia getResidencia() {
-		return residencia;
-	}
-
-
-	public void setResidencia(Residencia residencia) {
-		this.residencia = residencia;
-	}
-
 
 	public String getFotoPerfil() {
 		return fotoPerfil;
 	}
 
-
 	public void setFotoPerfil(String fotoPerfil) {
 		this.fotoPerfil = fotoPerfil;
 	}
-
-
-	public Adoptante getAdoptante() {
-		return adoptante;
-	}
-
-
-	public void setAdoptante(Adoptante adoptante) {
-		this.adoptante = adoptante;
-	}
-
-
-	public Acogida getAcogida() {
-		return acogida;
-	}
-
-
-	public void setAcogida(Acogida acogida) {
-		this.acogida = acogida;
-	}
-
-
-	public List<ImagenMascota> getFotos() {
-		return fotos;
-	}
-
-
-	public void setFotos(List<ImagenMascota> fotos) {
-		this.fotos = fotos;
-	}
-
-
-	public List<Padrino> getPadrinos() {
-		return padrinos;
-	}
-
-
-	public void setPadrinos(List<Padrino> padrinos) {
-		this.padrinos = padrinos;
-	}
-	
-
 
 	
 

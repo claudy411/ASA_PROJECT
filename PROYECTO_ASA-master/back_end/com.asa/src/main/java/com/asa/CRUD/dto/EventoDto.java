@@ -2,9 +2,13 @@ package com.asa.CRUD.dto;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.asa.CRUD.model.entity.Localizacion;
+import com.asa.CRUD.model.entity.Voluntaria;
 
 public class EventoDto {
 
@@ -13,13 +17,22 @@ public class EventoDto {
 	@NotNull(message = "no puede estar vacío!")
 	private Date fecha;
 
-	@NotEmpty(message = "no puede estar vacío!")
+	@NotNull(message = "no puede estar vacío!")
 	private String descripcion;
 
-	@NotEmpty(message = "no puede estar vacío!")
+	@NotNull(message = "no puede estar vacío!")
 	private String nombre;
-
-
+	
+//	private Localizacion localizacion;
+//	
+//
+//	public Localizacion getLocalizacion() {
+//		return localizacion;
+//	}
+//
+//	public void setLocalizacion(Localizacion localizacion) {
+//		this.localizacion = localizacion;
+//	}
 
 	public Long getId() {
 		return id;

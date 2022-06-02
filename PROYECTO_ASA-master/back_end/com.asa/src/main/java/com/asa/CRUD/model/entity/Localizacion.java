@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "localizaciones")
 public class Localizacion {
@@ -27,13 +29,33 @@ public class Localizacion {
 
 	private String localidad;
 
-	@OneToMany( mappedBy = "localizacion",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private List<EncargadoLocalizacion> encargados;
+//	@OneToMany(mappedBy = "localizacion",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	private List<EncargadoLocalizacion> encargados;
 
-	@OneToOne
-	@JoinColumn(name="id")
-	private Evento evento;
-
+	
+//									los eventos son varios en la misma localizacion arreglarlo!!!
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="id_evento")
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	private Evento evento;
+//
+//	public List<EncargadoLocalizacion> getEncargados() {
+//		return encargados;
+//	}
+//
+//	public void setEncargados(List<EncargadoLocalizacion> encargados) {
+//		this.encargados = encargados;
+//	}
+//
+//	public Evento getEvento() {
+//		return evento;
+//	}
+//
+//	public void setEvento(Evento evento) {
+//		this.evento = evento;
+//	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -66,20 +88,6 @@ public class Localizacion {
 		this.localidad = localidad;
 	}
 
-	public List<EncargadoLocalizacion> getEncargados() {
-		return encargados;
-	}
 
-	public void setEncargados(List<EncargadoLocalizacion> encargados) {
-		this.encargados = encargados;
-	}
-
-	public Evento getEvento() {
-		return evento;
-	}
-
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
 
 }

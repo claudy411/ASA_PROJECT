@@ -1,6 +1,8 @@
 package com.asa.CRUD.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -8,6 +10,11 @@ import javax.validation.constraints.NotNull;
 import com.asa.CRUD.enumerados.Situacion;
 import com.asa.CRUD.enumerados.Size;
 import com.asa.CRUD.enumerados.Tipo;
+import com.asa.CRUD.model.entity.Acogida;
+import com.asa.CRUD.model.entity.Adoptante;
+import com.asa.CRUD.model.entity.ImagenMascota;
+import com.asa.CRUD.model.entity.Padrino;
+import com.asa.CRUD.model.entity.Residencia;
 
 public class MascotaDto {
 	
@@ -15,17 +22,17 @@ public class MascotaDto {
 	private Long id;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Tipo tipo;
+	private String tipo;
 	
 	@NotEmpty(message="no puede estar vacío!")
 	private String nombre;
 	
 	
 	@NotNull(message="no puede estar vacío!")
-	private LocalDateTime fNacimiento;
+	private Date fNacimiento;
 	
 	@NotNull(message="no puede estar vacío!")
-	private LocalDateTime fEntrada;
+	private Date fEntrada;
 	
 	@NotEmpty(message="no puede estar vacío!")
 	private String raza;
@@ -36,12 +43,64 @@ public class MascotaDto {
 	@NotEmpty(message="no puede estar vacío!")
 	private String caracter;//caracter
 	
-	private Size size;
+	private String size;
 	
 	@NotNull(message="no puede estar vacío!")
-	private Situacion situacion;//en residencia, en acogida o adoptado
+	private String situacion;//en residencia, en acogida o adoptado
 	
 	private String fotoPerfil;
+	
+//	private Adoptante adoptante;
+//	
+//	private Acogida acogida;
+//	
+//	private Residencia residencia;
+//	
+//	private List<Padrino> padrinos;
+//	
+//	private List<ImagenMascota> fotos;
+//	
+//	
+//
+//	public Adoptante getAdoptante() {
+//		return adoptante;
+//	}
+//
+//	public void setAdoptante(Adoptante adoptante) {
+//		this.adoptante = adoptante;
+//	}
+//
+//	public Acogida getAcogida() {
+//		return acogida;
+//	}
+//
+//	public void setAcogida(Acogida acogida) {
+//		this.acogida = acogida;
+//	}
+//
+//	public Residencia getResidencia() {
+//		return residencia;
+//	}
+//
+//	public void setResidencia(Residencia residencia) {
+//		this.residencia = residencia;
+//	}
+//
+//	public List<Padrino> getPadrinos() {
+//		return padrinos;
+//	}
+//
+//	public void setPadrinos(List<Padrino> padrinos) {
+//		this.padrinos = padrinos;
+//	}
+//
+//	public List<ImagenMascota> getFotos() {
+//		return fotos;
+//	}
+//
+//	public void setFotos(List<ImagenMascota> fotos) {
+//		this.fotos = fotos;
+//	}
 
 	public Long getId() {
 		return id;
@@ -51,11 +110,11 @@ public class MascotaDto {
 		this.id = id;
 	}
 
-	public Tipo getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Tipo tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
@@ -67,20 +126,29 @@ public class MascotaDto {
 		this.nombre = nombre;
 	}
 
-	public LocalDateTime getfNacimiento() {
+	
+	public Date getfNacimiento() {
 		return fNacimiento;
 	}
 
-	public void setfNacimiento(LocalDateTime fNacimiento) {
+	public void setfNacimiento(Date fNacimiento) {
 		this.fNacimiento = fNacimiento;
 	}
 
-	public LocalDateTime getfEntrada() {
+	public Date getfEntrada() {
 		return fEntrada;
 	}
 
-	public void setfEntrada(LocalDateTime fEntrada) {
+	public void setfEntrada(Date fEntrada) {
 		this.fEntrada = fEntrada;
+	}
+
+	public String getFotoPerfil() {
+		return fotoPerfil;
+	}
+
+	public void setFotoPerfil(String fotoPerfil) {
+		this.fotoPerfil = fotoPerfil;
 	}
 
 	public String getRaza() {
@@ -107,19 +175,19 @@ public class MascotaDto {
 		this.caracter = caracter;
 	}
 
-	public Size getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(Size size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
-	public Situacion getSituacion() {
+	public String getSituacion() {
 		return situacion;
 	}
 
-	public void setSituacion(Situacion situacion) {
+	public void setSituacion(String situacion) {
 		this.situacion = situacion;
 	}
 	

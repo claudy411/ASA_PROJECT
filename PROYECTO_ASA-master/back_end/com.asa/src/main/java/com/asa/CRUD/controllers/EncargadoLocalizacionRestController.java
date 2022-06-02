@@ -47,12 +47,14 @@ public class EncargadoLocalizacionRestController {
 
 	}
 
-//	@GetMapping("/page/{page}") // ojo aqui no va el dto
-//	public Page<EncargadoLocalizacion> verPorPag(@PathVariable Integer page) {
-//
-//		return service.findAll(PageRequest.of(page, 4));
-//
-//	}
+	@GetMapping("/localizacion/{id}")
+	public ResponseEntity<List<EncargadoDto>> verPorLocalizacion(@PathVariable("id") Long id) throws Exception {
+		
+		List<EncargadoDto> lista = service.buscarPorLocalizacion(id).stream()
+				.map(datosBBDD -> mapper.map(datosBBDD, EncargadoDto.class)).collect(Collectors.toList());
+		return new ResponseEntity<List<EncargadoDto>>(lista, HttpStatus.OK);
+
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<EncargadoDto> verPorId(@PathVariable("id") Long id) throws Exception {

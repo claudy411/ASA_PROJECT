@@ -29,6 +29,18 @@ public class AcogidaDto {
 	
 	@NotEmpty(message="no puede estar vacío!")
 	private String ciudad;
+	
+	
+//	private String mascotass;
+//	
+//
+//	public String getMascotass() {
+//		return mascotass;
+//	}
+//
+//	public void setMascotass(String mascotass) {
+//		this.mascotass = mascotass;
+//	}
 
 	public Long getId() {
 		return id;

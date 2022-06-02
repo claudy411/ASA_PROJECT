@@ -3,6 +3,8 @@ package com.asa.CRUD.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.asa.CRUD.model.entity.Localizacion;
+
 public class EncargadoDto {
 
 	private Long id;
@@ -22,9 +24,18 @@ public class EncargadoDto {
 	@NotEmpty(message = "no puede estar vacío!")
 	private String telefono;
 
-//	@ManyToOne
-//	@JoinColumn(name = "id_localizacion", nullable = false)
-//	private Localizacion localizacion;
+	
+	private LocalizacionDto localizacion;
+
+
+
+	public LocalizacionDto getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(LocalizacionDto localizacion) {
+		this.localizacion = localizacion;
+	}
 
 	public Long getId() {
 		return id;

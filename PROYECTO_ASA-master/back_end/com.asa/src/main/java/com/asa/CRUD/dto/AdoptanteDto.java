@@ -1,7 +1,11 @@
 package com.asa.CRUD.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.asa.CRUD.model.entity.Mascota;
 
 public class AdoptanteDto {
 
@@ -30,12 +34,18 @@ public class AdoptanteDto {
 	@NotEmpty(message="no puede estar vacío!")
 	private String ciudad;
 	
-//	@ManyToMany
-//	@JoinTable(
-//	  name = "adoptante_mascota", 
-//	  joinColumns = @JoinColumn(name = "id_adoptante"), 
-//	  inverseJoinColumns = @JoinColumn(name = "id_mascota"))
+
 //	private List<Mascota>  mascotas;
+//	
+//	
+//
+//	public List<Mascota> getMascotas() {
+//		return mascotas;
+//	}
+//
+//	public void setMascotas(List<Mascota> mascotas) {
+//		this.mascotas = mascotas;
+//	}
 
 	public Long getId() {
 		return id;

@@ -1,8 +1,12 @@
 package com.asa.CRUD.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.asa.CRUD.model.entity.Mascota;
 
 public class PadrinoDto {
 
@@ -32,6 +36,17 @@ private Long id;
 	
 	@NotEmpty(message="no puede estar vacío!")
 	private String aportacion;
+	
+//	private List<Mascota> pMascotas;
+//	
+//
+//	public List<Mascota> getpMascotas() {
+//		return pMascotas;
+//	}
+//
+//	public void setpMascotas(List<Mascota> pMascotas) {
+//		this.pMascotas = pMascotas;
+//	}
 
 	public Long getId() {
 		return id;

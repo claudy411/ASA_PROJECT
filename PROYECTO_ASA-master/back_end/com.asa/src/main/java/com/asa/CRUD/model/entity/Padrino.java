@@ -16,12 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "padrinos")
 public class Padrino {
-	private List<Mascota> getPMascotas() {
-		if (this.pMascotas == null) {
-			this.pMascotas = new ArrayList<Mascota>();
-		}
-		return this.pMascotas;
-	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +37,19 @@ public class Padrino {
 	private String ciudad;
 
 	private String aportacion;
-	@ManyToMany
-	@JoinTable(name = "padrinos_mascotas", joinColumns = @JoinColumn(name = "padrino_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "mascota_id", referencedColumnName = "id"))
-	private List<Mascota> pMascotas;
+	
+//	@ManyToMany
+//	@JoinTable(name = "padrinos_mascotas", joinColumns = @JoinColumn(name = "padrino_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "mascota_id", referencedColumnName = "id"))
+//	private List<Mascota> pMascotas;
+//
+//
+//	public List<Mascota> getMascotas() {
+//		return pMascotas;
+//	}
+//
+//	public void setMascotas(List<Mascota> mascotas) {
+//		this.pMascotas = mascotas;
+//	}
 
 	public Long getId() {
 		return id;
@@ -116,14 +121,6 @@ public class Padrino {
 
 	public void setAportacion(String aportacion) {
 		this.aportacion = aportacion;
-	}
-
-	public List<Mascota> getMascotas() {
-		return pMascotas;
-	}
-
-	public void setMascotas(List<Mascota> mascotas) {
-		this.pMascotas = mascotas;
 	}
 
 }

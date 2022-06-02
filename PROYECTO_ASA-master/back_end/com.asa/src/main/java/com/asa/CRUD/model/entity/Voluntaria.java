@@ -10,9 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "voluntarias")
@@ -36,9 +39,7 @@ public class Voluntaria {
 
 	private String ciudad;
 
-	@ManyToOne
-	@JoinColumn(name="id_evento",nullable = false)
-	private Evento evento;
+
 
 	public Long getId() {
 		return id;
@@ -104,13 +105,7 @@ public class Voluntaria {
 		this.direccion = direccion;
 	}
 
-	public Evento getEvento() {
-		return evento;
-	}
 
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
 
 
 

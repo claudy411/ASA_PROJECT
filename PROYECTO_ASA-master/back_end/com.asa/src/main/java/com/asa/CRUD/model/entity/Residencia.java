@@ -40,17 +40,17 @@ public class Residencia {
 	
 	private String email;
 	
-	@OneToMany(mappedBy = "residencia",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private List<Mascota> mascotas;
-
-	
-	public List<Mascota> getMascotas() {
-		return mascotas;
-	}
-
-	public void setMascotas(List<Mascota> mascotas) {
-		this.mascotas = mascotas;
-	}
+//	@OneToMany(mappedBy = "residencia",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//	private List<Mascota> mascotas;
+//
+//	
+//	public List<Mascota> getMascotas() {
+//		return mascotas;
+//	}
+//
+//	public void setMascotas(List<Mascota> mascotas) {
+//		this.mascotas = mascotas;
+//	}
 
 	public Long getId() {
 		return id;

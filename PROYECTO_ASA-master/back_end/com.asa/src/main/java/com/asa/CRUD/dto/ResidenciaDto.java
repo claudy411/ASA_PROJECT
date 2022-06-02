@@ -1,7 +1,11 @@
 package com.asa.CRUD.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+
+import com.asa.CRUD.model.entity.Mascota;
 
 public class ResidenciaDto {
 
@@ -34,6 +38,18 @@ public class ResidenciaDto {
 	@NotEmpty(message = "no puede estar vacío!")
 	@Email(message = " el formato no es válido!")
 	private String email;
+	
+//	private List<Mascota> mascotas;
+//
+//	
+//	public List<Mascota> getMascotas() {
+//		return mascotas;
+//	}
+//
+//	public void setMascotas(List<Mascota> mascotas) {
+//		this.mascotas = mascotas;
+//	}
+
 
 	public Long getId() {
 		return id;

@@ -1,15 +1,26 @@
 package com.asa.CRUD.controllers;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,12 +31,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.asa.CRUD.dto.MascotaDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Mascota;
 import com.asa.CRUD.model.services.interfaces.IMascotaService;
+import com.asa.CRUD.model.services.interfaces.IUploadFileService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -35,6 +50,9 @@ public class MascotaRestController {
 	@Autowired
 	private IMascotaService service;
 
+	@Autowired
+	private IUploadFileService uploadService;
+	
 	@Autowired
 	private ModelMapper mapper;
 
@@ -53,7 +71,7 @@ public class MascotaRestController {
 //		return service.findAll(PageRequest.of(page, 4));
 //
 //	}
-
+//
 	@GetMapping("/{id}")
 	public ResponseEntity<MascotaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
@@ -67,7 +85,24 @@ public class MascotaRestController {
 		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
+	@GetMapping("/tipo/{tipo}")
+	public ResponseEntity<List<MascotaDto>> verPorTipo(@PathVariable("tipo") String tipo) throws Exception {
 
+		List<MascotaDto> lista = service.buscarPorTipo(tipo).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<MascotaDto>>(lista, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/situacion/{situacion}")
+	public ResponseEntity<List<MascotaDto>> verPorSituacion(@PathVariable("situacion") String situacion) throws Exception {
+
+		List<MascotaDto> lista = service.buscarPorSituacion(situacion).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<MascotaDto>>(lista, HttpStatus.OK);
+
+	}
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<MascotaDto> insertar(@Valid @RequestBody MascotaDto datosDelFront) throws Exception {
@@ -93,7 +128,7 @@ public class MascotaRestController {
 //		
 //	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping
 	public ResponseEntity<MascotaDto> actualizar(@Valid @RequestBody Mascota datosDelFront) throws Exception {
 
@@ -124,5 +159,78 @@ public class MascotaRestController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
+	
+	@PostMapping("/upload")
+	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo,@RequestParam("id") Long id) throws Exception{
+		Map<String, Object> response = new HashMap<>();
+		
+		Mascota mascota = service.findById(id);
+		
+		if(!archivo.isEmpty()) {
+
+			String nombreArchivo = null;
+			try {
+				nombreArchivo = uploadService.copiar(archivo);
+			} catch (IOException e) {
+				response.put("mensaje", "Error al subir la imagen del cliente");
+				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			String nombreFotoAnterior = mascota.getFotoPerfil();
+			
+			uploadService.eliminar(nombreFotoAnterior);
+						
+			mascota.setFotoPerfil(nombreArchivo);
+			
+			service.save(mascota);
+			
+			response.put("mascota", mascota);
+			response.put("mensaje", "Has subido correctamente la imagen: " + nombreArchivo);
+			
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/uploads/{id}")
+	@ResponseBody
+	public ResponseEntity<Resource> verFoto(@PathVariable("id") Long id){
+
+		Resource recurso = null;
+		String nombreFoto= service.verFoto(id);
+		
+		try {
+			recurso = uploadService.cargar(nombreFoto);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		HttpHeaders cabecera = new HttpHeaders();
+		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"");
+		
+		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
+	}
+	
+//	public ResponseEntity<ByteArrayResource> verFoto(@PathVariable String nombreFoto){
+//
+//	
+//		if(nombreFoto!=null && !nombreFoto.isEmpty()) {
+//			
+//			Path fileName= uploadService.getPath(nombreFoto);
+//			try {
+//				byte[] buffer= Files.readAllBytes(fileName);
+//				ByteArrayResource recurso= new ByteArrayResource(buffer);
+//				return ResponseEntity.ok().contentLength(buffer.length)
+//						.contentType(MediaType.parseMediaType("image/png"))
+//						.body(recurso);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//		return ResponseEntity.badRequest().build();
+//	}
 
 }

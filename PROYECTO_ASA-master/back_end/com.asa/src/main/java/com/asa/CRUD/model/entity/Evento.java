@@ -5,16 +5,21 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "eventos")
@@ -26,18 +31,23 @@ public class Evento {
 
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
-
+	@Column(nullable = false)
 	private String descripcion;
-
+	@Column(nullable = false)
 	private String nombre;
 
-	
-//	@JoinColumn(name = "id", nullable = false, unique = true)
-	@OneToOne(mappedBy = "evento")
-	private Localizacion localizacion;
 
-	@OneToMany(mappedBy = "evento",cascade = CascadeType.ALL)
-	private List<Voluntaria> voluntarios;
+//	@OneToOne(mappedBy = "evento", cascade = CascadeType.ALL)
+//	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//	private Localizacion localizacion;
+//	
+//	public Localizacion getLocalizacion() {
+//		return localizacion;
+//	}
+//
+//	public void setLocalizacion(Localizacion localizacion) {
+//		this.localizacion = localizacion;
+//	}
 
 
 	public Long getId() {
@@ -72,20 +82,5 @@ public class Evento {
 		this.nombre = nombre;
 	}
 
-	public Localizacion getLocalizacion() {
-		return localizacion;
-	}
-
-	public void setLocalizacion(Localizacion localizacion) {
-		this.localizacion = localizacion;
-	}
-
-	public List<Voluntaria> getVoluntarios() {
-		return voluntarios;
-	}
-
-	public void setVoluntarios(List<Voluntaria> voluntarios) {
-		this.voluntarios = voluntarios;
-	}
 
 }

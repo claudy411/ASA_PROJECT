@@ -32,8 +32,16 @@ public class Acogida {
 
 	private String ciudad;
 
-	@OneToMany(mappedBy = "acogida",cascade = CascadeType.ALL)
-	private List<Mascota>  mascotass;
+//	@OneToMany(mappedBy = "acogida",cascade = CascadeType.ALL)
+//	private List<Mascota>  mascotass;
+//	
+//	public List<Mascota> getMascotass() {
+//		return mascotass;
+//	}
+//
+//	public void setMascotass(List<Mascota> mascotass) {
+//		this.mascotass = mascotass;
+//	}
 
 	public Long getId() {
 		return id;
@@ -91,13 +99,7 @@ public class Acogida {
 		this.ciudad = ciudad;
 	}
 
-	public List<Mascota> getMascotass() {
-		return mascotass;
-	}
-
-	public void setMascotass(List<Mascota> mascotass) {
-		this.mascotass = mascotass;
-	}
+	
 
 	public String getDireccion() {
 		return direccion;

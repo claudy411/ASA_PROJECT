@@ -1,5 +1,7 @@
 package com.asa.CRUD.model.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class EncargadoLocalizacionServiceImpl extends CRUDImpl<EncargadoLocaliza
 	protected IGenericDao<EncargadoLocalizacion, Long> getRepo() {
 		// TODO Auto-generated method stub
 		return encargadoDao;
+	}
+
+	@Override
+	public List<EncargadoLocalizacion> buscarPorLocalizacion(Long id) {
+		// TODO Auto-generated method stub
+		return encargadoDao.findByLocalizacion(id);
 	}
 	
 	

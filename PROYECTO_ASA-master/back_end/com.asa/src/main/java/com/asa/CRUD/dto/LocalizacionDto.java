@@ -1,6 +1,11 @@
 package com.asa.CRUD.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
+
+import com.asa.CRUD.model.entity.EncargadoLocalizacion;
+import com.asa.CRUD.model.entity.Evento;
 
 public class LocalizacionDto {
 
@@ -14,6 +19,29 @@ public class LocalizacionDto {
 
 	@NotEmpty(message = "no puede estar vacío!")
 	private String localidad;
+	
+//	private List<EncargadoDto> encargados;
+
+
+
+//	
+//	private Evento evento;
+//
+//	public Evento getEvento() {
+//		return evento;
+//	}
+//
+//	public void setEvento(Evento evento) {
+//		this.evento = evento;
+//	}
+
+//	public List<EncargadoDto> getEncargados() {
+//		return encargados;
+//	}
+//
+//	public void setEncargados(List<EncargadoDto> encargados) {
+//		this.encargados = encargados;
+//	}
 
 	public Long getId() {
 		return id;

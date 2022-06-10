@@ -18,16 +18,16 @@ import com.asa.CRUD.model.services.interfaces.IUploadFileService;
 
 public class UploadFileServiceImpl implements IUploadFileService {
 
-	private final static String DIRECTORIO_UPLOAD = "uploads";
+	private final static String DIRECTORIO_UPLOAD = "uploads/";
 
 	@Override
-	public Resource cargar(String nombreFoto) throws MalformedURLException {
-		Path rutaArchivo = this.getPath(nombreFoto);
+	public Resource cargar(String nombreFoto,String carpeta) throws MalformedURLException {
+		Path rutaArchivo = this.getPath(nombreFoto,carpeta);
 		Resource recurso = new UrlResource(rutaArchivo.toUri());
 
 		if (!recurso.exists() && !recurso.isReadable()) {
 
-			rutaArchivo = Paths.get("src/main/resources/static/images/mascotas").resolve("not_profile_user_icon.png")
+			rutaArchivo = Paths.get("src/main/resources/static/images/mascotas").resolve("not_profile.jpg")
 					.toAbsolutePath();
 
 			recurso = new UrlResource(rutaArchivo.toUri());
@@ -37,10 +37,10 @@ public class UploadFileServiceImpl implements IUploadFileService {
 	}
 
 	@Override
-	public String copiar(MultipartFile archivo) throws IOException {
+	public String copiar(MultipartFile archivo,String carpeta) throws IOException {
 		
 		String nombreArchivo = UUID.randomUUID().toString() + "_" + archivo.getOriginalFilename().replace(" ", "");
-		Path rutaArchivo = getPath(nombreArchivo);
+		Path rutaArchivo = getPath(nombreArchivo,carpeta);
 
 		Files.copy(archivo.getInputStream(), rutaArchivo);
 
@@ -48,9 +48,9 @@ public class UploadFileServiceImpl implements IUploadFileService {
 	}
 
 	@Override
-	public boolean eliminar(String nombreFoto) {
+	public boolean eliminar(String nombreFoto,String carpeta) {
 		if (nombreFoto != null && nombreFoto.length() > 0) {
-			Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFoto).toAbsolutePath();
+			Path rutaFotoAnterior =  getPath(nombreFoto,carpeta);
 			File archivoFotoAnterior = rutaFotoAnterior.toFile();
 			if (archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()) {
 				archivoFotoAnterior.delete();
@@ -60,10 +60,17 @@ public class UploadFileServiceImpl implements IUploadFileService {
 		return false;
 	}
 
-	@Override
-	public Path getPath(String nombreFoto) {
+//	@Override
+//	public Path getPath(String nombreFoto) {
+//
+//		return Paths.get(DIRECTORIO_UPLOAD).resolve(nombreFoto).toAbsolutePath();
+//	}
 
-		return Paths.get(DIRECTORIO_UPLOAD).resolve(nombreFoto).toAbsolutePath();
+	@Override
+	public Path getPath(String nombreFoto, String carpeta) {
+		// TODO Auto-generated method stub
+		return Paths.get(DIRECTORIO_UPLOAD+carpeta).resolve(nombreFoto).toAbsolutePath();
 	}
+
 
 }

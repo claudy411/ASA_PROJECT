@@ -15,4 +15,6 @@ public interface IEventoDao extends IGenericDao<Evento, Long> {
 	List<Localizacion> findByLocalizacion(@Param("id") Long id);
 	
 
+	@Query(value="select foto from eventos where id=:id", nativeQuery = true)
+	String getFoto(@Param("id") Long id);
 }

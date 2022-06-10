@@ -10,4 +10,5 @@ public interface IEventoService extends ICRUD<Evento, Long> {
 	public List<Localizacion> buscarPorLocalizacion(Long id);
 	
 
+	public String verFoto(Long id);
 }

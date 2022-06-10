@@ -29,6 +29,9 @@ public class Evento {
 	private String descripcion;
 	@Column(nullable = false)
 	private String nombre;
+	
+	
+	private String foto;
 
 
 	@ManyToOne	
@@ -36,6 +39,16 @@ public class Evento {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Localizacion localizacion;
 	
+	
+	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	public Localizacion getLocalizacion() {
 		return localizacion;
 	}

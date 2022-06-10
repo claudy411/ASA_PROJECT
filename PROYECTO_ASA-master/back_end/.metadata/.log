@@ -6236,3 +6236,113 @@ java.util.concurrent.TimeoutException
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:16:53.314
 !MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.KpIFCKPJ => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:22.221
+!MESSAGE Entering DelegatingStreamConnectionProvider()
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:22.224
+!MESSAGE DelegatingStreamConnectionProvider classloader = org.eclipse.osgi.internal.loader.EquinoxClassLoader@62366708[org.springframework.tooling.boot.ls:1.32.0.202203131529(id=987)]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:22.225
+!MESSAGE SpringBootLanguageServer exists!
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.324
+!MESSAGE Boot LS startup time from start to initialized: 4094ms
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.471
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.IFAcPCiHisBatched = true
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.473
+!MESSAGE Setting up ClasspathListenerManager
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.474
+!MESSAGE Scheduling initial event for all projects ...
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.476
+!MESSAGE Scheduling initial event for all projects DONE
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.476
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.477
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.IFAcPCiH => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.516
+!MESSAGE classpath=99 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.521
+!MESSAGE buffering callback sts4.classpath.IFAcPCiH com.asa false 99
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:26.523
+!MESSAGE executing callback sts4.classpath.IFAcPCiH 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:23:28.528
+!MESSAGE executing callback sts4.classpath.IFAcPCiH FAILED
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 4 0 2022-06-10 09:23:28.530
+!MESSAGE TimeoutException
+!STACK 0
+java.util.concurrent.TimeoutException
+	at java.base/java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1960)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2095)
+	at org.springframework.tooling.ls.eclipse.commons.LSP4ECommandExecutor.executeClientCommand(LSP4ECommandExecutor.java:37)
+	at org.springframework.tooling.jdt.ls.commons.classpath.SendClasspathNotificationsJob.flush(SendClasspathNotificationsJob.java:178)
+	at org.springframework.tooling.jdt.ls.commons.classpath.SendClasspathNotificationsJob.run(SendClasspathNotificationsJob.java:149)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:43.257
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.IFAcPCiH
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:43.259
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.IFAcPCiH
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:43.260
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:43.261
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.IFAcPCiH => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:48.195
+!MESSAGE Entering DelegatingStreamConnectionProvider()
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:48.198
+!MESSAGE DelegatingStreamConnectionProvider classloader = org.eclipse.osgi.internal.loader.EquinoxClassLoader@62366708[org.springframework.tooling.boot.ls:1.32.0.202203131529(id=987)]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:48.200
+!MESSAGE SpringBootLanguageServer exists!
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.320
+!MESSAGE Boot LS startup time from start to initialized: 3118ms
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.457
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.yfurCXzCisBatched = true
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.458
+!MESSAGE Setting up ClasspathListenerManager
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.460
+!MESSAGE Scheduling initial event for all projects ...
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.461
+!MESSAGE Scheduling initial event for all projects DONE
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.462
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.463
+!MESSAGE ClasspathListenerHandler addClasspathListener sts4.classpath.yfurCXzC => OK
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.469
+!MESSAGE classpath=99 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.474
+!MESSAGE buffering callback sts4.classpath.yfurCXzC com.asa false 99
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.475
+!MESSAGE executing callback sts4.classpath.yfurCXzC 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-06-10 09:26:51.862
+!MESSAGE executing callback sts4.classpath.yfurCXzC SUCCESS [done]
+
+!ENTRY org.eclipse.ui 2 2 2022-06-10 10:37:37.403
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)

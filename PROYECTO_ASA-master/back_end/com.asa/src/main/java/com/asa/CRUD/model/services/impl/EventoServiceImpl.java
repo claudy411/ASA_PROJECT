@@ -36,6 +36,14 @@ public class EventoServiceImpl extends CRUDImpl<Evento, Long> implements IEvento
 
 
 
+	@Override
+	public String verFoto(Long id) {
+		// TODO Auto-generated method stub
+		return eventoDao.getFoto(id);
+	}
+
+
+
 
 
 }

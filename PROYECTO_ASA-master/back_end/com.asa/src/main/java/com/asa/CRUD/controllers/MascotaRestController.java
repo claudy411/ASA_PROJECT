@@ -2,9 +2,6 @@ package com.asa.CRUD.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +11,9 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -163,7 +156,9 @@ public class MascotaRestController {
 		if (consultado == null)
 			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 
+		uploadService.eliminar(consultado.getFotoPerfil(),"mascotas");
 		service.delete(id);
+		
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -179,16 +174,16 @@ public class MascotaRestController {
 
 			String nombreArchivo = null;
 			try {
-				nombreArchivo = uploadService.copiar(archivo);
+				nombreArchivo = uploadService.copiar(archivo,"mascotas");
 			} catch (IOException e) {
-				response.put("mensaje", "Error al subir la imagen del cliente");
+				response.put("mensaje", "Error al subir la imagen");
 				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
 				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			
 			String nombreFotoAnterior = mascota.getFotoPerfil();
 			
-			uploadService.eliminar(nombreFotoAnterior);
+			uploadService.eliminar(nombreFotoAnterior,"mascotas");
 						
 			mascota.setFotoPerfil(nombreArchivo);
 			
@@ -202,7 +197,7 @@ public class MascotaRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/uploads/{id}")
+	@GetMapping("/uploads/mascotas/{id}")
 	@ResponseBody
 	public ResponseEntity<Resource> verFoto(@PathVariable("id") Long id){
 
@@ -210,7 +205,7 @@ public class MascotaRestController {
 		String nombreFoto= service.verFoto(id);
 		
 		try {
-			recurso = uploadService.cargar(nombreFoto);
+			recurso = uploadService.cargar(nombreFoto,"mascotas");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

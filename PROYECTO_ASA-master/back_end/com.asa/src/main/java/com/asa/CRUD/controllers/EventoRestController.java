@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asa.CRUD.dto.EventoDto;
+import com.asa.CRUD.dto.EventoLocalizacion;
+import com.asa.CRUD.dto.LocalizacionDto;
+import com.asa.CRUD.dto.EventoDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Evento;
 import com.asa.CRUD.model.entity.Localizacion;
@@ -50,12 +53,14 @@ public class EventoRestController {
 
 	}
 
-//	@GetMapping("/page/{page}") // ojo aqui no va el dto
-//	public Page<Evento> verPorPag(@PathVariable Integer page) {
-//
-//		return service.findAll(PageRequest.of(page, 4));
-//
-//	}
+	@GetMapping("/localizacion/{id}")
+	public ResponseEntity<List<LocalizacionDto>> verLocalizacionPorID(@PathVariable("id") Long id) throws Exception {
+		
+		List<LocalizacionDto> lista = service.buscarPorLocalizacion(id).stream()
+				.map(datosBBDD -> mapper.map(datosBBDD, LocalizacionDto.class)).collect(Collectors.toList());
+		return new ResponseEntity<List<LocalizacionDto>>(lista, HttpStatus.OK);
+
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<EventoDto> verPorId(@PathVariable("id") Long id) throws Exception {
@@ -70,6 +75,7 @@ public class EventoRestController {
 		return new ResponseEntity<>(dtoResponse, HttpStatus.OK);
 
 	}
+
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping

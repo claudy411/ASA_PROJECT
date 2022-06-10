@@ -45,12 +45,7 @@ public class AcogidaRestController {
 
 	}
 
-//	@GetMapping("/page/{page}") // ojo aqui no va el dto
-//	public Page<Acogida> verPorPag(@PathVariable Integer page) {
-//
-//		return service.findAll(PageRequest.of(page, 4));
-//
-//	}
+
 
 	@GetMapping("/{id}")
 	public ResponseEntity<AcogidaDto> verPorId(@PathVariable("id") Long id) throws Exception {

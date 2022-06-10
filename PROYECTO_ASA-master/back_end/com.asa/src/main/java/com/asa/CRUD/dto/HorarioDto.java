@@ -1,11 +1,13 @@
 package com.asa.CRUD.dto;
 
-import com.asa.CRUD.model.entity.Evento;
+import java.util.Date;
 
 public class HorarioDto {
 
-	private Long evento;
-
+	private String evento;
+	
+	private Date fecha;
+	
 	private String _10a11;
 	private String _11a12;
 	private String _12a13;
@@ -18,11 +20,21 @@ public class HorarioDto {
 	private String _19a20;
 	private String _20a21;
 
-	public Long getEvento() {
+	
+	
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getEvento() {
 		return evento;
 	}
 
-	public void setEvento(Long evento) {
+	public void setEvento(String evento) {
 		this.evento = evento;
 	}
 

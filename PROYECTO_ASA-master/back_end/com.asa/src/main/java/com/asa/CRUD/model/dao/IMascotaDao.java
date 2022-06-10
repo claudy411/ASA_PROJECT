@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.asa.CRUD.model.entity.Mascota;
+import com.asa.CRUD.model.entity.Residencia;
 
 public interface IMascotaDao extends IGenericDao<Mascota,Long>{
 	
@@ -17,4 +18,7 @@ public interface IMascotaDao extends IGenericDao<Mascota,Long>{
 	
 	@Query(value="select foto_perfil from mascotas where id=:id", nativeQuery = true)
 	String getFoto(@Param("id") Long id);
+	
+	@Query("FROM Residencia where id=:id")
+	List<Residencia> findByResidencia(@Param("id") Long id);
 }

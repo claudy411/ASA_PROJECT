@@ -2,6 +2,7 @@ package com.asa.CRUD.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,8 +16,8 @@ public class AdopcionDto {
 	private Long id;
 	
 	@NotNull(message="no puede estar vacío!")
-//	@Value("Klaus")//OJO QUITAR!!!!!!!!!!!                          MIRA BIEN AQUI!!!!!!!!!
 	private String mascota;
+	
 	
 	@NotNull(message="no puede estar vacío!")
 	private String nombre;
@@ -25,6 +26,7 @@ public class AdopcionDto {
 	private String apellidos;
 	
 	@NotNull(message="no puede estar vacío!")
+	@Email(message=" el formato no es válido!")
 	private String email;
 
 	@NotNull(message="no puede estar vacío!")

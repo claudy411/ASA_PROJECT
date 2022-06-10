@@ -27,4 +27,15 @@ public class EventoServiceImpl extends CRUDImpl<Evento, Long> implements IEvento
 	}
 
 
+
+	@Override
+	public List<Localizacion> buscarPorLocalizacion(Long id) {
+		// TODO Auto-generated method stub
+		return eventoDao.findByLocalizacion(id);
+	}
+
+
+
+
+
 }

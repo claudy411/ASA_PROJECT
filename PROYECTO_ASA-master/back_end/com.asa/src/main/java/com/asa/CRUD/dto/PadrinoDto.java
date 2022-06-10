@@ -37,16 +37,17 @@ private Long id;
 	@NotEmpty(message="no puede estar vacío!")
 	private String aportacion;
 	
-//	private List<Mascota> pMascotas;
-//	
-//
-//	public List<Mascota> getpMascotas() {
-//		return pMascotas;
-//	}
-//
-//	public void setpMascotas(List<Mascota> pMascotas) {
-//		this.pMascotas = pMascotas;
-//	}
+
+	private Mascota mascota;
+	
+
+	public Mascota getMascota() {
+		return mascota;
+	}
+
+	public void setMascota(Mascota mascota) {
+		this.mascota = mascota;
+	}
 
 	public Long getId() {
 		return id;

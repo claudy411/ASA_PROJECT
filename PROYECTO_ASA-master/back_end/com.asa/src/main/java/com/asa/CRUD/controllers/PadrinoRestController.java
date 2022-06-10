@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.CRUD.dto.MascotaDto;
 import com.asa.CRUD.dto.PadrinoDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Padrino;
@@ -46,12 +47,14 @@ public class PadrinoRestController {
 
 	}
 
-//	@GetMapping("/page/{page}") // ojo aqui no va el dto
-//	public Page<Acogida> verPorPag(@PathVariable Integer page) {
-//
-//		return service.findAll(PageRequest.of(page, 4));
-//
-//	}
+	@GetMapping("/padrino/{id}")
+	public ResponseEntity<List<PadrinoDto>> verPorMascota(@PathVariable("id") Long id) throws Exception {
+
+		List<PadrinoDto> lista = service.getPadrinos(id).stream().map(datosBBDD -> mapper.map(datosBBDD, PadrinoDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<PadrinoDto>>(lista, HttpStatus.OK);
+
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<PadrinoDto> verPorId(@PathVariable("id") Long id) throws Exception {

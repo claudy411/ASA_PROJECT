@@ -23,16 +23,16 @@ public class EventoDto {
 	@NotNull(message = "no puede estar vacío!")
 	private String nombre;
 	
-//	private Localizacion localizacion;
-//	
-//
-//	public Localizacion getLocalizacion() {
-//		return localizacion;
-//	}
-//
-//	public void setLocalizacion(Localizacion localizacion) {
-//		this.localizacion = localizacion;
-//	}
+	private Localizacion localizacion;
+	
+
+	public Localizacion getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(Localizacion localizacion) {
+		this.localizacion = localizacion;
+	}
 
 	public Long getId() {
 		return id;

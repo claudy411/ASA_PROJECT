@@ -7,5 +7,7 @@ import com.asa.CRUD.model.entity.Localizacion;
 
 public interface IEventoService extends ICRUD<Evento, Long> {
 
+	public List<Localizacion> buscarPorLocalizacion(Long id);
 	
+
 }

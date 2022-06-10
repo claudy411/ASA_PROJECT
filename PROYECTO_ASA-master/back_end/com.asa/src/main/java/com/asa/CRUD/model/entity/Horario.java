@@ -1,8 +1,13 @@
 package com.asa.CRUD.model.entity;
 
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "horarios")
@@ -10,8 +15,11 @@ import javax.persistence.Table;
 public class Horario {
 
 	@Id
-	private Long evento;
-
+	private String evento;
+	
+	@Temporal(TemporalType.DATE)
+	private Date fecha;
+	
 	private String _10a11;
 	private String _11a12;
 	private String _12a13;
@@ -23,12 +31,22 @@ public class Horario {
 	private String _18a19;
 	private String _19a20;
 	private String _20a21;
+	
+	
 
-	public Long getEvento() {
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getEvento() {
 		return evento;
 	}
 
-	public void setEvento(Long evento) {
+	public void setEvento(String evento) {
 		this.evento = evento;
 	}
 

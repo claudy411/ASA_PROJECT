@@ -2,6 +2,7 @@ package com.asa.CRUD.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.asa.CRUD.model.entity.Evento;
 
@@ -18,10 +19,11 @@ public class VoluntariaDto {
 	private String apellido2;
 
 	@NotEmpty(message = "no puede estar vacío!")
-	@Email(message = " el formato no es válido!")
+	@Email(message = " Email incorrecto! ")
 	private String email;
 
-	@NotEmpty(message = "no puede estar vacío!")
+	@NotEmpty(message = "Nº de telefono incorrecto!")
+	@Size(min=9, max=9,message = " Nº de telefono incorrecto!")
 	private String telefono;
 
 	@NotEmpty(message = "no puede estar vacío!")
@@ -29,7 +31,9 @@ public class VoluntariaDto {
 
 	@NotEmpty(message = "no puede estar vacío!")
 	private String ciudad;
-
+	
+	@NotEmpty(message = "no puede estar vacío!")
+	private String tareas;
 
 	public Long getId() {
 		return id;
@@ -93,6 +97,14 @@ public class VoluntariaDto {
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
+	}
+
+	public String getTareas() {
+		return tareas;
+	}
+
+	public void setTareas(String tareas) {
+		this.tareas = tareas;
 	}
 
 }

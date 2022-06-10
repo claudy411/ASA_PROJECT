@@ -39,7 +39,16 @@ public class Voluntaria {
 
 	private String ciudad;
 
+	private String tareas;
 
+
+	public String getTareas() {
+		return tareas;
+	}
+
+	public void setTareas(String tareas) {
+		this.tareas = tareas;
+	}
 
 	public Long getId() {
 		return id;

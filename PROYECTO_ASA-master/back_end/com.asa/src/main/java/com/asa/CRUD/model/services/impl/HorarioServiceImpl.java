@@ -9,13 +9,13 @@ import com.asa.CRUD.model.entity.Horario;
 import com.asa.CRUD.model.services.interfaces.IHorarioService;
 
 @Service
-public class HorarioServiceImpl extends CRUDImpl<Horario, Long> implements IHorarioService {
+public class HorarioServiceImpl extends CRUDImpl<Horario, String> implements IHorarioService {
 
 	@Autowired
 	IHorarioDao horarioDao;
 	
 	@Override
-	protected IGenericDao<Horario, Long> getRepo() {
+	protected IGenericDao<Horario, String> getRepo() {
 		// TODO Auto-generated method stub
 		return horarioDao;
 	}

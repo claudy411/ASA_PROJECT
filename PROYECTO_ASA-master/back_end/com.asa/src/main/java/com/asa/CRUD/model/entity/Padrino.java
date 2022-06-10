@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -38,18 +40,18 @@ public class Padrino {
 
 	private String aportacion;
 	
-//	@ManyToMany
-//	@JoinTable(name = "padrinos_mascotas", joinColumns = @JoinColumn(name = "padrino_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "mascota_id", referencedColumnName = "id"))
-//	private List<Mascota> pMascotas;
-//
-//
-//	public List<Mascota> getMascotas() {
-//		return pMascotas;
-//	}
-//
-//	public void setMascotas(List<Mascota> mascotas) {
-//		this.pMascotas = mascotas;
-//	}
+	@ManyToOne
+	@JoinColumn(name="id_mascota",nullable = true,foreignKey = @ForeignKey(name="FK_padrinos_mascotas"))
+	private Mascota mascota;
+
+	
+	public Mascota getMascota() {
+		return mascota;
+	}
+
+	public void setMascota(Mascota mascota) {
+		this.mascota = mascota;
+	}
 
 	public Long getId() {
 		return id;

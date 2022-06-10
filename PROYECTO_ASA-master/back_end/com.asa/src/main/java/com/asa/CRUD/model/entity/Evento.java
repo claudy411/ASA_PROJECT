@@ -1,20 +1,14 @@
 package com.asa.CRUD.model.entity;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,17 +31,18 @@ public class Evento {
 	private String nombre;
 
 
-//	@OneToOne(mappedBy = "evento", cascade = CascadeType.ALL)
-//	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-//	private Localizacion localizacion;
-//	
-//	public Localizacion getLocalizacion() {
-//		return localizacion;
-//	}
-//
-//	public void setLocalizacion(Localizacion localizacion) {
-//		this.localizacion = localizacion;
-//	}
+	@ManyToOne	
+	@JoinColumn(name = "id_localizacion",nullable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Localizacion localizacion;
+	
+	public Localizacion getLocalizacion() {
+		return localizacion;
+	}
+
+	public void setLocalizacion(Localizacion localizacion) {
+		this.localizacion = localizacion;
+	}
 
 
 	public Long getId() {

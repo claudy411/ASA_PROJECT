@@ -53,7 +53,7 @@ public class HorarioRestController {
 //	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<HorarioDto> verPorId(@PathVariable("id") Long id) throws Exception {
+	public ResponseEntity<HorarioDto> verPorId(@PathVariable("id") String id) throws Exception {
 
 		Horario tabla = service.findById(id);
 
@@ -110,7 +110,7 @@ public class HorarioRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) throws Exception {
 
 		Horario consultado = service.findById(id);
 

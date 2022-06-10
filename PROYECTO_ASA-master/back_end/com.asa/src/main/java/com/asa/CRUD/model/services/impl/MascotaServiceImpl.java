@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.asa.CRUD.model.dao.IGenericDao;
 import com.asa.CRUD.model.dao.IMascotaDao;
 import com.asa.CRUD.model.entity.Mascota;
+import com.asa.CRUD.model.entity.Residencia;
 import com.asa.CRUD.model.services.interfaces.IMascotaService;
 
 @Service
@@ -38,6 +39,12 @@ public class MascotaServiceImpl extends CRUDImpl<Mascota, Long> implements IMasc
 	public String verFoto(Long id) {
 		// TODO Auto-generated method stub
 		return mascotaDao.getFoto(id);
+	}
+
+	@Override
+	public List<Residencia> buscarPorResidencia(Long id) {
+		// TODO Auto-generated method stub
+		return mascotaDao.findByResidencia(id);
 	}
 	
 	

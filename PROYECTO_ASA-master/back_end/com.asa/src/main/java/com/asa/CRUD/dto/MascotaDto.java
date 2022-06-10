@@ -1,18 +1,13 @@
 package com.asa.CRUD.dto;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.asa.CRUD.enumerados.Situacion;
-import com.asa.CRUD.enumerados.Size;
-import com.asa.CRUD.enumerados.Tipo;
 import com.asa.CRUD.model.entity.Acogida;
 import com.asa.CRUD.model.entity.Adoptante;
-import com.asa.CRUD.model.entity.ImagenMascota;
 import com.asa.CRUD.model.entity.Padrino;
 import com.asa.CRUD.model.entity.Residencia;
 
@@ -50,49 +45,49 @@ public class MascotaDto {
 	
 	private String fotoPerfil;
 	
-//	private Adoptante adoptante;
-//	
-//	private Acogida acogida;
-//	
-//	private Residencia residencia;
-//	
-//	private List<Padrino> padrinos;
-//	
-//	private List<ImagenMascota> fotos;
-//	
-//	
-//
-//	public Adoptante getAdoptante() {
-//		return adoptante;
-//	}
-//
-//	public void setAdoptante(Adoptante adoptante) {
-//		this.adoptante = adoptante;
-//	}
-//
-//	public Acogida getAcogida() {
-//		return acogida;
-//	}
-//
-//	public void setAcogida(Acogida acogida) {
-//		this.acogida = acogida;
-//	}
-//
-//	public Residencia getResidencia() {
-//		return residencia;
-//	}
-//
-//	public void setResidencia(Residencia residencia) {
-//		this.residencia = residencia;
-//	}
-//
-//	public List<Padrino> getPadrinos() {
-//		return padrinos;
-//	}
-//
-//	public void setPadrinos(List<Padrino> padrinos) {
-//		this.padrinos = padrinos;
-//	}
+	private Adoptante adoptante;
+	
+	private Acogida acogida;
+	
+	private Residencia residencia;
+	
+	private String historia;
+
+
+
+	public String getHistoria() {
+		return historia;
+	}
+
+	public void setHistoria(String historia) {
+		this.historia = historia;
+	}
+
+	public Adoptante getAdoptante() {
+		return adoptante;
+	}
+
+	public void setAdoptante(Adoptante adoptante) {
+		this.adoptante = adoptante;
+	}
+
+	public Acogida getAcogida() {
+		return acogida;
+	}
+
+	public void setAcogida(Acogida acogida) {
+		this.acogida = acogida;
+	}
+
+	public Residencia getResidencia() {
+		return residencia;
+	}
+
+	public void setResidencia(Residencia residencia) {
+		this.residencia = residencia;
+	}
+
+
 //
 //	public List<ImagenMascota> getFotos() {
 //		return fotos;

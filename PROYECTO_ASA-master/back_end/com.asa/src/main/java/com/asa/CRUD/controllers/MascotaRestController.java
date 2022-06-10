@@ -94,6 +94,15 @@ public class MascotaRestController {
 
 	}
 	
+	@GetMapping("/residencia/{id}")
+	public ResponseEntity<List<MascotaDto>> verPorResidencia(@PathVariable("id") Long id) throws Exception {
+
+		List<MascotaDto> lista = service.buscarPorResidencia(id).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<MascotaDto>>(lista, HttpStatus.OK);
+
+	}
+	
 	@GetMapping("/situacion/{situacion}")
 	public ResponseEntity<List<MascotaDto>> verPorSituacion(@PathVariable("situacion") String situacion) throws Exception {
 

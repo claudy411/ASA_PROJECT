@@ -6,10 +6,17 @@ pendiente:
 	//buscar por tipo en mascota y mostrarlo en el front
 	//arreglar el colabora en modo movil
 	//foto de mascotas
+	//tabla contactos
+	//solicitud voluntariado conexion con la tabla
+	//relacion mascotas y padrinos un padrino varias mascotas
+	//ver perros y gatos en el inicio web
+	//añadir campo historia en mascotas
+
 	
-	ver perros y gatos en el inicio web
-	relacion tablas en front
-	solicitud voluntariado conexion con la tabla
-	tabla contactos
+	foto para localizaciones 
+	poner padrinos solo en detalles
+	
+	
+	
 
 AuthToken:"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGluYSIsImlhdCI6MTY1MzMwOTczNywiZXhwIjoxNjUzMzQ1NzM3fQ.5LnVVc99nmZ_lpV1jCo9Lbsww-py0WwP-xzQox2pzHVfXt8rCjuZN3JwubWxVtpXxGpHJeXmp6QLgw_MpHv4tw"

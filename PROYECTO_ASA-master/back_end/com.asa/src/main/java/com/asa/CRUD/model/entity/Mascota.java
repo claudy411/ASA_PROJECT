@@ -34,15 +34,10 @@ public class Mascota {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-
-//	@Enumerated(EnumType.STRING)
 	private String tipo;
 	
-
 	@Column(nullable = false)
 	private String nombre;
-	
-	
 
 	@Column(name="f_nacimiento")
 	@Temporal(TemporalType.DATE)
@@ -52,66 +47,70 @@ public class Mascota {
 	@Temporal(TemporalType.DATE)
 	private Date fEntrada;
 	
-
 	private String raza;
-	
 
-//	@Enumerated(EnumType.STRING)
-	private String sexo;
-	
+	private String sexo;	
 
 	private String caracter;//caracter
-	
-//	@Enumerated(EnumType.STRING)
-	private String size;
-	
 
-//	@Enumerated(EnumType.STRING)
+	private String size;
+
 	private String situacion;//en residencia, en acogida o adoptado
 	
 	private String fotoPerfil;
+	
+	@Column(length = 800)
+	private String historia;
+	
+	
 
-//	@ManyToOne
-//	@JoinColumn(name="id_adoptante",nullable = true,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
-//	private Adoptante adoptante;
-//
-//	@ManyToOne
-//	@JoinColumn(name="id_acogida",nullable = true,foreignKey = @ForeignKey(name="FK_acogidas_mascotas"))
-//	private Acogida acogida;
-//	
-//	@ManyToOne	
-//	@JoinColumn(name = "residencia_id",nullable = false)
-//	private Residencia residencia;
-//	
-//	@OneToMany( mappedBy="fmascota",cascade=CascadeType.ALL)
-//	private List<ImagenMascota> fotos;
-//	
-//	@ManyToMany(mappedBy = "pMascotas",cascade = CascadeType.PERSIST)
+	public String getHistoria() {
+		return historia;
+	}
+
+	public void setHistoria(String historia) {
+		this.historia = historia;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="id_adoptante",nullable = true,foreignKey = @ForeignKey(name="FK_adoptantes_mascotas"))
+	private Adoptante adoptante;
+
+	@ManyToOne
+	@JoinColumn(name="id_acogida",nullable = true,foreignKey = @ForeignKey(name="FK_acogidas_mascotas"))
+	private Acogida acogida;
+	
+	@ManyToOne
+	@JoinColumn(name = "residencia_id",nullable = true)
+	private Residencia residencia;
+
+//	@OneToMany()
+//	@JoinColumn(name="id_mascota",nullable = true)
 //	private List<Padrino> padrinos;
-//	
-//	public Adoptante getAdoptante() {
-//		return adoptante;
-//	}
-//
-//	public void setAdoptante(Adoptante adoptante) {
-//		this.adoptante = adoptante;
-//	}
-//
-//	public Acogida getAcogida() {
-//		return acogida;
-//	}
-//
-//	public void setAcogida(Acogida acogida) {
-//		this.acogida = acogida;
-//	}
-//
-//	public Residencia getResidencia() {
-//		return residencia;
-//	}
-//
-//	public void setResidencia(Residencia residencia) {
-//		this.residencia = residencia;
-//	}
+	
+	public Adoptante getAdoptante() {
+		return adoptante;
+	}
+
+	public void setAdoptante(Adoptante adoptante) {
+		this.adoptante = adoptante;
+	}
+
+	public Acogida getAcogida() {
+		return acogida;
+	}
+
+	public void setAcogida(Acogida acogida) {
+		this.acogida = acogida;
+	}
+
+	public Residencia getResidencia() {
+		return residencia;
+	}
+
+	public void setResidencia(Residencia residencia) {
+		this.residencia = residencia;
+	}
 //
 //	public List<ImagenMascota> getFotos() {
 //		return fotos;
@@ -128,7 +127,7 @@ public class Mascota {
 //	public void setPadrinos(List<Padrino> padrinos) {
 //		this.padrinos = padrinos;
 //	}
-	
+//	
 
 	public Long getId() {
 		return id;

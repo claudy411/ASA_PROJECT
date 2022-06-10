@@ -59,7 +59,7 @@ public class AuthController {
     	Map<String, Object> response = new HashMap<>();
     	
         if(bindingResult.hasErrors()) {
-        	response.put("mensaje", "campos mal puestos o email inválido");
+        	response.put("mensaje", "Campos mal puestos!");
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         	

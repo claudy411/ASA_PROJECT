@@ -68,7 +68,7 @@ public class VoluntariaRestController {
 
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+
 	@PostMapping
 	public ResponseEntity<VoluntariaDto> insertar(@Valid @RequestBody VoluntariaDto datosDelFront) throws Exception {
 

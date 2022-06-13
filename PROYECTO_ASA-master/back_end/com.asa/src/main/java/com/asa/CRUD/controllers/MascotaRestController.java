@@ -50,6 +50,7 @@ public class MascotaRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	public ResponseEntity<List<MascotaDto>> ver() throws Exception {
 
 		List<MascotaDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
@@ -66,6 +67,7 @@ public class MascotaRestController {
 //	}
 //
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	public ResponseEntity<MascotaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Mascota tabla = service.findById(id);
@@ -79,6 +81,7 @@ public class MascotaRestController {
 
 	}
 	@GetMapping("/tipo/{tipo}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	public ResponseEntity<List<MascotaDto>> verPorTipo(@PathVariable("tipo") String tipo) throws Exception {
 
 		List<MascotaDto> lista = service.buscarPorTipo(tipo).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
@@ -88,6 +91,7 @@ public class MascotaRestController {
 	}
 	
 	@GetMapping("/residencia/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	public ResponseEntity<List<MascotaDto>> verPorResidencia(@PathVariable("id") Long id) throws Exception {
 
 		List<MascotaDto> lista = service.buscarPorResidencia(id).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
@@ -97,9 +101,20 @@ public class MascotaRestController {
 	}
 	
 	@GetMapping("/situacion/{situacion}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	public ResponseEntity<List<MascotaDto>> verPorSituacion(@PathVariable("situacion") String situacion) throws Exception {
 
 		List<MascotaDto> lista = service.buscarPorSituacion(situacion).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
+				.collect(Collectors.toList());
+		return new ResponseEntity<List<MascotaDto>>(lista, HttpStatus.OK);
+
+	}
+	
+	@GetMapping("/filtro/{tipo}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') or hasRole('PUBLIC')")
+	public ResponseEntity<List<MascotaDto>> verPorTipoSituacion(@PathVariable("tipo") String tipo) throws Exception {
+
+		List<MascotaDto> lista = service.buscarPorTipoSituacion(tipo).stream().map(datosBBDD -> mapper.map(datosBBDD, MascotaDto.class))
 				.collect(Collectors.toList());
 		return new ResponseEntity<List<MascotaDto>>(lista, HttpStatus.OK);
 
@@ -130,7 +145,7 @@ public class MascotaRestController {
 //		
 //	}
 
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	@PutMapping
 	public ResponseEntity<MascotaDto> actualizar(@Valid @RequestBody Mascota datosDelFront) throws Exception {
 
@@ -165,6 +180,7 @@ public class MascotaRestController {
 	}
 	
 	@PostMapping("/upload")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') ")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo,@RequestParam("id") Long id) throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
@@ -199,6 +215,7 @@ public class MascotaRestController {
 	
 	@GetMapping("/uploads/mascotas/{id}")
 	@ResponseBody
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') or hasRole('PUBLIC')")
 	public ResponseEntity<Resource> verFoto(@PathVariable("id") Long id){
 
 		Resource recurso = null;

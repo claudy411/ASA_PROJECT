@@ -1,5 +1,6 @@
 package com.asa.CRUD.model.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class EncargadoLocalizacion {
 	private String apellido2;
 
 	private String email;
-
+	@Column(length = 9)
 	private String telefono;
 
 	@ManyToOne()

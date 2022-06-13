@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.asa.CRUD.model.dao.IEventoDao;
 import com.asa.CRUD.model.dao.IGenericDao;
-import com.asa.CRUD.model.dao.ILocalizacionDao;
 import com.asa.CRUD.model.entity.Evento;
 import com.asa.CRUD.model.entity.Localizacion;
 import com.asa.CRUD.model.services.interfaces.IEventoService;
@@ -18,6 +17,7 @@ public class EventoServiceImpl extends CRUDImpl<Evento, Long> implements IEvento
 	@Autowired
 	private IEventoDao eventoDao;
 	
+
 
 
 	@Override

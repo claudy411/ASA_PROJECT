@@ -3,6 +3,7 @@ package com.asa.CRUD.model.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Residencia {
 	private String nombre;
 
 	private String precio;
-
+	@Column(length = 9)
 	private String telefono;
 
 	private String propietario;
@@ -33,7 +34,7 @@ public class Residencia {
 	private String calle;
 
 	private String numero;
-
+	@Column(length = 5)
 	private String cp;
 
 	private String localidad;

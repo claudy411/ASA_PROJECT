@@ -37,6 +37,7 @@ public class HorarioRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<HorarioDto>> ver() throws Exception {
 
 		List<HorarioDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, HorarioDto.class))
@@ -53,6 +54,7 @@ public class HorarioRestController {
 //	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<HorarioDto> verPorId(@PathVariable("id") String id) throws Exception {
 
 		Horario tabla = service.findById(id);
@@ -93,6 +95,7 @@ public class HorarioRestController {
 
 
 	@PutMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<HorarioDto> actualizar(@Valid @RequestBody Horario datosDelFront) throws Exception {
 
 		Horario delFront = mapper.map(datosDelFront, Horario.class);

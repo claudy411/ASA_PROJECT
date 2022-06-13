@@ -2,6 +2,7 @@ package com.asa.CRUD.model.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class Adopcion {
 	
 	private String email;
 
+	@Column(length = 9)
 	private String telefono;
 
 	private String direccion;

@@ -3,6 +3,7 @@ package com.asa.CRUD.model.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Acogida {
 
 	private String email;
 
+	@Column(length = 9)
 	private String telefono;
 
 	private String direccion;

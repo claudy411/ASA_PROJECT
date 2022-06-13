@@ -7,8 +7,6 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,6 +37,7 @@ public class EncargadoLocalizacionRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<EncargadoDto>> ver() throws Exception {
 
 		List<EncargadoDto> lista = service.findAll().stream()
@@ -48,6 +47,7 @@ public class EncargadoLocalizacionRestController {
 	}
 
 	@GetMapping("/localizacion/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<EncargadoDto>> verPorLocalizacion(@PathVariable("id") Long id) throws Exception {
 		
 		List<EncargadoDto> lista = service.buscarPorLocalizacion(id).stream()
@@ -57,6 +57,7 @@ public class EncargadoLocalizacionRestController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<EncargadoDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		EncargadoLocalizacion tabla = service.findById(id);

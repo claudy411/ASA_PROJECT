@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Padrino {
 	private String apellido2;
 
 	private String email;
-
+	@Column(length = 9)
 	private String telefono;
 
 	private String direccion;

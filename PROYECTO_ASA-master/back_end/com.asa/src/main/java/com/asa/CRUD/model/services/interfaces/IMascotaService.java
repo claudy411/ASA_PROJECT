@@ -14,4 +14,6 @@ public interface IMascotaService extends ICRUD<Mascota, Long> {
 	public String verFoto(Long id);
 
 	public List<Residencia> buscarPorResidencia(Long id);
+	
+	public List<Mascota> buscarPorTipoSituacion(String tipo);
 }

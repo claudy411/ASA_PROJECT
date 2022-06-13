@@ -1,0 +1,16 @@
+npm i ngx-material-file-input
+
+Votación dejar el lunes sí o sí:
+-SI
+Andrea López 
+Сonstantin Carabut
+Fran
+Alberto
+David
+Musta
+Claudia
+-NO
+
+asaadmin
+
+curl -v 'https://www.duckdns.org/update?domains=asa-app.duckdns.org&token=79cbb42f-a82c-4f2a-bbe4-b9b2f2420f72'

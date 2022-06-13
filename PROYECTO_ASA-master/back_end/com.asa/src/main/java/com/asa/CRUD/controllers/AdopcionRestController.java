@@ -37,6 +37,7 @@ public class AdopcionRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<AdopcionDto>> ver() throws Exception {
 
 		List<AdopcionDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, AdopcionDto.class))
@@ -53,6 +54,7 @@ public class AdopcionRestController {
 //	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<AdopcionDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Adopcion tabla = service.findById(id);

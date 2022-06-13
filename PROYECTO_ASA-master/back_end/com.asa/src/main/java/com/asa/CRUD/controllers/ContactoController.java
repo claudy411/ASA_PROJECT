@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.asa.CRUD.dto.ContactoDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Contacto;
-import com.asa.CRUD.model.services.interfaces.IAcogidaService;
 import com.asa.CRUD.model.services.interfaces.IContactoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -39,6 +38,7 @@ public class ContactoController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<ContactoDto>> ver() throws Exception {
 
 		List<ContactoDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, ContactoDto.class))
@@ -50,6 +50,7 @@ public class ContactoController {
 
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<ContactoDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Contacto tabla = service.findById(id);

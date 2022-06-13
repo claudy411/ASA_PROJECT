@@ -20,11 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asa.CRUD.dto.MascotaDto;
 import com.asa.CRUD.dto.PadrinoDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Padrino;
-import com.asa.CRUD.model.services.interfaces.IAcogidaService;
 import com.asa.CRUD.model.services.interfaces.IPadrinoService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -39,6 +37,7 @@ public class PadrinoRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<PadrinoDto>> ver() throws Exception {
 
 		List<PadrinoDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, PadrinoDto.class))
@@ -48,6 +47,7 @@ public class PadrinoRestController {
 	}
 
 	@GetMapping("/padrino/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<PadrinoDto>> verPorMascota(@PathVariable("id") Long id) throws Exception {
 
 		List<PadrinoDto> lista = service.getPadrinos(id).stream().map(datosBBDD -> mapper.map(datosBBDD, PadrinoDto.class))
@@ -57,6 +57,7 @@ public class PadrinoRestController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<PadrinoDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Padrino tabla = service.findById(id);

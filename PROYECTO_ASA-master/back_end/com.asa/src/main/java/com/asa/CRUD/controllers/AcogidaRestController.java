@@ -37,6 +37,7 @@ public class AcogidaRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<AcogidaDto>> ver() throws Exception {
 
 		List<AcogidaDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, AcogidaDto.class))
@@ -48,6 +49,7 @@ public class AcogidaRestController {
 
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<AcogidaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Acogida tabla = service.findById(id);

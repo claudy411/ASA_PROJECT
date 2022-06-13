@@ -46,6 +46,12 @@ public class MascotaServiceImpl extends CRUDImpl<Mascota, Long> implements IMasc
 		// TODO Auto-generated method stub
 		return mascotaDao.findByResidencia(id);
 	}
+
+	@Override
+	public List<Mascota> buscarPorTipoSituacion(String tipo) {
+		// TODO Auto-generated method stub
+		return mascotaDao.findByTipoAndSituacion(tipo);
+	}
 	
 	
 }

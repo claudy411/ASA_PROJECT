@@ -7,8 +7,6 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +36,7 @@ public class ResidenciaRestController {
 	private ModelMapper mapper;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<List<ResidenciaDto>> ver() throws Exception {
 
 		List<ResidenciaDto> lista = service.findAll().stream()
@@ -54,6 +53,7 @@ public class ResidenciaRestController {
 //	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
 	public ResponseEntity<ResidenciaDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Residencia tabla = service.findById(id);
@@ -69,6 +69,7 @@ public class ResidenciaRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
+	
 	public ResponseEntity<ResidenciaDto> insertar(@Valid @RequestBody ResidenciaDto datosDelFront) throws Exception {
 
 		Residencia delFront = mapper.map(datosDelFront, Residencia.class);

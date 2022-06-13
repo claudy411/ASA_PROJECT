@@ -33,7 +33,9 @@ import com.asa.CRUD.dto.EventoDto;
 import com.asa.CRUD.dto.LocalizacionDto;
 import com.asa.CRUD.exceptions.ModelNotFoundException;
 import com.asa.CRUD.model.entity.Evento;
+import com.asa.CRUD.model.entity.Horario;
 import com.asa.CRUD.model.services.interfaces.IEventoService;
+import com.asa.CRUD.model.services.interfaces.IHorarioService;
 import com.asa.CRUD.model.services.interfaces.IUploadFileService;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
@@ -49,8 +51,12 @@ public class EventoRestController {
 
 	@Autowired
 	private IUploadFileService uploadService;
+	
+	@Autowired
+	private IHorarioService hService;
 
 	@GetMapping
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') or hasRole('PUBLIC')")
 	public ResponseEntity<List<EventoDto>> ver() throws Exception {
 
 		List<EventoDto> lista = service.findAll().stream().map(datosBBDD -> mapper.map(datosBBDD, EventoDto.class))
@@ -60,6 +66,7 @@ public class EventoRestController {
 	}
 
 	@GetMapping("/localizacion/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') or hasRole('PUBLIC')")
 	public ResponseEntity<List<LocalizacionDto>> verLocalizacionPorID(@PathVariable("id") Long id) throws Exception {
 
 		List<LocalizacionDto> lista = service.buscarPorLocalizacion(id).stream()
@@ -69,6 +76,7 @@ public class EventoRestController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') or hasRole('PUBLIC')")
 	public ResponseEntity<EventoDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Evento tabla = service.findById(id);
@@ -88,6 +96,10 @@ public class EventoRestController {
 
 		Evento delFront = mapper.map(datosDelFront, Evento.class);
 
+		Horario h= new Horario();
+		h.setEvento(delFront.getNombre());
+		h.setFecha(delFront.getFecha());
+		hService.save(h);
 		Evento objetoTabla = service.save(delFront);
 		EventoDto dtoResponse = mapper.map(objetoTabla, EventoDto.class);
 
@@ -135,12 +147,14 @@ public class EventoRestController {
 			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 		uploadService.eliminar(consultado.getFoto(), "eventos");
 		service.delete(id);
+		hService.delete(consultado.getNombre());
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
 
 	@PostMapping("/upload")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id)
 			throws Exception {
 		Map<String, Object> response = new HashMap<>();
@@ -177,6 +191,7 @@ public class EventoRestController {
 
 	@GetMapping("/uploads/eventos/{id}")
 	@ResponseBody
+	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO') or hasRole('PUBLIC')")
 	public ResponseEntity<Resource> verFoto(@PathVariable("id") Long id) {
 
 		Resource recurso = null;

@@ -11,11 +11,11 @@ pendiente:
 	//relacion mascotas y padrinos un padrino varias mascotas
 	//ver perros y gatos en el inicio web
 	//añadir campo historia en mascotas
-
+	//foto para localizaciones 
 	
-	foto para localizaciones 
+	
 	poner padrinos solo en detalles
-	
+	mostrar solo mascotas en residencias y en acogida en la publica
 	
 	
 

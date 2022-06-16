@@ -72,7 +72,7 @@ public class AdopcionDto {
 	@NotNull(message="no puede estar vacío!")
 	private String gastos;
 	
-	@NotNull(message="no puede estar vacío!")
+
 	private String permisoAlquiler;
 	
 	@NotNull(message="no puede estar vacío!")

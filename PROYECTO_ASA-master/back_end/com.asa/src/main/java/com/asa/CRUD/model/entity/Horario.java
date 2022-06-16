@@ -4,6 +4,8 @@ package com.asa.CRUD.model.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,6 +17,9 @@ import javax.persistence.TemporalType;
 public class Horario {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	private String evento;
 	
 	@Temporal(TemporalType.DATE)
@@ -33,6 +38,14 @@ public class Horario {
 	private String _20a21;
 	
 	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Date getFecha() {
 		return fecha;

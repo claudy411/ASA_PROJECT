@@ -55,7 +55,7 @@ public class HorarioRestController {
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('VOLUNTARIO')")
-	public ResponseEntity<HorarioDto> verPorId(@PathVariable("id") String id) throws Exception {
+	public ResponseEntity<HorarioDto> verPorId(@PathVariable("id") Long id) throws Exception {
 
 		Horario tabla = service.findById(id);
 
@@ -99,7 +99,7 @@ public class HorarioRestController {
 	public ResponseEntity<HorarioDto> actualizar(@Valid @RequestBody Horario datosDelFront) throws Exception {
 
 		Horario delFront = mapper.map(datosDelFront, Horario.class);
-		Horario consultado = service.findById(delFront.getEvento());
+		Horario consultado = service.findById(delFront.getId());
 
 		if (consultado == null)
 			throw new ModelNotFoundException("ID NO ECONTRADO: " + delFront.getEvento());
@@ -113,7 +113,7 @@ public class HorarioRestController {
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) throws Exception {
+	public ResponseEntity<Void> delete(@PathVariable("id") Long id) throws Exception {
 
 		Horario consultado = service.findById(id);
 

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class HorarioDto {
 
+	private Long id;
 	private String evento;
 	
 	private Date fecha;
@@ -22,6 +23,14 @@ public class HorarioDto {
 
 	
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Date getFecha() {
 		return fecha;
 	}

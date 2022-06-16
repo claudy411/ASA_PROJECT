@@ -12,11 +12,33 @@ pendiente:
 	//ver perros y gatos en el inicio web
 	//añadir campo historia en mascotas
 	//foto para localizaciones 
+	//poner padrinos solo en detalles
+	//mostrar solo mascotas en residencias y en acogida en la publica
+	//pulir accesos y permisos
+
 	
-	
-	poner padrinos solo en detalles
-	mostrar solo mascotas en residencias y en acogida en la publica
-	
+	ver lo de los eventos en el home	
 	
 
-AuthToken:"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbGluYSIsImlhdCI6MTY1MzMwOTczNywiZXhwIjoxNjUzMzQ1NzM3fQ.5LnVVc99nmZ_lpV1jCo9Lbsww-py0WwP-xzQox2pzHVfXt8rCjuZN3JwubWxVtpXxGpHJeXmp6QLgw_MpHv4tw"
+teorico 2 meses
+
+
+#!/usr/bin/env bash
+DUCKDNS_TOKEN='79cbb42f-a82c-4f2a-bbe4-b9b2f2420f72'
+DUCKDNS_DOMAIN='app-asa.duckdns.org'
+echo "DUCKDNS UPDATING DOMAIN: ${DUCKDNS_DOMAIN}"
+curl "https://www.duckdns.org/update?domains=${DUCKDNS_DOMAIN}&token=${DUCKDNS_TOKEN}"
+
+curl -v 'https://www.duckdns.org/update?domains=app-asa.duckdns.org&token=79cbb42f-a82c-4f2a-bbe4-b9b2f2420f72'
+
+
+create user 'asa'@'%' identified by '1234Asa!';
+GRANT ALL PRIVILEGES ON * . * TO 'asa'@'%';
+com.asa-0.0.1-SNAPSHOT.jar
+
+
+	server{
+        listen 80;
+        server_name app-asa.duckdns.org;
+        root /var/www/asa;
+}

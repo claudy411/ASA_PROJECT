@@ -147,7 +147,7 @@ public class EventoRestController {
 			throw new ModelNotFoundException("ID NO ECONTRADO: " + id);
 		uploadService.eliminar(consultado.getFoto(), "eventos");
 		service.delete(id);
-		hService.delete(consultado.getNombre());
+		hService.delete(consultado.getId());
 
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 

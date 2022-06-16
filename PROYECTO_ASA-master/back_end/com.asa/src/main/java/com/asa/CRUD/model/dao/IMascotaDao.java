@@ -22,6 +22,6 @@ public interface IMascotaDao extends IGenericDao<Mascota,Long>{
 	@Query("FROM Residencia where id=:id")
 	List<Residencia> findByResidencia(@Param("id") Long id);
 	
-	@Query("from Mascota where situacion='acogida' or situacion='residencia' and tipo=:tipo")
+	@Query("from Mascota where (situacion='acogida' or situacion='residencia') and tipo=:tipo")
 	List<Mascota> findByTipoAndSituacion(@Param("tipo") String tipo);
 }

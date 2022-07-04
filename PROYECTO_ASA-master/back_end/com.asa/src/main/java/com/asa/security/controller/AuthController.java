@@ -23,15 +23,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asa.security.dto.JwtDto;
+import com.asa.security.dto.LoginUsuario;
+import com.asa.security.dto.NuevoUsuario;
 import com.asa.security.enumerados.RolNombre;
 import com.asa.security.jwt.JwtProvider;
 import com.asa.security.model.entity.Rol;
 import com.asa.security.model.entity.Usuario;
 import com.asa.security.model.service.RolService;
 import com.asa.security.model.service.UsuarioService;
-import com.asa.security.response.JwtDto;
-import com.asa.security.response.LoginUsuario;
-import com.asa.security.response.NuevoUsuario;
 
 @RestController
 @RequestMapping("/auth")
@@ -59,34 +59,40 @@ public class AuthController {
     	Map<String, Object> response = new HashMap<>();
     	
         if(bindingResult.hasErrors()) {
-        	response.put("mensaje", "campos mal puestos o email inválido");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        	response.put("mensaje", "Campos mal puestos!");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         	
         if(usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())) {
         	response.put("mensaje","ese nombre ya existe");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
            
         if(usuarioService.existsByEmail(nuevoUsuario.getEmail())) {
         	response.put("mensaje","ese email ya existe");
-            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
            
         Usuario usuario =
                 new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getEmail(),
                         passwordEncoder.encode(nuevoUsuario.getPassword()));
         Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-        
-        if(nuevoUsuario.getRoles().contains("admin")) {
-        	roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+        if(nuevoUsuario.getRoles().contains("public")) {
+        	 roles.add(rolService.getByRolNombre(RolNombre.ROLE_PUBLIC).get());
+        }else {
+        	 roles.add(rolService.getByRolNombre(RolNombre.ROLE_VOLUNTARIO).get());
+             
+             if(nuevoUsuario.getRoles().contains("admin")) {
+             	roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+             }
         }
-            
+       
+       
+        
         usuario.setRoles(roles);
         usuarioService.save(usuario);
         response.put("mensaje","usuario guardado");
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
@@ -105,6 +111,6 @@ public class AuthController {
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
         JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
-        return new ResponseEntity(jwtDto, HttpStatus.OK);
+        return new ResponseEntity<>(jwtDto, HttpStatus.OK);
     }
 }

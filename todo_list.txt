@@ -1,0 +1,44 @@
+pendiente:
+
+	//terminar formulario adopciones
+	//mostrar eventos en web publica
+	//insertar y actualizar en toda las tablas
+	//buscar por tipo en mascota y mostrarlo en el front
+	//arreglar el colabora en modo movil
+	//foto de mascotas
+	//tabla contactos
+	//solicitud voluntariado conexion con la tabla
+	//relacion mascotas y padrinos un padrino varias mascotas
+	//ver perros y gatos en el inicio web
+	//añadir campo historia en mascotas
+	//foto para localizaciones 
+	//poner padrinos solo en detalles
+	//mostrar solo mascotas en residencias y en acogida en la publica
+	//pulir accesos y permisos
+
+	
+	ver lo de los eventos en el home	
+	
+
+teorico 2 meses
+
+
+#!/usr/bin/env bash
+DUCKDNS_TOKEN='79cbb42f-a82c-4f2a-bbe4-b9b2f2420f72'
+DUCKDNS_DOMAIN='app-asa.duckdns.org'
+echo "DUCKDNS UPDATING DOMAIN: ${DUCKDNS_DOMAIN}"
+curl "https://www.duckdns.org/update?domains=${DUCKDNS_DOMAIN}&token=${DUCKDNS_TOKEN}"
+
+curl -v 'https://www.duckdns.org/update?domains=app-asa.duckdns.org&token=79cbb42f-a82c-4f2a-bbe4-b9b2f2420f72'
+
+
+create user 'asa'@'%' identified by '1234Asa!';
+GRANT ALL PRIVILEGES ON * . * TO 'asa'@'%';
+com.asa-0.0.1-SNAPSHOT.jar
+
+
+	server{
+        listen 80;
+        server_name app-asa.duckdns.org;
+        root /var/www/asa;
+}

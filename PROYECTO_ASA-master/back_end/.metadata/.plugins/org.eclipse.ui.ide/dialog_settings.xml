@@ -6,11 +6,24 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\badil\Desktop\PROYECTO_ASA-master\PROYECTO_ASA-master\back_end"/>
 			<item value="C:\Users\badil\Desktop\proyecto_asa\pruebas\pruebas"/>
 			<item value="C:\Users\badil\Desktop\codigos_ejemplo\auth\tutorial_jwt_BACK-master"/>
 			<item value="C:\Users\badil\Desktop\petclinic\spring-petclinic-rest-master"/>
 			<item value="C:\cursoSpring"/>
 			<item value="C:\spring5\eclipse-workspace"/>
 		</list>
+	</section>
+	<section name="CleanDialogSettings">
+		<item key="TOGGLE_SELECTED" value="true"/>
+		<item key="DIALOG_WIDTH" value="662"/>
+		<item key="DIALOG_HEIGHT" value="434"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="ResourceNavigator">
+		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
+		<item key="ResourceWorkingSetFilter.STORE_WORKING_SET" value="Aggregate for window 1649750329697"/>
+	</section>
+	<section name="NewWizardAction">
 	</section>
 </section>

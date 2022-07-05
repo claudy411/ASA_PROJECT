@@ -19,6 +19,9 @@ public class UsuarioService {
     public Optional<Usuario> getByNombreUsuario(String nombreUsuario){
         return usuarioRepository.findByNombreUsuario(nombreUsuario);
     }
+    public Usuario getUsuario(String nombreUsuario){
+        return usuarioRepository.findByNombreUsuario(nombreUsuario).get();
+    }
 
     public boolean existsByNombreUsuario(String nombreUsuario){
         return usuarioRepository.existsByNombreUsuario(nombreUsuario);
